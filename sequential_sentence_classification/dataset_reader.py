@@ -14,7 +14,7 @@ from allennlp.data.fields.field import Field
 from allennlp.data.fields import TextField, LabelField, ListField, ArrayField, MultiLabelField
 from allennlp.data.token_indexers import SingleIdTokenIndexer
 from allennlp.data.tokenizers.word_splitter import WhitespaceTokenizer
-from allennlp.data.tokenizers.token_class import Token
+from allennlp.data.tokenizers.token import Token
 
 
 @DatasetReader.register("SeqClassificationReader")
