@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export SEED=72270
+# export SEED=72270
 export PYTORCH_SEED=`expr $SEED / 10`
 export NUMPY_SEED=`expr $PYTORCH_SEED / 10`
 
