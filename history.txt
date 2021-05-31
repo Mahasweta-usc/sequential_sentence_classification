@@ -1,0 +1,1000 @@
+ 1015  ssh bomberman-scraper.dss.ucdavis.edu
+ 1016  wget https://procvaxx.storage.googleapis.com/2014-08-30_04-54-16_UTC.png
+ 1017  gedit text.txt
+ 1018  df -h
+ 1019  ssh bomberman-scraper.dss.ucdavis.edu
+ 1020  cd ~/Desktop/Codes/OSS*/ig*
+ 1021  subl dr_*
+ 1022  cd ~/Codes/OSS*
+ 1023  cd ~/Codes/
+ 1024  cd ~/Desktop/Codes/
+ 1025  ls
+ 1026  cd OSS*
+ 1027  ls
+ 1028  cd SOSS*
+ 1029  grep -r copyright .
+ 1030  ssh bomberman-scraper.dss.ucdavis.edu
+ 1031  cd ~/Desktop/Codes/
+ 1032  python3 asfi_read.py
+ 1033  cd ~/Desktop/Codes/
+ 1034  python3 asfi_read.py
+ 1035  grep -r multiprocessing
+ 1036  ls -l | head 5 ~/Desktop/temp
+ 1037  cd  ~/Desktop/temp
+ 1038  ls -l | head 5 
+ 1039  ls -l | head -5 
+ 1040  cd ../Codes
+ 1041  python3 mmbt_data.py
+ 1042  ls -l | head -5 ../temp 
+ 1043  cd ../temp 
+ 1044  ls -l | head -5 
+ 1045  ls *.png
+ 1046  cd 2019-04-11_17*.png
+ 1047  ls
+ 1048  cd ..
+ 1049  cd ../Codes
+ 1050  python3 mmbt_data.py
+ 1051  grep -r file_list.txt
+ 1052  cd OSS*/jingwen*
+ 1053  gsutil ls *.png gs://procvaxx 
+ 1054  gsutil ls *.png gs://procvaxx/ 
+ 1055  gsutil ls  gs://procvaxx 
+ 1056  gsutil ls gs://procvaxx > file_list.txt 
+ 1057  ..
+ 1058  cd  ..
+ 1059  find ~/Desktop/temp -empty -type d
+ 1060  find ~/Desktop/temp -empty -type d -delete
+ 1061  find ~/Desktop/temp -empty -type d
+ 1062  python3 mmbt_data.py
+ 1063  gsutil ls gs://procvaxx > ~/Desktop/Codes/OSS*/jingwen*/file_list.txt 
+ 1064  python3 mmbt_data.py
+ 1065  gsutil ls gs://procvaxx > ~/Desktop/Codes/OSS*/jingwen*/file_list.txt 
+ 1066  cd ~/Downloads
+ 1067  wget https://onlineonly.christies.com/s/artist-woodblock-japanese-prints/utagawa-kuniyoshi-1797-1861-87/72280
+ 1068  gedit
+ 1069  wget https://cdn.shopify.com/s/files/1/1882/8385/products/raf_750x1000_075_t_101010_01c5ca27c6_1024x1024@2x.jpg?v=1521830381
+ 1070  wget https://cdn.shopify.com/s/files/1/1882/8385/products/raf_750x1000_075_t_101010_01c5ca27c6_1024x1024@2x.jpg
+ 1071  python
+ 1072  python3
+ 1073  cd ~/Desktop/Codes
+ 1074  python3 mmbt_data.py
+ 1075  mv ~/Desktop/upload_images/201*/201* ~/Desktop
+ 1076  python3 mmbt_data.py
+ 1077  cd ../temp
+ 1078  ls -wc| -head -5
+ 1079  ls -wc| --head -5
+ 1080  ls| head -5
+ 1081  ls *.png
+ 1082  history
+ 1083  find ~/Desktop/temp -empty -type d
+ 1084  history
+ 1085  find ~/Desktop/temp -empty -type d -delete
+ 1086  find ~/Desktop/temp -empty -type d
+ 1087  find *.png
+ 1088  find ./*.png
+ 1089  gedit
+ 1090  sudo modprobe uvcvideo
+ 1091  cd ~/Desktop/Codes
+ 1092  python3 scope_IS.py
+ 1093  python3 scrape_IS.py
+ 1094  cd OSS*
+ 1095  python3 scrape_IS.py
+ 1096  cd ~/asfi*
+ 1097  cd ./asfi*
+ 1098  git init
+ 1099  git remote add
+ 1100  git remote add https://github.com/Mahasweta-usc/asfi_working_dir
+ 1101  git remote add . https://github.com/Mahasweta-usc/asfi_working_dir
+ 1102  git remote add asfi_working_dir https://github.com/Mahasweta-usc/asfi_working_dir
+ 1103  git remote -v
+ 1104  git commit -m "Upload only incubator user emails"
+ 1105  git init
+ 1106  git commit -m "Upload only incubator user emails"
+ 1107  git push -f master origin
+ 1108  git push -f origin master
+ 1109  git remote add origin https://github.com/Mahasweta-usc/asfi_working_dir
+ 1110  git remote -v
+ 1111  git remove origin asfi_working _dir
+ 1112  git remote rm  asfi_working _dir
+ 1113  git remote remove  asfi_working _dir
+ 1114  git remote remove asfi_working _dir
+ 1115  git remote -v
+ 1116  git remote remove asfi_working _dir
+ 1117  git remote rm asfi_working _dir
+ 1118  git commit -m "Upload only incubator user emails"
+ 1119  git push -f origin master
+ 1120  git remote show origin
+ 1121  git push -f origin master
+ 1122  git add .
+ 1123  git commit -m "Upload only incubator user emails"
+ 1124  git push -f origin master
+ 1125  cd ..
+ 1126  python3 asfi_read.py
+ 1127  cd OSS*
+ 1128  ls
+ 1129  sed -i 's/{/[{/g' user_msgs*
+ 1130  sed -i 's/}/}]/g' user_msgs*
+ 1131  cd .. 
+ 1132  cd Codes
+ 1133  python3 asfi_read.py
+ 1134  cd OSS*
+ 1135  sed -i 's/}]/}],/g' user_msgs*
+ 1136  python3 asfi_read.py
+ 1137  cd ..
+ 1138  python3 asfi_read.py
+ 1139  pip install --user json_lines
+ 1140  pip3 install --user json_lines
+ 1141  python3 asfi_read.py
+ 1142  cd OSS*
+ 1143  ls
+ 1144  rm user_msgs*
+ 1145  cd ..
+ 1146  rm user_msgs*
+ 1147  python3 asfi_read.py
+ 1148  cd OSS*
+ 1149  python3 scrape_IS.py
+ 1150  sudo modprobee uvcvideo
+ 1151  sudo modprobe uvcvideo
+ 1152  cd ~/Desktop/Codes
+ 1153  python3 asfi_read.py
+ 1154  cd ./OSS*/SOSS*
+ 1155  ls
+ 1156  grep -r license .
+ 1157  cd .. && cd ..
+ 1158  python3  asfi_read.py
+ 1159  sudo apt update && sudo apt install samba
+ 1160  whereis samba
+ 1161  cd
+ 1162  mkdir sambashare
+ 1163  sudo nano /etc/samba/smb.conf
+ 1164  sudo service smbd restart
+ 1165  sudo ufw allow samba
+ 1166  sudo gedit //etc/fstab
+ 1167  sudo gedit /etc/fstab
+ 1168  sudo smbpasswd -a username
+ 1169  sudo smbpasswd -a mahaswec
+ 1170  sudo smbpasswd -a mahasweta
+ 1171  sudo gedit /etc/fstab
+ 1172  nano ~/.smbcredentials
+ 1173  chmod 600 ~/.smbcredentials
+ 1174  sudo mount -a
+ 1175  sudo mkdir /mnt/nas
+ 1176  sudo mount -a
+ 1177  sudo apt-get install nfs-common
+ 1178  sudo mount -a
+ 1179  chmod 600 ~/.smbcredentials
+ 1180  sudo gedit /etc/fstab
+ 1181  sudo mount -a
+ 1182  mkdir /media/nas
+ 1183  sudo mkdir /media/nas
+ 1184  sudo mount -a
+ 1185  sudo apt-get update
+ 1186  ls -l /sbin/mount/cifs
+ 1187  ls -l /sbin/mount.cifs
+ 1188  sudo apt-get install cifs-utils
+ 1189  sudo mount -a
+ 1190  sudo cd nas
+ 1191  sudo ls nas
+ 1192  sudo mount -a
+ 1193  sudo ls /media/nas
+ 1194  mkdir mahaswec
+ 1195  ls
+ 1196  sudo cd /media/nas
+ 1197  cd ~/Desktop
+ 1198  sudo modprobe uvcvidoe
+ 1199  sudo modprobe uvcvideo
+ 1200  df -h
+ 1201  sudo mount -a
+ 1202  df -h
+ 1203  cd ~/Desktop/Codes/OSS*
+ 1204  ls /media/nas/mahaswec
+ 1205  cd ..
+ 1206  rep -r raw_images
+ 1207  grep -r raw_images
+ 1208  gsutil ls | wc -l gs://procvaxx 
+ 1209  gsutil gs://procvaxx 
+ 1210  gsutil ls gs://procvaxx 
+ 1211  grep -r missing_list.txt
+ 1212  gsutil ls gs://procvaxx/*.png  
+ 1213  gsutil ls gs://procvaxx/*.png  > ./OSS_iC/jingwen*/file_list.txt
+ 1214  gsutil ls gs://procvaxx/*.png  > ./OSS_IC/jingwen*/file_list.txt
+ 1215  python3 mmbt_data.py
+ 1216  history > hist.txt
+ 1217  gedit hist.txt
+ 1218  cd ~/Desktop/temp
+ 1219  find ~/Desktop/temp -empty -type d
+ 1220  cd ./Codes
+ 1221  cd ../Codes
+ 1222  find ~/Desktop/temp -empty -type d
+ 1223  python3 mmbt_data.py
+ 1224  find ~/Desktop/temp -empty -type d
+ 1225  python3 mmbt_data.py
+ 1226  find ~/Desktop/temp -empty -type d
+ 1227  find ~/Desktop/temp/2018-01-30_20-17-54*
+ 1228  find ~/Desktop/temp/2018-01-30_20-17-54_UTC.png.tar.gz
+ 1229  find ~/Desktop/temp -empty -type d
+ 1230  find ~/Desktop/temp -type d
+ 1231  ls ~/Desktop/temp/2018*
+ 1232  ls ~/Desktop/temp/2018*.png
+ 1233  cd ../temp/2018-01-30_20-17-54_UTC.png
+ 1234  python3 mmbt_data.py
+ 1235  cd ../temp/2018-01-30_20-17-54_UTC.png
+ 1236  find ../temp/2018-01-30_20-17-54_UTC.png.tar.gz
+ 1237  find ~/Desktop/temp/2018-01-30_20-17-54_UTC.png.tar.gz
+ 1238  find ~/Desktop/temp/ *2018-01-30_20-17-54_UTC.png.tar.gz*
+ 1239  find ~/Desktop/temp/ 2018-01-30_20-17-54_UTC*
+ 1240  find ~/Desktop/temp/ -name "2018-01-30_20-17-54_UTC*"
+ 1241  python3 mmbt_data.py
+ 1242  find ~/Desktop/temp/ -name "2015-05-11_13-54-59_UTC.png*"
+ 1243  ls ~/Desktop/temp | wc -l
+ 1244  ls ~/Desktop/raw_images | wc -l
+ 1245  python3 mmbt_data.py
+ 1246  ls ~/Desktop/raw_images | wc -l
+ 1247  find ~/Desktop/temp -empty -type d
+ 1248  find ~/Desktop/temp/ -empty -name "*.png"
+ 1249  find ~/Desktop/ -name "2015-05-11_13-54-59_UTC.png*"
+ 1250  find ~/Desktop/raw_images -empty -type d
+ 1251  python3 mmbt_data.py
+ 1252  ls ~/Desktop/raw_images | wc -l
+ 1253  find ~/Desktop/raw_images -empty -type d | wc -l
+ 1254  gsutil ls gs://procvaxx/*.png | wc -l
+ 1255  gsutil -m mv ~/Desktop/raw_images/*.png gs://procvaxx/ 
+ 1256  find ~/Desktop/raw_images -type d |wc -l
+ 1257  gsutil -m mv ~/Desktop/compressed_images/*.png gs://procvaxx/ 
+ 1258  sudo mount -a
+ 1259  gsutil config
+ 1260  gsutil -m mv ~/Desktop/compressed_images/*.png gs://procvaxx/ 
+ 1261  cd ~/Desktop/Codes/OSS*
+ 1262  history > hist.txt
+ 1263  gedit hist.txt
+ 1264  history
+ 1265  ls ~/Desktop/raw_images |wc -l
+ 1266  ls ~/Desktop/raw_images/*.png |wc -l
+ 1267  ls ~/Desktop/raw_images/*.png/*.png |wc -l
+ 1268  find ~/Desktop/raw_images empty -type d |wc -l
+ 1269  find ~/Desktop/raw_images empty -type d -delete
+ 1270  find ~/Desktop/raw_images empty -type d |wc -l
+ 1271  ls ~/Desktop/raw_images | wc -l
+ 1272  ls ~/Desktop/raw_images |wc -l
+ 1273  ls
+ 1274  python3 scrape_IS.py
+ 1275  sudo mount -a
+ 1276  ls /media/nas/mahaswec
+ 1277  nano /media/nas/mahaswec/*projects.jsonl
+ 1278  /media/nas/mahaswec/*projects.jsonl
+ 1279  ls /media/nas/mahaswec
+ 1280  gedit
+ 1281  cd ~/Desktop/Codes/OSS*
+ 1282  ls
+ 1283  python3 mentor_wise.py
+ 1284  ls
+ 1285  cd SOSS-main
+ 1286  grep -r license
+ 1287  subl *119d.js
+ 1288  subl nopathsource/*119d.js
+ 1289  grep -r copyright
+ 1290  grep -r avia
+ 1291  cd ~/Desktop/Codes/OSS*/doccano
+ 1292  grep -r username .
+ 1293  cd ..
+ 1294  history > history.txt
+ 1295  gedit history.txt
+ 1296  cd doccano
+ 1297  grep -r postgres
+ 1298  heroku create
+ 1299  heroku stack:set container
+ 1300  git push heroku master
+ 1301  ssh yoyo-host.dss.ucdavis.edu
+ 1302  cd ~/Desktop/compressed_images
+ 1303  ls | wc -l
+ 1304  gsutil -m mv ./*.png gs://procvaxx/
+ 1305  cd ~/Desktop/Codes/OSS*/doc*
+ 1306  ls
+ 1307  git add .
+ 1308  git commit -m "bypass authentication"
+ 1309  git push heroku master
+ 1310  grep -r Incorrect
+ 1311  ls
+ 1312  cd frontend
+ 1313  ls
+ 1314  cd i8n
+ 1315  cd i18n
+ 1316  ls
+ 1317  cd i18ncd ..
+ 1318  cd ..
+ 1319  grep -r errors.js
+ 1320  grep -r invalidUserOrPass
+ 1321  git add .
+ 1322  git commit -m "bypass authentication"
+ 1323  git push heroku master
+ 1324  grep -r login
+ 1325  grep -r allow_signup
+ 1326  grep -r settings
+ 1327  heroku run pwd --app institutional-grammar
+ 1328  ssh http://yoyo-host.dss.ucdavis.edu/
+ 1329  ssh yoyo-host.dss.ucdavis.edu/
+ 1330  ssh yoyo-host.dss.ucdavis.edu
+ 1331  ls
+ 1332  cd ..
+ 1333  cd ~/Desktop/Codes/OSS*
+ 1334  ls
+ 1335  git clone https://github.com/doccano/doccano/
+ 1336  ls
+ 1337  cd inst*
+ 1338  ls
+ 1339  git init
+ 1340  git add .
+ 1341  git commit -m "set up"
+ 1342  heroku git: remote -a institutional-grammar
+ 1343  heroku git remote -a institutional-grammar
+ 1344  heroku git: remote -a institutional-grammar
+ 1345  heroku git:remote -a institutional-grammar
+ 1346  git push heroku master
+ 1347  git push -f heroku master
+ 1348  exec bash
+ 1349  cd ~/Desktop/compressed_images
+ 1350  ls | wc -l
+ 1351  gsutil -m mv ./*.png gs://procvaxx/
+ 1352  cd ../Codes
+ 1353  python3 data_dist.py
+ 1354  cd ..
+ 1355  python3 data_dist.py
+ 1356  git push -f heroku master
+ 1357  heroku run pwd
+ 1358  heroku run ls
+ 1359  heroku run cd
+ 1360  heroku run pwd
+ 1361  heroku grep -r manage.py
+ 1362  heroku run grep -r manage.py
+ 1363  heroku run python app/manage.py migrate
+ 1364  heroku run python app/manage.py create_roles
+ 1365  heroku run python app/manage.py makemigrations
+ 1366  heroku run python app/manage.py migrate
+ 1367  heroku run python app/manage.py create_roles
+ 1368  grep -r api_role
+ 1369  grep -r api_role .
+ 1370  heroku run python app/manage.py create_roles
+ 1371  python manage.py create_admin --noinput --username "ig2.0" --email "mchakraborti@ucdavis.edu" --password "UCDAVIS2021"
+ 1372  heroku run python app/manage.py create_admin --noinput --username "ig2.0" --email "mchakraborti@ucdavis.edu" --password "UCDAVIS2021"
+ 1373  heroku run python app/manage.py runserver
+ 1374  grep -r annotator
+ 1375  grep -r create_admin
+ 1376  grep -r manage.py
+ 1377  heroku run python app/manage.py create_admin --noinput --username "test" --email "mchakraborti.ju@gmail.com" --password "UCDAVIS2021"
+ 1378  cd ~/Desktop/Codes
+ 1379  python3 asfi_read.py
+ 1380  cd ~/Desktop/compressed*
+ 1381  ls
+ 1382  gsutil -m mv ./*png
+ 1383  ls | wc -l
+ 1384  gsutil -m mv ./*png gs://procvaxx
+ 1385  exec bash
+ 1386  sudo modprobe uvcvideo
+ 1387  cd ~/Desktop/Codes
+ 1388  python3 asfi_read.py
+ 1389  cd ~/Desktop/Codes/OSS*/OSS*
+ 1390  python3 asfi_read.py
+ 1391  ls
+ 1392  cd ..
+ 1393  python3 asfi_read.py
+ 1394  sudo modprobe uvcvideo
+ 1395  sudo modprobe -r uvcvideo
+ 1396  psql -U
+ 1397  psql -u
+ 1398  heroku pg:backups:schedule postgresql-concentric-88872 --at '14:30 America/Los_Angeles' --app institutional-grammar
+ 1399  heroku pg:backups:schedule postgresql-concentric-88872 --at '14:00 America/Los_Angeles' --app institutional-grammar
+ 1400  heroku pg:backups:capture --app institutional-grammar
+ 1401  heroku pg:backups:url postgresql-concentric-88872 --app institutional-grammar
+ 1402  heroku pg:backups:url --app institutional-grammar
+ 1403  cd ~/Downloads
+ 1404  psql new_tukai < test.db
+ 1405  sudo -u postgres psql new_tukai < test.db
+ 1406  sudo -u postgres psql tukai < test.db
+ 1407  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U mahasweta -d tukai test.dump
+ 1408  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U mahaswec -d tukai test.dump
+ 1409  sudo pg_restore --verbose --clean --no-acl --no-owner -h localhost  -d tukai test.dump
+ 1410  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U maha -d tukai test.dump
+ 1411  postgres=# \deu+
+ 1412  postgres=#\deu+
+ 1413  postgres=# \du
+ 1414  cd ~/Desktop/Codes/OSS*
+ 1415  .create_user.sh
+ 1416  ./create_user.sh
+ 1417  cd ~/Desk*/Codes
+ 1418  python3 dump_analysis.py
+ 1419  clear
+ 1420  python3 dump_analysis.py
+ 1421  cd ~/Desk*/Codes
+ 1422  python3 dump_analysis.py
+ 1423  gedit
+ 1424  python3 -m http-server
+ 1425  python3 -m http.server
+ 1426  cd ~/Desktop/Codes/OSS*/all*
+ 1427  cd ..
+ 1428  git clone https://github.com/lkyin/SOSS
+ 1429  cd Maha*
+ 1430  git remote add 
+ 1431  git remote -v
+ 1432  git remote add origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1433  git remote add -f origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1434  git remote set-url origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1435  git remote add -f origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1436  git init
+ 1437  git remote add -f origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1438  git remote set-url origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1439  git remote -v
+ 1440  git add .
+ 1441  git commit -m "Adding custom changes for SOSS"
+ 1442  git push -f origin master
+ 1443  git push -f master origin
+ 1444  git push origin master
+ 1445  git branch -M main
+ 1446  git push origin master
+ 1447  git push -u origin master
+ 1448  git remote -v
+ 1449  git remote add origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1450  git add .
+ 1451  git commit -m "customising SOSS"
+ 1452  git push -f origin master
+ 1453  git add README
+ 1454  git push origin master
+ 1455  git remote -v
+ 1456  git add .
+ 1457  git commit -m "customising SOSS"
+ 1458  git push origin master
+ 1459  git remote show origin
+ 1460  ls
+ 1461  ls .git
+ 1462  cd ..
+ 1463  rm -rf .git/
+ 1464  ls
+ 1465  init git
+ 1466  git init
+ 1467  git remote show origin
+ 1468  git remote set-url origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1469  git remote add origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1470  git remote show origin
+ 1471  git add .
+ 1472  cd Maha*
+ 1473  rm -rf .git/
+ 1474  git init
+ 1475  git remote add origin https://github.com/Mahasweta-usc/Mahasweta-usc.github.io
+ 1476  git remote show origin
+ 1477  git add .
+ 1478  git commit -m "customising SOSS"
+ 1479  git push origin master
+ 1480  git add .
+ 1481  git commit -m "parse sheet index"
+ 1482  git push origin master
+ 1483  git add .
+ 1484  git commit -m "parse sheet index"
+ 1485  git push origin master
+ 1486  git remote add https://github.com/lkyin/SOSS
+ 1487  git remote add origin https://github.com/lkyin/SOSS
+ 1488  git remote add origin_likang https://github.com/lkyin/SOSS
+ 1489  git add .
+ 1490  git commit -m "added inner html parsing for main, about, engagement"
+ 1491  git push origin_likang master
+ 1492  git push origin master
+ 1493  cd ../all_codes
+ 1494  python3 asfi_read.py
+ 1495  cd ~/Desktop/Codes/OSS*/all_codes
+ 1496  python3 asfi_read.py
+ 1497  cd ~/Desktop/Codes
+ 1498  python3 imae_object.py
+ 1499  python3 image_object.py
+ 1500  cd ~/Desktop/Codes/OSS*/jing*
+ 1501  python3 image_cluster.py
+ 1502  ls ~/Desktop/temp/*.png.tar.gz |wc -l
+ 1503  cd ~/Desktop/Codes/OSS*/jingwen* 
+ 1504  ls ~/Desktop/temp/*.png.tar.gz > temp.txt
+ 1505  ls ~/Desktop/temp/ > temp.txt
+ 1506  gedit temp.txt
+ 1507  python3 hsv_analysis.py
+ 1508  sudo modprobe uvcvideo
+ 1509  cd ~/Desktop/raw_images
+ 1510  find . -type d -empty
+ 1511  ls 
+ 1512  cd ../insta_json
+ 1513  find . -type d -empty
+ 1514  cd ~/Desktop/Codes/jing*/all_codes
+ 1515  cd ~/Desktop/Codes/OSS*/jing*/all_codes
+ 1516  ls
+ 1517  cd ~/Desktop/Codes/OSS*/jing*
+ 1518  ls
+ 1519  python3 image_cluster.py
+ 1520  cd ~/Desktop/Codes/OSS*/jing*
+ 1521  python3 image_cluster.py
+ 1522  cd ~/Desktop/Codes/OSS*/jing*
+ 1523  python3 image_cluster.py
+ 1524  cd ~/Desktop/Codes/OSS*/jing*
+ 1525  python3 image_cluster.py
+ 1526  cd ~/Desktop/Codes/OSS*/jing*
+ 1527  python3 image_cluster.py
+ 1528  cd ~/Desktop/Codes/OSS*/jing*
+ 1529  python3 image_cluster.py
+ 1530  cd ~/Desktop/Codes/OSS*/jing*
+ 1531  python3 image_cluster.py
+ 1532  cd ~/Desktop/Codes/OSS*/jing*
+ 1533  python3 image_cluster.py
+ 1534  cd ~/Desktop/Codes/OSS*/jing*
+ 1535  python3 hsv_analysis.py
+ 1536  ython3 image_cluster.py
+ 1537  python3 image_cluster.py
+ 1538  python3 hsv_analysis.py
+ 1539  python3 image_cluster.py
+ 1540  python3 hsv_analysis.py
+ 1541  cd ~/Desktop/Codes/OSS*/jing*
+ 1542  python3 tf-idf.py
+ 1543  python3 -m pip install wordcloud --user
+ 1544  python3 tf-idf.py
+ 1545  cd ~/Desktop/Codes/OSS*/jing*
+ 1546  python3 tf-idf.py
+ 1547  python3 image_cluster.py
+ 1548  ython3 tf-idf.py
+ 1549  python3 tf-idf.py
+ 1550  gedit
+ 1551  cd ~/Desktop/Codes/OSS*/jing*
+ 1552  python3 tf-idf.py
+ 1553  python3 sync.py
+ 1554  cd ..
+ 1555  python3 sync.py
+ 1556  cd OSS_IS
+ 1557  python3 sync.py
+ 1558  cd ~/Desktop/Codes/OSS*/jing*
+ 1559  python3 sync.py
+ 1560  cd ..
+ 1561  cd OSS*
+ 1562  python3 sync.py
+ 1563  python3 tf-idf.py
+ 1564  cd ../jing*
+ 1565  python3 tf-idf.py
+ 1566  python3 image_cluster.py
+ 1567  cd ~/Desktop/Codes/OSS*/jing*
+ 1568  python3 tf-idf.py
+ 1569  sudo python3 -m install yellowbrick
+ 1570  sudo python3 -m pip install yellowbrick
+ 1571  echo $PYTHONPATH
+ 1572  export PYTHONPATH="${PYTHONPATH}:/home/mahasweta/.local/lib/python3.7/site-packages"
+ 1573  python3 tf-idf.py
+ 1574  python3.7 tf-idf.py
+ 1575  which python
+ 1576  which python3
+ 1577  which python3.7
+ 1578  echo $PYTHONPATH
+ 1579  cd ~/Desktop/Codes/OSS*/jing*
+ 1580  python3 image_cluster.py
+ 1581  ython3 hsv_analysis.py
+ 1582  python3 hsv_analysis.py
+ 1583  ython3 hsv_analysis.py
+ 1584  python3 hsv_analysis.py
+ 1585  ssh yoyo-host.dss.ucdavis.edu
+ 1586  heroku pg:backups:capture --app institutional-grammar
+ 1587  heroku pg:backups:url --app institutional-grammar
+ 1588  heroku pg:backups:capture --app institutional-grammar
+ 1589  sudo modprobe uvcvideo
+ 1590  cd ~/Desktop
+ 1591  python3 pol212.py
+ 1592  cd ~/Desktop/Codes/OSS*/all*
+ 1593  python3 asfi_read.py
+ 1594  cd ~/Desktop
+ 1595  python3 pol212.py
+ 1596  cd ~/Desktop/Codes/OSS*/all*
+ 1597  python3 dump_general.py
+ 1598  gedit
+ 1599  cd ~/Desktop/Codes/OSS*/all*
+ 1600  python3 dump_general.py
+ 1601  cd ~/Desktop/Codes/OSS*/all*
+ 1602  python3 reshuffule.py
+ 1603  python3 reshuffle.py
+ 1604  cd ../*batches
+ 1605  mkdir small_batch
+ 1606  cd ../all_codes
+ 1607  python3 reshuffle.py
+ 1608  sudo modprobe uvcvideo
+ 1609  heroku pg:pull postgresql-concentric-88872 mylocaldb --app institutional_grammar
+ 1610  heroku pg:pull postgresql-concentric-88872 mylocaldb --app institutional-grammar
+ 1611  sudo heroku pg:pull postgresql-concentric-88872 mylocaldb --app institutional-grammar
+ 1612  PGUSER=postgres heroku pg:pull postgresql-concentric-88872 mylocaldb --app institutional-grammar
+ 1613  psql -U postgres
+ 1614  PGUSER=postgres heroku pg:push mylocaldb postgresql-fitted-53537 --app institutional-grammar
+ 1615  heroku config:get DATABASE_URL
+ 1616  heroku config:get DATABASE_URL -app institutional-grammar
+ 1617  heroku config:get DATABASE_URL --app institutional-grammar
+ 1618  heroku config:get DATABASE --app institutional-grammar
+ 1619  heroku pg:promote HEROKU_POSTGRESQL_GREEN
+ 1620  heroku pg:promote HEROKU_POSTGRESQL_GREEN --app institutional-grammar
+ 1621  heroku run python app/manage.py create_admin --noinput --username admin --email mchakraborti@ucdavis.edu --password admin
+ 1622  heroku run python app/manage.py create_admin --noinput --username admin --email mchakraborti@ucdavis.edu --password admin --app institutional-grammar
+ 1623  heroku run python app/manage.py shell --app instituional-grammar
+ 1624  heroku run python app/manage.py shell --app institutional-grammar
+ 1625  cd ~/Desktop/Codes/OSS*/all*
+ 1626  python3 likang_data.py
+ 1627  ython3 likang_data.py
+ 1628  python3 likang_data.py
+ 1629  python3 -m pip install httplib --user
+ 1630  python3 likang_data.py
+ 1631  cd ~/Desktop/Codes/OSS*/all*
+ 1632  python3 likang_data.py
+ 1633  python3 asfi_read.py
+ 1634  cd ../*dev
+ 1635  mkdir used
+ 1636  cd ../*batches
+ 1637  mkdir week7
+ 1638  cd small*
+ 1639  mkdir week7
+ 1640  cd ~/Desktop/Codes/OSS*/all*
+ 1641  python3 dump2.py
+ 1642  psql -U postgres
+ 1643  history
+ 1644  cd ~/Desktop/Codes/OSS*/all*
+ 1645  python3 dump2.py
+ 1646  cd ~/Desktop/Codes
+ 1647  sudo du -a . | sort -n -r | head -n 20
+ 1648  cd OSS*
+ 1649  cd all*
+ 1650  python3 likang_data.py
+ 1651  heroku pg:backups:capture --app institutional-grammar
+ 1652  heroku pg:backups:url --app institutional-grammar
+ 1653  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1654  heroku pg:backups:url postgresql-fitted-53537 --app institutional-grammar
+ 1655  heroku pg:backups:schedule postgresql-concentric-88872 --at '14:00 America/Los_Angeles' --app institutional-grammar
+ 1656  heroku pg:backups:schedule postgresql-fitted-53537 --at '14:00 America/Los_Angeles' --app institutional-grammar
+ 1657  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1658  heroku pg:backups:url postgresql-fitted-53537 --app institutional-grammar
+ 1659  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U mahasweta -d tukai test.dump
+ 1660  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb week7_check.dump
+ 1661  cd ~/Downloads
+ 1662  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb week7_check.dump
+ 1663  psql -U postgres
+ 1664  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1665  psql -U postgres
+ 1666  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1667  psql -U postgres
+ 1668  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb week7_check.dump
+ 1669  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1670  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb week7_check.dump
+ 1671  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1672  psql -U postgres
+ 1673  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb week7_check.dump
+ 1674  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1675  psql -U postgres
+ 1676  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1677  heroku pg:backups:url postgresql-fitted-53537 --app institutional-grammar
+ 1678  heroku pg:backups:url --app institutional-grammar
+ 1679  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb pre_week8.dump
+ 1680  cd ~/Downloads
+ 1681  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb pre_week8.dump
+ 1682  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1683  psql -U postgres 
+ 1684  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1685  psql -U postgres 
+ 1686  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1687  heroku pg:backups:url --app institutional-grammar
+ 1688  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb preweek8.dump
+ 1689  cd ~/Downloads
+ 1690  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb preweek8.dump
+ 1691  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1692  psql -U postgres
+ 1693  cd ~/Desktop/Codes/OSS*/all*
+ 1694  python3 dump2.py
+ 1695  python3 prelim_IS.py
+ 1696  conda deactivate
+ 1697  python3 prelim_IS.py
+ 1698  python3 -m pip install sklearn
+ 1699  python3 prelim_IS.py
+ 1700  cd ~/Desktop/Codes/OSS*/all*
+ 1701  python3 prelim_IS.py
+ 1702  python3 -W ignore prelim_IS.py
+ 1703  python3 dump2.py
+ 1704  psql -U postgres
+ 1705  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1706  cd ~/Desktop/Codes/OSS*/all*
+ 1707  python3 dump2.py
+ 1708  python3 prelim_IS.py
+ 1709  cd ~/Desktop/Codes/OSS*/all*
+ 1710  python3 prelim_IS.py
+ 1711  cd ~/Desktop/Codes/OSS*/all*
+ 1712  python3 dump2.py
+ 1713  cd ~/Desktop/Codes/OSS*/all*
+ 1714  python3 scrape_dev.py
+ 1715  cd ~/Desktop/Codes/OSS*/all*
+ 1716  python3 asfi_read.py
+ 1717  python3 check_similar.py
+ 1718  python3 likang_data.py
+ 1719  python3 check_similar.py
+ 1720  python3 scrape_dev.py
+ 1721  python3 asfi_read.py
+ 1722  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1723  heroku pg:backups:url --app institutional-grammar
+ 1724  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb ~/Downloads/preweek9.dump
+ 1725  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb ~/Downloads/week9.dump
+ 1726  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1727  psql -U postgres
+ 1728  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1729  heroku pg:backups:url --app institutional-grammar
+ 1730  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb ~/Downloads/week9.dump
+ 1731  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1732  psql -U postgres
+ 1733  heroku pg:backups:capture postgresql-fitted-53537 --app institutional-grammar
+ 1734  heroku pg:backups:url --app institutional-grammar
+ 1735  psql postgres -h 127.0.0.1 -d mylocaldb -f -a ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1736  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1737  psql -U postgres
+ 1738  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1739  select unique(meta::json->url) from api_sequenceannotation;
+ 1740  select unique(meta->url) from api_sequenceannotation;
+ 1741  select distinct(meta->url) from api_sequenceannotation;
+ 1742  select meta->url from api_sequenceannotation;
+ 1743  select meta from api_sequenceannotation;
+ 1744  psql -U postgres
+ 1745  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1746  psql -U postgres
+ 1747  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1748  psql -U postgres
+ 1749  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb ~/Downloads/week9.dump
+ 1750  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1751  psql -U postgres
+ 1752  sudo modprobe uvcvideo
+ 1753  cd ~/Desktop/COdes/OSS*/all*
+ 1754  cd ~/Desktop/Codes/OSS*/all*
+ 1755  grep -r email_reply_parser
+ 1756  python3 check_similar.py
+ 1757  cd ~/Desktop/Codes/OSS*/all*
+ 1758  cd sent*
+ 1759  locate {TripletLoss}
+ 1760  find . -name '*TripletLoss*' -print
+ 1761  grep -Ri TripletLoss ./*.py
+ 1762  grep -Ri '*TripletLoss*' ./*.py
+ 1763  grep -Ri 'TripletLoss' ./*.py
+ 1764  cd ~/Desktop/Codes/OSS*/all*
+ 1765  python3 ground_process.py
+ 1766  python3 -W ignore ground_process.py
+ 1767  [A
+ 1768  python3 -W ignore ground_process.py
+ 1769  psql -U postgres
+ 1770  cd ~/Desktop/Codes/OSS*/all*
+ 1771  python3 -W ignore ground_process.py
+ 1772  gedit
+ 1773  python3 -W ignore ground_process.py
+ 1774  cd ~/Desktop/Codes/BertSum
+ 1775  ls
+ 1776  grep -r mask_cls *.py
+ 1777  grep -r mask_cls 
+ 1778  grep -r clss
+ 1779  grep -r mask_cls
+ 1780  python3 read_data.py
+ 1781  python3 -m pip install keras
+ 1782  cd ~/Desktop/Codes/BertSum
+ 1783  python3 read_data.py
+ 1784  python3 -m pip install tensorflow
+ 1785  python3 read_data.py
+ 1786  grep -r Classifier
+ 1787  python3 read_data.py
+ 1788  python3 -m pip install more_itertools --user
+ 1789  python3 read_data.py
+ 1790  cd ../OSS*/all*
+ 1791  python3 ground_process.py
+ 1792  python3 -W ignore ground_process.py
+ 1793  cd ../OSS*/all*
+ 1794  cd ~/Desktop/Codes/
+ 1795  cd ../OSS*/all*
+ 1796  cd OSS*/all*
+ 1797  python3 -W ignore ground_process.py
+ 1798  cd ../../BertSum
+ 1799  python3 -W ignore read_data.py
+ 1800  cd ../OSS*/all*
+ 1801  python3 -W ignore ground_process.py
+ 1802  cd ~/Desktop/Codes/
+ 1803  cd ../../BertSum
+ 1804  cd BertSum
+ 1805  python3 -W ignore read_data.py
+ 1806  cd ~/Desktop/Codes/
+ 1807  cd ../OSS*/all*
+ 1808  cd /OSS*/all*
+ 1809  cd OSS*/all*
+ 1810  python3 -W ignore read_data.py
+ 1811  python3 -W ignore ground_process.py
+ 1812  python3 -W ignore ground_final.py
+ 1813  python3 -W ignore ground_process.py
+ 1814  python3 -W ignore ground_final.py
+ 1815  gedit
+ 1816  python3 -W ignore ground_final.py
+ 1817  gedit
+ 1818  python3 -W ignore ground_final.py
+ 1819  cd ~/Desktop/Codes/
+ 1820  cd OSS*/all*
+ 1821  python3 -W ignore ground_final.py
+ 1822  gedit
+ 1823  python3 -W ignore ground_final.py
+ 1824  cd ~/Desktop/Codes/
+ 1825  cd OSS*/all*
+ 1826  python3 -W ignore ground_final.py
+ 1827  heroku pg:backups:capture --app institutional-grammar
+ 1828  heroku pg:backups:url --app institutional-grammar
+ 1829  pg_restore --verbose --clean --no-acl --no-owner -h localhost -U postgres -d mylocaldb ~/Downloads/winter.dump
+ 1830  history
+ 1831  psql postgres -h 127.0.0.1 -d mylocaldb -f ~/Desktop/Codes/OSS*/all*/heroku.sql
+ 1832  psql -U postgres
+ 1833  python3 -W ignore ground_final.py
+ 1834  cd ~/Desktop/Codes/
+ 1835  cd OSS*/all*
+ 1836  gedit
+ 1837  python3 -m pip install python-emailthreads --user
+ 1838  python3 -m pip install git+https://github.com/emersion/python-emailthreads --user
+ 1839  python3 -m pytest test
+ 1840  python3
+ 1841  wget http://mail-archives.apache.org/mod_mbox/airflow-dev/201611.mbox/%3CCANLtMicW=8=8Kr3b6Vd0g+ae+uQH7LDz4BPXmjErxAJjyusy2g@mail.gmail.com%3E
+ 1842  python3
+ 1843  cd ~/Desktop/Codes/
+ 1844  cd OSS*/all*
+ 1845  python3 -W ignore ground_final.py
+ 1846  cd ~/Desktop/Codes/
+ 1847  cd OSS*/all*
+ 1848  python3 -W ignore ground_final.py
+ 1849  cd ~/Desktop/Codes/
+ 1850  cd OSS*/all*
+ 1851  python3 -W ignore ground_final.py
+ 1852  cd OSS*/all*
+ 1853  cd ~/Desktop/Codes/
+ 1854  cd OSS*/all*
+ 1855  python3 -W ignore ground_final.py
+ 1856  cd ~/Desktop/Codes/
+ 1857  cd OSS*/all*
+ 1858  python3 -W ignore classifier_data.py
+ 1859  gedit
+ 1860  cd ~/Desktop/Codes/
+ 1861  cd OSS*/all*
+ 1862  cd ~/Desktop/Codes/
+ 1863  python3 -W ignore ground_final.py
+ 1864  cd OSS*/all*
+ 1865  python3 -W ignore ground_final.py
+ 1866  python3 -W ignore classifier_data.py
+ 1867  gedit
+ 1868  python3 -W ignore classifier_data.py
+ 1869  gedit
+ 1870  python3 -W ignore classifier_data.py
+ 1871  gedit
+ 1872  python3 -W ignore classifier_data.py
+ 1873  gedit
+ 1874  python3 -W ignore classifier_data.py
+ 1875  gedit
+ 1876  python3 -W ignore classifier_data.py
+ 1877  gedit
+ 1878  python3 -W ignore classifier_data.py > log.txt
+ 1879  python3 -W ignore classifier_data.py
+ 1880  python3 -W ignore classifier_data.py > log.txt
+ 1881  python3 -W ignore classifier_data.py
+ 1882  gedit
+ 1883  python3 -W ignore classifier_data.py
+ 1884  gedit
+ 1885  python3 -W ignore classifier_data.py
+ 1886  cd ~/Desktop/Codes/OSS*/all*
+ 1887  python3 -W ignore classifier_data.py
+ 1888  python3 -W ignore email_split.py
+ 1889  python3 -W ignore classifier_data.py
+ 1890  gedit
+ 1891  cd ~/Desktop/Codes/OSS*/all*
+ 1892  python3 -W ignore whiteboard.py
+ 1893  ip a
+ 1894  cd ~/Desktop/Codes
+ 1895  grep -r "color_vaccine.png"
+ 1896  grep -r "labels.png" .
+ 1897  cd OSS*/jing*
+ 1898  python3 image_analysis.py
+ 1899  gedit
+ 1900  python3 image_analysis.py
+ 1901  grep proxy -i /etc/environment
+ 1902  echo $HTTP_PROXY
+ 1903  echo $HTTPS_PROXY
+ 1904  echo $FTP_PROXY
+ 1905  echo $https_proxy
+ 1906  echo $http_proxy
+ 1907  cat /etc/environment
+ 1908  env | grep -i proxy
+ 1909  unset http_proxy
+ 1910  unset https_proxy
+ 1911  unset ftp__proxy
+ 1912  unset ftp_proxy
+ 1913  unset HTTP_PROXY
+ 1914  unset HTTPs_PROXY
+ 1915  unset HTTPS_PROXY
+ 1916  unset FTP_PROXY
+ 1917  sudo apt-get update
+ 1918  gedit
+ 1919  cd ~/Desktop/Codes/OSS*
+ 1920  mkdir sequential_sentence_classification
+ 1921  cd seq*
+ 1922  git init
+ 1923  git remote add -t allennlp2 -f origin https://github.com/UrszulaCzerwinska/sequential_sequence_classification/
+ 1924  git remote add -t allennlp2 -f origin https://github.com/UrszulaCzerwinska/sequential_sentence_classification/
+ 1925  git remove -v
+ 1926  git remote -v
+ 1927  git remote remove origin
+ 1928  git remote add -t allennlp2 -f origin https://github.com/UrszulaCzerwinska/sequential_sentence_classification/
+ 1929  git checkout allennlp2
+ 1930  cd ~/Desktop/Codes/OSS*/seq*
+ 1931  git remote -v
+ 1932  git remote remove origin
+ 1933  git remote add origin https://github.com/Mahasweta-usc/sequential_sentence_classification
+ 1934  git remote -v
+ 1935  git push -f master origin
+ 1936  git push -f origin master
+ 1937  git add .
+ 1938  git commit -m "update to roberta"
+ 1939  git push -f origin master
+ 1940  git push -f master origin
+ 1941  git remote -v
+ 1942  git push -f origin master
+ 1943  git commit -m "update to roberta"
+ 1944  git push -f origin allennlp2
+ 1945  git add .
+ 1946  git commit -m "update to roberta, allennlp.run"
+ 1947  git push -f origin allennlp2
+ 1948  git commit -m "update to roberta, wordsplitter"
+ 1949  git add .
+ 1950  git commit -m "update to roberta, wordsplitter"
+ 1951  git push -f origin allennlp2
+ 1952  git add .
+ 1953  git commit -m "update to roberta, token"
+ 1954  git push -f origin allennlp2
+ 1955  python3 -m pip install allennlp --user
+ 1956  python3
+ 1957  git add .
+ 1958  git commit -m "revert to original"
+ 1959  python3 -m pip install allennlp --user
+ 1960  git push -f origin allennlp2
+ 1961  python3
+ 1962  cd ~/Desktop/Codes/OSS*/all*
+ 1963  python3 url_arrange.py
+ 1964  cd ~/Desktop/Codes/OSS*/all*
+ 1965  python3 url_arrange.py
+ 1966  cd ..
+ 1967  cd seq*
+ 1968  grep -r loss
+ 1969  grep -r loss *.py
+ 1970  cd ../all*
+ 1971  python3 url_arrange.py
+ 1972  cd ~/Desktop/Codes/OSS*/seq*
+ 1973  git remote -v
+ 1974  git remove remote origin
+ 1975  git remote remove origin
+ 1976  git add origin https://github.com/allenai/sequential_sentence_classification
+ 1977  git remote add origin https://github.com/allenai/sequential_sentence_classification
+ 1978  git remote -v
+ 1979  git remote remove origin
+ 1980  git remote add origin https://github.com/Mahasweta-usc/sequential_sentence_classification
+ 1981  git add .
+ 1982  git commit -m "changes for colab"
+ 1983  git push -f origin master
+ 1984  git add .
+ 1985  git commit -m "changes for colab"
+ 1986  git push -f origin master
+ 1987  cd ..
+ 1988  cd ~/Desktop/Codes/OSS*/all*seq*
+ 1989  cd ~/Desktop/Codes/OSS*/all*/seq*
+ 1990  git remote -v
+ 1991  git branch 
+ 1992  git add .
+ 1993  git commit -m "modified for cross validation"
+ 1994  git push -f origin master
+ 1995  git add .
+ 1996  git commit -m "modified for cross validation"
+ 1997  git push -f origin master
+ 1998  git add .
+ 1999  git commit -m "modified for cross validation"
+ 2000  git push -f origin master
+ 2001  cd ~/Desktop/Codes/OSS*
+ 2002  ls
+ 2003  cd all*
+ 2004  ls
+ 2005  rm ./*.png
+ 2006  ls
+ 2007  cd seq*
+ 2008  git add .
+ 2009  git commit -m "finetuned settings"
+ 2010  git push -f origin master
+ 2011  git add .
+ 2012  git commit -m "trained model"
+ 2013  git push -f origin master
+ 2014  history > history.txt
