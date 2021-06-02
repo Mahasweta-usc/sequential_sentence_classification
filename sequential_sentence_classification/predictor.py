@@ -22,7 +22,7 @@ nlp = stanza.Pipeline(lang='en', processors='tokenize')
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-MAX_LEN = os.environ["SENT_MAX_LEN"]; print(MAX_LEN)
+MAX_LEN = int(os.environ["SENT_MAX_LEN"]); print(MAX_LEN)
 
 def process_(text):
   text = text.replace("\r\n"," ").replace("\n"," ")
@@ -76,19 +76,18 @@ def segmenter():
     candidate[-1].append(elem)
 
 
-def email_to_json(chunk,url):
-    global json_dict, candidate
+def email_to_json():
+    global json_data, candidate
     for idx, row in enumerate(candidate):
-        entry = dict()
-        entry["sentences"] = row
-        entry["labels"] = [0]*len(row)
-        entry["abstract_id"] = 0
-        entry["url"]
-        json_dict.append(entry)
+      entry = dict()
+      entry["sentences"] = row
+      entry["labels"] = ["0"]*len(row)
+      entry["abstract_id"] = 0
+      json_data.append(entry)
 
 
-file_path = os.environ["file_path"]
-output = os.environ["out_path"]
+
+json_data, candidate, email_sent = [], [], []
 
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
@@ -96,61 +95,115 @@ class SeqClassificationPredictor(Predictor):
     Predictor for the abstruct model
     """
     def predict_json(self, json_dict: JsonDict) -> JsonDict:
-        json_dict, candidate = [], []
+        global json_data, candidate, email_sent
         filename = os.environ["file_path"]
-        output = os.environ["out_path"]
-        f = pd.read_csv(filename); f.dropna(inplace=True)
-        cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
-        out = pd.DataFrame(columns=cols)
+        out_path = filename.replace('.csv','_IS.csv')
+        try:
+          f = pd.read_csv("/content/local.csv")
+        except:
+          f = pd.read_csv("/content/local.csv",lineterminator='\n')
 
+        cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
+
+        try:
+            out = pd.read_csv(out_path)
+        except Exception as e:
+          out = pd.DataFrame(columns = cols)
+
+        row_count = 0
         for i,chunk in f.iterrows():
-            folder = chunk["folder"]
+            row_count += 1
+            json_data, candidate = [], []
             url = chunk["url"]
             predictions = []
-
-            try: #dev_user += 1
-              if folder.strip() not in ['dev','user','users','announce']: continue #'user','dev','users','announce'
-              email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
-              email_sent = [sent_elem for sent_elem in sent_break(process_(email))]
-              chunk["last_reply"] = email
-              chunk['IS_count'] = ""
-              chunk['IS_'] = ""
-            except Exception as e:
-              print(e)
+            email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
+            email_sent = [sent_elem for sent_elem in sent_break(process_(email))]
+            chunk["last_reply"] = email
+            chunk['IS_count'] = ""
+            chunk['IS_'] = ""
 
             while True:
               pos = segmenter()
               if len(email_sent) > 1: email_sent.pop(0)
               else: break
 
+            candidate = [cand for cand in candidate if cand]
             prune()
             single_entries()
-            email_to_json(chunk,url)
+            email_to_json()
 
-            for elem in json_dict:
-                instances = self._dataset_reader.text_to_instance(sentences=elem["sentences"],labels=elem["labels"])
-                output = self._model.forward_on_instances([instances])
-                # print(output)
-                idx = output[0]['action_probs'].argmax(axis=1).tolist()
+            if len(candidate) > 500 or not len(candidate): continue
+
+            for elem in json_data:
+              instances = self._dataset_reader.text_to_instance(sentences=elem["sentences"],labels=elem["labels"])
+              output = self._model.forward_on_instances([instances])
+              # print(output)
+              idx = output[0]['action_probs'].argmax(axis=1).tolist()
+              labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+              binary_labels = [int(item.split("_")[0]) for item in labels]
+              predictions += list(itertools.compress(elem["sentences"],binary_labels))
+              # sys.stdout.write(" ".join(labels) + "\n")
                 
-                predictions += itertools.compress(data["sentences"],data["predictions"])
-                
-            predictions = list(set(predictions))
-            chunk["IS_"] = predictions
-            chunk["IS_count"] = len(predictions)
-            print(predictions)
+            pred_out = list(set(predictions))
+            chunk["IS_"] = "<Institutional>".join(pred_out)
+            chunk["IS_count"] = len(pred_out)
 
             if predictions:
-              IS_count += 1
               out.loc[len(out.index)] = chunk 
-              out.drop_duplicates(subset=['url'], inplace=True)
-              out.to_csv(output)
+              out.drop_duplicates(subset=["url"],inplace=True)
+              out.to_csv(out_path,index=False)
+            
+            with open("/content/output.txt",'a+') as op:
+              op.write(str(out.shape[0])+"/"+str(f.shape[0])+"\n") 
+
+            if row_count >= f.shape[0] - 1 : exit()
 
 
 
 
 
 
+# from typing import List
+# from overrides import overrides
+
+# from allennlp.common.util import JsonDict, sanitize
+# from allennlp.data import Instance
+# from allennlp.predictors.predictor import Predictor
+# import jsonlines
+
+# import os
+# file_path = os.environ["file_path"]
+
+# @Predictor.register('SeqClassificationPredictor')
+# class SeqClassificationPredictor(Predictor):
+#     """
+#     Predictor for the abstruct model
+#     """
+#     def predict_json(self, json_dict: JsonDict) -> JsonDict:
+#         pred_labels = []
+#         sentences = json_dict['sentences']
+#         paper_id = json_dict['abstract_id']
+#         try:
+#           labels = json_dict['labels']
+#         except:
+#           labels = [["1"]*len(sent) for sent in sentences]
+#         print(sentences,labels)
+#         instance = self._dataset_reader.text_to_instance(sentences=sentences,labels=labels)
+#         output = self._model.forward_on_instances([instance])
+#         # print(output)
+#         idx = output[0]['action_probs'].argmax(axis=1).tolist()
+#         # print(idx)
+#         labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+#         # print(labels)
+#         pred_labels.extend(labels)
+#         assert len(pred_labels) == len(sentences)
+#         preds = list(zip(sentences, pred_labels))
+
+
+#         with jsonlines.open(file_path, mode='a') as writer:
+#           json_dict["predictions"] = pred_labels
+#           writer.write(json_dict)
+#         return paper_id, preds
 
 
 
