@@ -22,8 +22,7 @@ nlp = stanza.Pipeline(lang='en', processors='tokenize')
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-MAX_LEN = int(os.environ["SENT_MAX_LEN"]); print(MAX_LEN)
-from text_process import process_text
+MAX_LEN = 256
 
 # def process_(text):
 #   text = text.replace("\r\n"," ").replace("\n"," ")
@@ -36,50 +35,50 @@ from text_process import process_text
 #     return lines
 
 # def prune():
-#     global candidate
+#     global self.candidate[url]
 #     temp = []
-#     for elem in candidate:
-#         if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in candidate):
+#     for elem in self.candidate[url]:
+#         if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in self.candidate[url]):
 #             temp.append(elem)
 
-#     for elem in temp: candidate.remove(elem)
+#     for elem in temp: self.candidate[url].remove(elem)
 
 # def single_entries():
-#   global candidate
-#   for idx, elem in enumerate(candidate):
+#   global self.candidate[url]
+#   for idx, elem in enumerate(self.candidate[url]):
 #     if len(elem) == 1:
 #       if MAX_LEN > 2*len(tokenizer.tokenize(elem[0])):
-#         candidate[idx].append(elem[0])
+#         self.candidate[url][idx].append(elem[0])
 #       else:
 #         str_len = int(len(elem[0])/2)
-#         candidate[idx] = [elem[0][:str_len]]
-#         candidate[idx].append(elem[0][str_len:])
+#         self.candidate[url][idx] = [elem[0][:str_len]]
+#         self.candidate[url][idx].append(elem[0][str_len:])
 
 # def segmenter():
-#   global candidate
-#   global email_sent
+#   global self.candidate[url]
+#   global email_sent[url]
 #   sum_ = 0;
 #   lim = int(0.9*MAX_LEN)
-#   candidate.append([])
-#   for idx, elem in enumerate(email_sent):
+#   self.candidate[url].append([])
+#   for idx, elem in enumerate(email_sent[url]):
 #     remain = lim - sum_
 #     sum_ += len(tokenizer.encode(elem))
 #     if sum_ > lim:
 #       retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
 #       carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
 #       if not idx:
-#         email_sent[idx] = carryover
-#         email_sent.insert(idx,retain)
-#         candidate[-1].append(retain) 
+#         email_sent[url][idx] = carryover
+#         email_sent[url].insert(idx,retain)
+#         self.candidate[url][-1].append(retain) 
 #         # return idx + 1
 #       return idx
     
-#     candidate[-1].append(elem)
+#     self.candidate[url][-1].append(elem)
 
 
 # def email_to_json():
-#     global json_data, candidate
-#     for idx, row in enumerate(candidate):
+#     global json_data, self.candidate[url]
+#     for idx, row in enumerate(self.candidate[url]):
 #       entry = dict()
 #       entry["sentences"] = row
 #       entry["labels"] = ["0"]*len(row)
@@ -88,20 +87,142 @@ from text_process import process_text
 
 
 
-# json_data, candidate, email_sent = [], [], []
+# json_data, self.candidate[url], email_sent[url] = [], [], []
+
+import multiprocessing
+from multiprocessing import pool
+from multiprocessing.pool import ThreadPool
+
+
 
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
     """
     Predictor for the abstruct model
     """
+    self.candidate = {}
+    self.email_sent = {}
+
+    def process_(self,text):
+      text = text.replace("\r\n"," ").replace("\n"," ")
+      text = " ".join(re.sub('>',"",text).split())
+      return text
+
+    def sent_break(self,text):
+      doc = nlp(text)
+      sentences = [line.text for line in doc.sentences]
+      lines = [line for line in doc.sentences]
+      verbs = []
+      prev = 0
+      for idx, line in enumerate(lines):
+        tags = [word.upos for word in line.words if word.upos in ['AUX','VERB']]
+        if tags:
+          if idx - prev <= 1: 
+            print(sentences[prev:idx+1],"-----"," ".join(sentences[prev:idx+1]))
+            verbs.append(" ".join(sentences[prev:idx+1]))
+          else:
+            for elem in sentences[prev:idx+1]: verbs.append(elem)
+          prev = idx + 1
+
+      for elem in sentences[prev:]: verbs.append(elem)
+      return verbs
+
+
+    def prune(self,url):
+        temp = []
+        for elem in self.candidate[url]:
+            if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in self.candidate[url]):
+                temp.append(elem)
+
+        for elem in temp: self.candidate[url].remove(elem)
+
+    def single_entries(self,url):
+        for idx, elem in enumerate(self.candidate[url]):
+          if len(elem) == 1:
+            if MAX_LEN > 2*len(tokenizer.tokenize(elem[0])):
+              self.candidate[url][idx].append(elem[0])
+            else:
+              str_len = int(len(elem[0])/2)
+              self.candidate[url][idx] = [elem[0][:str_len]]
+              self.candidate[url][idx].append(elem[0][str_len:])
+
+    def segmenter(self,url):
+        sum_ = 0;
+        lim = int(0.9*MAX_LEN)
+        self.candidate[url].append([])
+        for idx, elem in enumerate(email_sent[url]):
+          remain = lim - sum_
+          sum_ += len(tokenizer.encode(elem))
+          if sum_ > lim:
+            retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
+            carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
+            if not idx:
+              email_sent[url][idx] = carryover
+              email_sent[url].insert(idx,retain)
+              self.candidate[url][-1].append(retain) 
+              # return idx + 1
+            return idx
+          
+          self.candidate[url][-1].append(elem)
+
+
+    def email_to_json(self,url):
+        json_data = []
+        entry = dict()
+        entry[url]["sentences"] = self.candidate[url]
+        entry[url]["labels"] = [["0"]*len(row) for row in self.candidate[url]]
+        entry[url]["abstract_id"] = 0
+        json_data.append(entry)
+
+
+    def segment_text(self,chunk,url):
+      print(chunk)
+      self.email_sent[url] = [sent_elem for sent_elem in self.sent_break(process_(chunk["last_reply"]))] 
+      self.candidate[url] = []
+
+      while True:
+        pos = self.segmenter(url)
+        if len(self.email_sent[url]) > 1: self.email_sent[url].pop(0)
+        else: break
+
+      self.candidate[url] = [cand for cand in self.candidate[url] if cand]
+      self.prune(url)
+      self.single_entries(url)
+      if len(self.candidate[url]) > 500 or not len(self.candidate[url]): return []
+      self.email_to_json();print(len(self.candidate[url]))
+      return json_data
+
+    def process_text(filename):
+      n_cpu = multiprocessing.cpu_count() - 1
+      f = pd.read_csv(filename,lineterminator='\n')
+      cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
+      outtable = pd.DataFrame(columns = cols)
+      row_count = 0
+
+      for i,chunk in f.iterrows():
+        print(chunk)
+        email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
+        chunk["last_reply"] = email
+        chunk['IS_count'] = 0
+        chunk['IS_'] = ""
+        outtable.loc[len(outtable.index)] = chunk
+
+      deadpool = ThreadPool(n_cpu)
+      results = []
+      for _ ,row in outtable.iterrows():
+        results.append(self.segment_text(row,row["url"]))
+
+      # deadpool.close()
+      # deadpool.join()
+      out = [r for r in results]
+      out = {k:v for key,values in x.items() for x in out}
+      return out, outtable
+  
     def predict_json(self, json_dict: JsonDict) -> JsonDict:
-        parser = argparse.ArgumentParser(description='ArgumentParser')
-        parser = self.add_subparser("filename", parser)
-        args = parser.parse_args()
-        filename = args.filename
+        print("Enter filename: ")
+        filename = input()
         outfile = filename.replace(".csv","_IS.csv")
-        json_data,out = process_text(filename)
+        json_data,out = self.process_text(filename)
 
         for idx,row in out:
             url = row["url"]
@@ -175,4 +296,3 @@ class SeqClassificationPredictor(Predictor):
 
 
 
-  
