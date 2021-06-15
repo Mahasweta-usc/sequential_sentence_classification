@@ -4,7 +4,7 @@ from overrides import overrides
 from allennlp.common.util import JsonDict, sanitize
 from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
-
+import argparse
 import jsonlines
 import os, sys
 import random
@@ -23,71 +23,72 @@ from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
 MAX_LEN = int(os.environ["SENT_MAX_LEN"]); print(MAX_LEN)
+from text_process import process_text
 
-def process_(text):
-  text = text.replace("\r\n"," ").replace("\n"," ")
-  text = " ".join(re.sub('>',"",text).split())
-  return text
+# def process_(text):
+#   text = text.replace("\r\n"," ").replace("\n"," ")
+#   text = " ".join(re.sub('>',"",text).split())
+#   return text
 
-def sent_break(text):
-    doc = nlp(text)
-    lines = [line.text for line in doc.sentences]
-    return lines
+# def sent_break(text):
+#     doc = nlp(text)
+#     lines = [line.text for line in doc.sentences]
+#     return lines
 
-def prune():
-    global candidate
-    temp = []
-    for elem in candidate:
-        if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in candidate):
-            temp.append(elem)
+# def prune():
+#     global candidate
+#     temp = []
+#     for elem in candidate:
+#         if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in candidate):
+#             temp.append(elem)
 
-    for elem in temp: candidate.remove(elem)
+#     for elem in temp: candidate.remove(elem)
 
-def single_entries():
-  global candidate
-  for idx, elem in enumerate(candidate):
-    if len(elem) == 1:
-      if MAX_LEN > 2*len(tokenizer.tokenize(elem[0])):
-        candidate[idx].append(elem[0])
-      else:
-        str_len = int(len(elem[0])/2)
-        candidate[idx] = [elem[0][:str_len]]
-        candidate[idx].append(elem[0][str_len:])
+# def single_entries():
+#   global candidate
+#   for idx, elem in enumerate(candidate):
+#     if len(elem) == 1:
+#       if MAX_LEN > 2*len(tokenizer.tokenize(elem[0])):
+#         candidate[idx].append(elem[0])
+#       else:
+#         str_len = int(len(elem[0])/2)
+#         candidate[idx] = [elem[0][:str_len]]
+#         candidate[idx].append(elem[0][str_len:])
 
-def segmenter():
-  global candidate
-  global email_sent
-  sum_ = 0;
-  lim = int(0.9*MAX_LEN)
-  candidate.append([])
-  for idx, elem in enumerate(email_sent):
-    remain = lim - sum_
-    sum_ += len(tokenizer.encode(elem))
-    if sum_ > lim:
-      retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
-      carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
-      if not idx:
-        email_sent[idx] = carryover
-        email_sent.insert(idx,retain)
-        candidate[-1].append(retain) 
-        # return idx + 1
-      return idx
+# def segmenter():
+#   global candidate
+#   global email_sent
+#   sum_ = 0;
+#   lim = int(0.9*MAX_LEN)
+#   candidate.append([])
+#   for idx, elem in enumerate(email_sent):
+#     remain = lim - sum_
+#     sum_ += len(tokenizer.encode(elem))
+#     if sum_ > lim:
+#       retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
+#       carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
+#       if not idx:
+#         email_sent[idx] = carryover
+#         email_sent.insert(idx,retain)
+#         candidate[-1].append(retain) 
+#         # return idx + 1
+#       return idx
     
-    candidate[-1].append(elem)
+#     candidate[-1].append(elem)
 
 
-def email_to_json():
-    global json_data, candidate
-    for idx, row in enumerate(candidate):
-      entry = dict()
-      entry["sentences"] = row
-      entry["labels"] = ["0"]*len(row)
-      entry["abstract_id"] = 0
-      json_data.append(entry)
+# def email_to_json():
+#     global json_data, candidate
+#     for idx, row in enumerate(candidate):
+#       entry = dict()
+#       entry["sentences"] = row
+#       entry["labels"] = ["0"]*len(row)
+#       entry["abstract_id"] = 0
+#       json_data.append(entry)
 
 
 
-json_data, candidate, email_sent = [], [], []
+# json_data, candidate, email_sent = [], [], []
 
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
@@ -95,69 +96,36 @@ class SeqClassificationPredictor(Predictor):
     Predictor for the abstruct model
     """
     def predict_json(self, json_dict: JsonDict) -> JsonDict:
-        global json_data, candidate, email_sent
-        filename = os.environ["file_path"]
-        out_path = filename.replace('.csv','_IS.csv')
-        try:
-          f = pd.read_csv("/content/local.csv")
-        except:
-          f = pd.read_csv("/content/local.csv",lineterminator='\n')
+        parser = argparse.ArgumentParser(description='ArgumentParser')
+        parser = self.add_subparser("filename", parser)
+        args = parser.parse_args()
+        filename = args.filename
+        outfile = filename.replace(".csv","_IS.csv")
+        json_data,out = process_text(filename)
 
-        cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
-
-        try:
-            out = pd.read_csv(out_path)
-        except Exception as e:
-          out = pd.DataFrame(columns = cols)
-
-        row_count = 0
-        for i,chunk in f.iterrows():
-            row_count += 1
-            json_data, candidate = [], []
-            url = chunk["url"]
+        for idx,row in out:
+            url = row["url"]
+            sentences = json_data[url]["sentences"]
+            labels = json_data[url]["labels"]
             predictions = []
-            email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
-            email_sent = [sent_elem for sent_elem in sent_break(process_(email))]
-            chunk["last_reply"] = email
-            chunk['IS_count'] = ""
-            chunk['IS_'] = ""
 
-            while True:
-              pos = segmenter()
-              if len(email_sent) > 1: email_sent.pop(0)
-              else: break
+            for sentence, label in zip(sentences,labels):
+                instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
+                output = self._model.forward_on_instances([instances])
+                # print(output)
+                idx = output[0]['action_probs'].argmax(axis=1).tolist()
+                logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+                binary_labels = [int(item.split("_")[0]) for item in logits]
+                predictions += list(itertools.compress(sentence,binary_labels))
 
-            candidate = [cand for cand in candidate if cand]
-            prune()
-            single_entries()
-            email_to_json()
-
-            if len(candidate) > 500 or not len(candidate): continue
-
-            for elem in json_data:
-              instances = self._dataset_reader.text_to_instance(sentences=elem["sentences"],labels=elem["labels"])
-              output = self._model.forward_on_instances([instances])
-              # print(output)
-              idx = output[0]['action_probs'].argmax(axis=1).tolist()
-              labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-              binary_labels = [int(item.split("_")[0]) for item in labels]
-              predictions += list(itertools.compress(elem["sentences"],binary_labels))
-              # sys.stdout.write(" ".join(labels) + "\n")
-                
             pred_out = list(set(predictions))
-            chunk["IS_"] = "<Institutional>".join(pred_out)
-            chunk["IS_count"] = len(pred_out)
+            row["IS_"] = "<Institutional>".join(pred_out)
+            row["IS_count"] = len(pred_out)
 
-            if predictions:
-              out.loc[len(out.index)] = chunk 
-              out.drop_duplicates(subset=["url"],inplace=True)
-              out.to_csv(out_path,index=False)
-            
-            with open("/content/output.txt",'a+') as op:
-              op.write(str(out.shape[0])+"/"+str(f.shape[0])+"\n") 
+            if predictions: print(idx,predictions)
+            out.to_csv(outfile,index=False)
 
-            if row_count >= f.shape[0] - 1 : exit()
-
+        exit()
 
 
 
