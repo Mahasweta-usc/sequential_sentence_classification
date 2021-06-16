@@ -165,7 +165,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])];print(f.shape)
+		f = f[f["folder"].isin(["dev","user","users","announce"])][:1000];print(f.shape)
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		outtable = pd.DataFrame(columns = cols)
 		row_count = 0
@@ -188,8 +188,7 @@ class SeqClassificationPredictor(Predictor):
 		json_data,out = process_text(outtable)
 
 		print("Segmentation done. Starting predictions")
-		for idx, row in tqdm(out.iterrows()):
-			print(idx)
+		for indx, row in tqdm(out.iterrows()):
 			url = row["url"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
@@ -208,7 +207,7 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_"] = "<Institutional>".join(pred_out)
 			row["IS_count"] = len(pred_out)
 
-			if not idx%100: out.to_csv(outfile,index=False)
+			if not indx%100: out.to_csv(outfile,index=False)
 
 		exit()
 
