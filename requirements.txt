@@ -8,3 +8,4 @@ allennlp
 urllib3==1.25.10
 fuzzywuzzy
 imbalanced-learn
+tqdm
