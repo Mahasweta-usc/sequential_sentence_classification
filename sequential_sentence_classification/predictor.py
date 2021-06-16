@@ -21,7 +21,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import pandas as pd
 import stanza
 stanza.download('en')
-nlp = stanza.Pipeline(lang='en', processors='tokenize,pos',use_gpu=False)
+nlp = stanza.Pipeline(lang='en', processors='tokenize,pos',use_gpu=False ,pos_batch_size=1000)
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
@@ -165,7 +165,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])][:100];print(f.shape)
+		f = f[f["folder"].isin(["dev","user","users","announce"])];print(f.shape)
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		outtable = pd.DataFrame(columns = cols)
 		row_count = 0
@@ -176,12 +176,11 @@ class SeqClassificationPredictor(Predictor):
 
 		for i,chunk in tqdm(f.iterrows()):
 			email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
-			print(len(email))
-			try:
-			# torch.cuda.empty_cache()
-				chunk["last_reply"] = sent_break(process_(email)) if len(email) else sent_break(process_(chunk["message"]))
-			except:
-				chunk["last_reply"] = sent_tokenize(process_(email)) if len(email) else sent_tokenize(process_(chunk["message"]))
+			if not len(email): email = chunk["message"];print(len(email))
+			if len(email) < 3000:
+				chunk["last_reply"] = sent_break(process_(email)) 
+			else:
+				chunk["last_reply"] = sent_tokenize(process_(email)) 
 			chunk['IS_count'] = 0
 			chunk['IS_'] = ""
 			outtable.loc[len(outtable.index)] = chunk
@@ -195,7 +194,6 @@ class SeqClassificationPredictor(Predictor):
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
 			predictions = []
-			torch.cuda.empty_cache()
 
 			for sentence, label in zip(sentences,labels):
 				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
@@ -210,8 +208,7 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_"] = "<Institutional>".join(pred_out)
 			row["IS_count"] = len(pred_out)
 
-			# if predictions: print(pred_out)
-			out.to_csv(outfile,index=False)
+			if not idx%100: out.to_csv(outfile,index=False)
 
 		exit()
 
