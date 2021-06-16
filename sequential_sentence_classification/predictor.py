@@ -21,7 +21,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import pandas as pd
 import stanza
 stanza.download('en')
-nlp = stanza.Pipeline(lang='en', processors='tokenize,pos',use_gpu=False ,pos_batch_size=1000)
+nlp = stanza.Pipeline(lang='en', processors='tokenize,pos',use_gpu=False ,pos_batch_size=100)
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
