@@ -118,10 +118,7 @@ def email_to_json(url):
 
 def segment_text(chunk,url,current):
 	global candidate, email_sent
-	if len(email) < 3000:
-		email_sent[url]= sent_break(process_(chunk["last_reply"])) 
-	else:
-		email_sent[url] = sent_tokenize(process_(chunk["last_reply"])) 
+	email_sent[url] = chunk["last_reply"]
 	candidate[url] = []
 
 	while True:
@@ -180,7 +177,10 @@ class SeqClassificationPredictor(Predictor):
 		for i,chunk in tqdm(f.iterrows()):
 			email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
 			if not len(email): email = chunk["message"];print(len(email))
-			chunk['last_reply'] = email
+			if len(email) < 3000:
+				chunk["last_reply"] = sent_break(process_(email)) 
+			else:
+				chunk["last_reply"] = sent_tokenize(process_(email)) 
 			chunk['IS_count'] = 0
 			chunk['IS_'] = ""
 			outtable.loc[len(outtable.index)] = chunk
