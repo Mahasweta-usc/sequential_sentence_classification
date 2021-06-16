@@ -208,7 +208,7 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_count"] = len(pred_out)
 
 			if not indx%100: out.to_csv(outfile,index=False)
-    out.to_csv(outfile,index=False)
+			out.to_csv(outfile,index=False)
 		exit()
 
 
