@@ -134,7 +134,7 @@ def segment_text(chunk,url):
 def process_text( filename):
 	n_cpu = multiprocessing.cpu_count() - 1
 	f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-	f = f[f.folder.isin(["dev","user","users","announce"])][:100]
+	f = f[f.folder.isin(["dev","user","users","announce"])]
 	cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 	outtable = pd.DataFrame(columns = cols)
 	row_count = 0
