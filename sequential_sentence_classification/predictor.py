@@ -7,6 +7,7 @@ from allennlp.predictors.predictor import Predictor
 import argparse
 import jsonlines
 import os, sys
+os.environ["CUDA_VISIBLE_DEVICES"]=""
 import random
 import json
 import numpy as np
@@ -164,7 +165,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f.folder.isin(["dev","user","users","announce"])]
+		f = f[f["folder"].isin(["dev","user","users","announce"])][:100];print(f.shape)
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		outtable = pd.DataFrame(columns = cols)
 		row_count = 0
