@@ -100,8 +100,6 @@ class SeqClassificationPredictor(Predictor):
     """
     Predictor for the abstruct model
     """
-    self.candidate = {}
-    self.email_sent = {}
 
     def process_(self,text):
       text = text.replace("\r\n"," ").replace("\n"," ")
@@ -192,15 +190,15 @@ class SeqClassificationPredictor(Predictor):
       self.email_to_json();print(len(self.candidate[url]))
       return json_data
 
-    def process_text(filename):
+    def process_text(self, filename):
       n_cpu = multiprocessing.cpu_count() - 1
-      f = pd.read_csv(filename,lineterminator='\n')
+      f = pd.read_csv(filename,lineterminator='\n');f.drop_na(inplace=True)
+      f = f[f.folder.isin["dev","user","users","announce"]]
       cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
       outtable = pd.DataFrame(columns = cols)
       row_count = 0
 
       for i,chunk in f.iterrows():
-        print(chunk)
         email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
         chunk["last_reply"] = email
         chunk['IS_count'] = 0
@@ -223,7 +221,8 @@ class SeqClassificationPredictor(Predictor):
         filename = input()
         outfile = filename.replace(".csv","_IS.csv")
         json_data,out = self.process_text(filename)
-
+        self.candidate = {}
+        self.email_sent = {}
         for idx,row in out:
             url = row["url"]
             sentences = json_data[url]["sentences"]
