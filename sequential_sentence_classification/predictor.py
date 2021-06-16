@@ -165,7 +165,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])][:1000];print(f.shape)
+		f = f[f["folder"].isin(["dev","user","users","announce"])];print(f.shape)
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		outtable = pd.DataFrame(columns = cols)
 		row_count = 0
@@ -208,7 +208,7 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_count"] = len(pred_out)
 
 			if not indx%100: out.to_csv(outfile,index=False)
-
+    out.to_csv(outfile,index=False)
 		exit()
 
 
