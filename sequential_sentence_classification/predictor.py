@@ -21,7 +21,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import pandas as pd
 import stanza
 stanza.download('en')
-nlp = stanza.Pipeline(lang='en', processors='tokenize,pos',use_gpu=False ,pos_batch_size=100)
+nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=False)
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
@@ -51,19 +51,8 @@ def process_(text):
 
 def sent_break(text):
 	doc = nlp(text)
-	sentences = [line.text for line in doc.sentences]
-	lines = [line for line in doc.sentences]
-	verbs = []
-	prev = 0
-	for idx, line in enumerate(lines):
-		tags = [word.upos for word in line.words if word.upos in ['AUX','VERB']]
-		if tags:
-			if idx - prev <= 1: verbs.append(" ".join(sentences[prev:idx+1]))
-			else:
-				for elem in sentences[prev:idx+1]: verbs.append(elem)
-			prev = idx + 1
-	for elem in sentences[prev:]: verbs.append(elem)
-	return verbs
+	lines = [line.text for line in doc.sentences]
+	return lines
 
 
 def prune(url):
@@ -165,30 +154,30 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])][:1000]
+		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
-		# f["last_reply"] = f["message"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
-		# f["IS_count"] = [0]*f.shape[0]
-		# f["IS_"] = [""]*f.shape[0]
+		f["last_reply"] = f["message"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		f["IS_count"] = [0]*f.shape[0]
+		f["IS_"] = [""]*f.shape[0]
 
-		for i,chunk in tqdm(f.iterrows()):
-			email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
-			if not len(email): email = chunk["message"];print(len(email))
-			if len(email) < 3000:
-				chunk["last_reply"] = sent_break(process_(email)) 
-			else:
-				chunk["last_reply"] = sent_tokenize(process_(email)) 
-			chunk['IS_count'] = 0
-			chunk['IS_'] = ""
-			out.loc[len(out.index)] = chunk
+		# for i,chunk in tqdm(f.iterrows()):
+		# 	email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
+		# 	if not len(email): email = chunk["message"];print(len(email))
+		# 	if len(email) < 3000:
+		# 		chunk["last_reply"] = sent_break(process_(email)) 
+		# 	else:
+		# 		chunk["last_reply"] = sent_tokenize(process_(email)) 
+		# 	chunk['IS_count'] = 0
+		# 	chunk['IS_'] = ""
+		# 	out.loc[len(out.index)] = chunk
 
-		json_data = process_text(out)
+		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
-		for indx, row in tqdm(out.iterrows()):
+		for indx, row in tqdm(f.iterrows()):
 			url = row["url"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
@@ -207,8 +196,8 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_"] = "<Institutional>".join(pred_out)
 			row["IS_count"] = len(pred_out)
 
-			if not indx%100: out.to_csv(outfile,index=False);print(out[out["IS_count"] > 0].shape[0])
-		out.to_csv(outfile,index=False)
+			if not indx%100: f.to_csv(outfile,index=False);print(f[f["IS_count"] > 0].shape[0])
+		f.to_csv(outfile,index=False)
 		exit()
 
 
