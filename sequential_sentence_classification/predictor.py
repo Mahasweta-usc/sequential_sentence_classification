@@ -151,7 +151,7 @@ def process_text( f):
 	for r in results: out.update(r.get()) #print(r.get()); 
 	# print(outtable.shape[0],len(list(out.keys())))
 	# outtable["last_reply"] = outtable["last_reply"].apply(tuple)
-	return out, f
+	return out
  
 
 @Predictor.register('SeqClassificationPredictor')
@@ -165,9 +165,9 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])];print(f.shape)
+		f = f[f["folder"].isin(["dev","user","users","announce"])][:1000]
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
-		outtable = pd.DataFrame(columns = cols)
+		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
 		# f["last_reply"] = f["message"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
@@ -183,10 +183,10 @@ class SeqClassificationPredictor(Predictor):
 				chunk["last_reply"] = sent_tokenize(process_(email)) 
 			chunk['IS_count'] = 0
 			chunk['IS_'] = ""
-			outtable.loc[len(outtable.index)] = chunk
+			out.loc[len(out.index)] = chunk
 
-		json_data,out = process_text(outtable)
-
+		json_data = process_text(out)
+		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
 		for indx, row in tqdm(out.iterrows()):
 			url = row["url"]
@@ -207,8 +207,8 @@ class SeqClassificationPredictor(Predictor):
 			row["IS_"] = "<Institutional>".join(pred_out)
 			row["IS_count"] = len(pred_out)
 
-			if not indx%100: out.to_csv(outfile,index=False)
-			out.to_csv(outfile,index=False)
+			if not indx%100: out.to_csv(outfile,index=False);print(out[out["IS_count"] > 0].shape[0])
+		out.to_csv(outfile,index=False)
 		exit()
 
 
