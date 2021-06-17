@@ -126,7 +126,7 @@ def segment_text(chunk,url,current):
 
 
 def process_text( f):
-	n_cpu = multiprocessing.cpu_count() - 1
+	n_cpu = 3
 
 	pool = Pool(n_cpu)
 	results = []
@@ -193,8 +193,8 @@ class SeqClassificationPredictor(Predictor):
 				predictions += list(itertools.compress(sentence,binary_labels))
 
 			pred_out = list(set(predictions))
-			row["IS_"] = "<Institutional>".join(pred_out)
-			row["IS_count"] = len(pred_out)
+			f.at[indx,"IS_"] = "<Institutional>".join(pred_out)
+			f.at[indx,"IS_count"] = len(pred_out)
 
 			if not indx%100: f.to_csv(outfile,index=False);print(f[f["IS_count"] > 0].shape[0])
 		f.to_csv(outfile,index=False)
