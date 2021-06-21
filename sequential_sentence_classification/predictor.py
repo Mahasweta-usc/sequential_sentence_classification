@@ -132,7 +132,7 @@ def process_text( f):
 	results = []
 	print("Segmenting emails")
 	for i ,row in f.iterrows():
-		results.append(pool.apply_async(segment_text, args=(row,row["url"],i)))
+		results.append(pool.apply_async(segment_text, args=(row,row["message_id"],i)))
 
 	pool.close()
 	pool.join()
@@ -159,7 +159,7 @@ class SeqClassificationPredictor(Predictor):
 		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
-		f["last_reply"] = f["message"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		f["last_reply"] = f["content"].apply(lambda x: [ y for y in sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))) if len(y) > 1])
 		f["IS_count"] = [0]*f.shape[0]
 		f["IS_"] = [""]*f.shape[0]
 
@@ -178,7 +178,7 @@ class SeqClassificationPredictor(Predictor):
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
 		for indx, row in tqdm(f.iterrows()):
-			url = row["url"]
+			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
 			predictions = []
