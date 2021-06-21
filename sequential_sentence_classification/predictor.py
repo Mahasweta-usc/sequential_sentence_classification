@@ -153,7 +153,7 @@ class SeqClassificationPredictor(Predictor):
 		filename = input()
 		outfile = filename.replace(".csv","_IS.csv")
 
-		f = pd.read_csv(filename,lineterminator='\n');f.dropna(inplace=True)
+		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		out = pd.DataFrame(columns = cols)
