@@ -109,15 +109,14 @@ def segment_text(chunk,url,current):
 	global candidate, email_sent
 	email_sent[url] = chunk["last_reply"]
 	candidate[url] = []
-
-    while True:
-      pos = segmenter();
-      try:
-        win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
-        if win:
-          for _ in range(win): email_sent.pop(0)
-        else: raise Exception("Segmentation ended")
-      except: break
+	while True:
+		pos = segmenter();
+		try:
+			win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
+			if win:
+				for _ in range(win): email_sent.pop(0)
+			else: raise Exception("Segmentation ended")
+		except: break
 
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
