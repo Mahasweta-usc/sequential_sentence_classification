@@ -110,7 +110,7 @@ def segment_text(chunk,url,current):
 	email_sent[url] = chunk["last_reply"]
 	candidate[url] = []
 	while True:
-		pos = segmenter();
+		pos = segmenter(url);
 		try:
 			win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
 			if win:
