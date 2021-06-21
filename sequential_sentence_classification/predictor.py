@@ -51,7 +51,7 @@ def process_(text):
 
 def sent_break(text):
 	doc = nlp(text)
-	lines = [line.text for line in doc.sentences]
+	lines = [line.text for line in doc.sentences if len(line.text) > 1 ]
 	return lines
 
 
@@ -110,10 +110,14 @@ def segment_text(chunk,url,current):
 	email_sent[url] = chunk["last_reply"]
 	candidate[url] = []
 
-	while True:
-		pos = segmenter(url)
-		if len(email_sent[url]) > 1: email_sent[url].pop(0)
-		else: break
+    while True:
+      pos = segmenter();
+      try:
+        win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
+        if win:
+          for _ in range(win): email_sent.pop(0)
+        else: raise Exception("Segmentation ended")
+      except: break
 
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
@@ -159,7 +163,7 @@ class SeqClassificationPredictor(Predictor):
 		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
-		f["last_reply"] = f["content"].apply(lambda x: [ y for y in sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))) if len(y) > 1])
+		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
 		f["IS_count"] = [0]*f.shape[0]
 		f["IS_"] = [""]*f.shape[0]
 
