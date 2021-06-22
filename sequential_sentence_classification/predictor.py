@@ -46,7 +46,7 @@ email_sent = dict()
 
 def process_(text):
   text = text.replace("\r\n"," ").replace("\n"," ")
-  text = " ".join(re.sub('>',"",text).split())
+  text = " ".join(re.sub('>',"",text, flags=re.IGNORECASE).split())
   return text
 
 def sent_break(text):
