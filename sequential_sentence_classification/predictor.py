@@ -119,7 +119,7 @@ def segment_text(chunk,url,current):
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
 	single_entries(url)
-	if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:10]
+	if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
 	# print(len(candidate[url]))
 	json_results = email_to_json(url)
 	if not current%100: print("{} emails segmented".format(current))
@@ -156,6 +156,7 @@ class SeqClassificationPredictor(Predictor):
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
+		print("No of entires: ",f.shape[0])
 		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
 		out = pd.DataFrame(columns = cols)
 		row_count = 0
