@@ -114,7 +114,7 @@ def segment_text(chunk,url,current):
 		try:
 			win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
 			if win:
-				for _ in range(win): email_sent.pop(0)
+				for _ in range(win): email_sent["url"].pop(0)
 			else: raise Exception("Segmentation ended")
 		except: break
 
