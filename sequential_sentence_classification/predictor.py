@@ -113,7 +113,7 @@ def segment_text(chunk,url,current):
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win > 0 and len(candidate[url]) < 25:
+		if win > 0 and len(candidate[url]) < 100:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
