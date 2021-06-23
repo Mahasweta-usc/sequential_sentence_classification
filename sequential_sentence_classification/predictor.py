@@ -107,21 +107,19 @@ def email_to_json(url):
 
 def segment_text(chunk,url,current):
 	global candidate, email_sent
-	email_sent[url] = chunk["last_reply"]
+	email_sent[url] = chunk["last_reply"] if chunk["last_reply"] else sent_break(chunk["content"])
 	candidate[url] = []
 	while True:
 		pos = segmenter(url);
-		try:
-			win = min(len(candidate[-1]),int(len(candidate[-1])/2) + 1)
-			if win:
-				for _ in range(win): email_sent[url].pop(0)
-			else: raise Exception("Segmentation ended")
-		except: break
+		win = min(len(candidate[url][-1]),int(len(candidate[url][-1])/2) + 1)
+		if win:
+			for _ in range(win): email_sent[url].pop(0)
+		else: break
 
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
 	single_entries(url)
-	if len(candidate[url]) > 500 or not len(candidate[url]): candidate[url] = []
+	if len(candidate[url]) > 100 or not len(candidate[url]): candidate[url] = candidate[url][:10]
 	# print(len(candidate[url]))
 	json_results = email_to_json(url)
 	if not current%100: print("{} emails segmented".format(current))
@@ -153,7 +151,7 @@ class SeqClassificationPredictor(Predictor):
 	""" 
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
-		filename = input()
+		filename = os.environ["FILE_PREDS"];print(filename)
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
