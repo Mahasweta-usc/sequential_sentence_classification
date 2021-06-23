@@ -21,7 +21,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import pandas as pd
 import stanza
 stanza.download('en')
-nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=False)
+nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=False,tokenize_batch_size=4)
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
@@ -119,7 +119,7 @@ def segment_text(chunk,url,current):
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
 	single_entries(url)
-	if len(candidate[url]) > 100 or not len(candidate[url]): candidate[url] = candidate[url][:10]
+	if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:10]
 	# print(len(candidate[url]))
 	json_results = email_to_json(url)
 	if not current%100: print("{} emails segmented".format(current))
