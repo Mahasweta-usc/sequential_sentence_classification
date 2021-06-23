@@ -179,7 +179,7 @@ class SeqClassificationPredictor(Predictor):
 
 			for sentence, label in zip(sentences,labels):
 				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
-				output = self._model.forward_on_instances([instances])
+				output = self._model.cuda().forward_on_instances([instances])
 				# print(output)
 				idx = output[0]['action_probs'].argmax(axis=1).tolist()
 				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
