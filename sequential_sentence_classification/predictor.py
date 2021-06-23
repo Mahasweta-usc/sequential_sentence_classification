@@ -113,7 +113,7 @@ def segment_text(chunk,url,current):
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win > 0 and len(candidate[url]) < 100:
+		if win > 0 and len(candidate[url]) < 25:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
@@ -153,6 +153,7 @@ class SeqClassificationPredictor(Predictor):
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
+		#outfile = filename ##for only segmentation and prediction
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
@@ -162,20 +163,10 @@ class SeqClassificationPredictor(Predictor):
 		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
+		#comment for only segmentation and prediction
 		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
 		f["IS_count"] = [0]*f.shape[0]
 		f["IS_"] = [""]*f.shape[0]
-
-		# for i,chunk in tqdm(f.iterrows()):
-		# 	email = EmailReplyParser.parse_reply(chunk["message"].replace('.>','\n>'))
-		# 	if not len(email): email = chunk["message"];print(len(email))
-		# 	if len(email) < 3000:
-		# 		chunk["last_reply"] = sent_break(process_(email)) 
-		# 	else:
-		# 		chunk["last_reply"] = sent_tokenize(process_(email)) 
-		# 	chunk['IS_count'] = 0
-		# 	chunk['IS_'] = ""
-		# 	out.loc[len(out.index)] = chunk
 
 		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
