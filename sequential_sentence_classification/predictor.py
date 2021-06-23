@@ -7,7 +7,8 @@ from allennlp.predictors.predictor import Predictor
 import argparse
 import jsonlines
 import os, sys
-os.environ["CUDA_VISIBLE_DEVICES"]=""
+# os.environ["CUDA_VISIBLE_DEVICES"]=""
+os.environ["cuda_device"]="0"
 import random
 import json
 import numpy as np
@@ -21,7 +22,7 @@ from nltk.tokenize import sent_tokenize,word_tokenize
 import pandas as pd
 import stanza
 stanza.download('en')
-nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=False,tokenize_batch_size=4)
+nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=True,tokenize_batch_size=4)
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
