@@ -107,27 +107,27 @@ def email_to_json(url):
 
 def segment_text(chunk,url,current):
 	global candidate, email_sent
-	email_sent[url] = chunk["last_reply"] if chunk["last_reply"] else sent_break(chunk["content"])
+	email_sent[url] = chunk["last_reply"]
 	candidate[url] = []
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win:
+		if win > 0 and len(candidate[url]) < 25:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
 	candidate[url] = [cand for cand in candidate[url] if cand]
 	prune(url)
 	single_entries(url)
-	if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
-	# print(len(candidate[url]))
+	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
+	print(len(candidate[url]))
 	json_results = email_to_json(url)
 	if not current%100: print("{} emails segmented".format(current))
 	return json_results
 
 
 def process_text( f):
-	n_cpu = 3
+	n_cpu = multiprocessing.cpu_count() - 1
 
 	pool = Pool(n_cpu)
 	results = []
