@@ -7,7 +7,7 @@ from allennlp.predictors.predictor import Predictor
 import argparse
 import jsonlines
 import os, sys
-# os.environ["CUDA_VISIBLE_DEVICES"]=""
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
 os.environ["cuda_device"]="0"
 import random
 import json
@@ -113,7 +113,7 @@ def segment_text(chunk,url,current):
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win > 0 and len(candidate[url]) < 25:
+		if win > 0:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
@@ -164,7 +164,7 @@ class SeqClassificationPredictor(Predictor):
 		row_count = 0
 		print("Reading file")
 		#comment for only segmentation and prediction
-		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))[:25]
 		f["IS_count"] = [0]*f.shape[0]
 		f["IS_"] = [""]*f.shape[0]
 
