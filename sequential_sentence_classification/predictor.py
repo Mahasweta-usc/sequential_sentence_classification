@@ -164,7 +164,7 @@ class SeqClassificationPredictor(Predictor):
 		row_count = 0
 		print("Reading file")
 		#comment for only segmentation and prediction
-		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>'))))[:25])
+		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>'))))[:50])
 		f["IS_count"] = [0]*f.shape[0]
 		f["IS_"] = [""]*f.shape[0]
 
