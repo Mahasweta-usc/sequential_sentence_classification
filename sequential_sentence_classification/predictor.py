@@ -224,7 +224,7 @@ class SeqClassificationPredictor(Predictor):
 #           labels = [["1"]*len(sent) for sent in sentences]
 #         print(sentences,labels)
 #         instance = self._dataset_reader.text_to_instance(sentences=sentences,labels=labels)
-#         output = self._model.forward_on_instances([instance])
+#         output = self._model.cuda().forward_on_instances([instance])
 #         # print(output)
 #         idx = output[0]['action_probs'].argmax(axis=1).tolist()
 #         # print(idx)
@@ -239,5 +239,3 @@ class SeqClassificationPredictor(Predictor):
 #           json_dict["predictions"] = pred_labels
 #           writer.write(json_dict)
 #         return paper_id, preds
-
-
