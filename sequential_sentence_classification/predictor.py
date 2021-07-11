@@ -1,6 +1,6 @@
 from typing import List
 from overrides import overrides
-
+from ast import literal_eval
 from allennlp.common.util import JsonDict, sanitize
 from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
@@ -121,9 +121,9 @@ def segment_text(chunk,url,current):
 	prune(url)
 	single_entries(url)
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
-	print(len(candidate[url]))
+	print(current, len(candidate[url]))
 	json_results = email_to_json(url)
-	if not current%100: print("{} emails segmented".format(current))
+	# if not current%100: print("{} emails segmented".format(current))
 	return json_results
 
 
@@ -144,7 +144,6 @@ def process_text( f):
 	# outtable["last_reply"] = outtable["last_reply"].apply(tuple)
 	return out
  
-
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
 	"""
@@ -156,17 +155,16 @@ class SeqClassificationPredictor(Predictor):
 		#outfile = filename ##for only segmentation and prediction
 		outfile = filename.replace(".csv","_IS.csv")
 
-		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
+		f = pd.read_csv(filename,lineterminator='\n')[:100];f.dropna(subset=["content","message_id"],inplace=True)
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
-		cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
-		out = pd.DataFrame(columns = cols)
 		row_count = 0
 		print("Reading file")
+		f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
-		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>'))))[:50])
-		f["IS_count"] = [0]*f.shape[0]
-		f["IS_"] = [""]*f.shape[0]
+		# f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		# f["IS_count"] = [0]*f.shape[0]
+		# f["IS_"] = [""]*f.shape[0]
 
 		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
@@ -175,23 +173,24 @@ class SeqClassificationPredictor(Predictor):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
-			predictions = []
+			predictions = []#;print(url)
 
 			for sentence, label in zip(sentences,labels):
 				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
 				output = self._model.cuda().forward_on_instances([instances])
-				# print(output)
+				# print(sentence)
 				idx = output[0]['action_probs'].argmax(axis=1).tolist()
 				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-				embeddings = output[0]['embeddings'];print(embeddings.size())
+				# embeddings = output[0]['embeddings']#;print(embeddings)
 				binary_labels = [int(item.split("_")[0]) for item in logits]
-				predictions += list(itertools.compress(sentence,binary_labels))
+				predictions += list(itertools.compress(sentence,binary_labels)) #;print(sum(binary_labels))
 
-			pred_out = list(set(predictions))
-			f.at[indx,"IS_"] = "<Institutional>".join(pred_out)
-			f.at[indx,"IS_count"] = len(pred_out)
-
-			if not indx%100: f.to_csv(outfile,index=False);print(f[f["IS_count"] > 0].shape[0])
+			pred_out = list(set(predictions));print(indx,len(set(predictions).intersection(set(row["IS_"].split("<Institutional>")))))
+			print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
+			# f.at[indx,"IS_"] = "<Institutional>".join(pred_out)
+			# f.at[indx,"IS_count"] = len(pred_out)
+			if not indx%100: f.to_csv(outfile,index=False);print(indx,f[f["IS_count"] > 0].shape[0])
+			
 		f.to_csv(outfile,index=False)
 		exit()
 
