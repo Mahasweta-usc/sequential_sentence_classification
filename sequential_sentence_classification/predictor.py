@@ -183,6 +183,7 @@ class SeqClassificationPredictor(Predictor):
 				# print(output)
 				idx = output[0]['action_probs'].argmax(axis=1).tolist()
 				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+				embeddings = output[0]['embeddings'];print(embeddings.size())
 				binary_labels = [int(item.split("_")[0]) for item in logits]
 				predictions += list(itertools.compress(sentence,binary_labels))
 
