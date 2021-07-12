@@ -155,7 +155,7 @@ class SeqClassificationPredictor(Predictor):
 		#outfile = filename ##for only segmentation and prediction
 		outfile = filename.replace(".csv","_IS.csv")
 
-		f = pd.read_csv(filename,lineterminator='\n')[:100];f.dropna(subset=["content","message_id"],inplace=True)
+		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
@@ -181,18 +181,19 @@ class SeqClassificationPredictor(Predictor):
 				# print(sentence)
 				idx = output[0]['action_probs'].argmax(axis=1).tolist()
 				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-				embeddings += output[0]['embeddings'].tolist();print(type(embeddings))
 				binary_labels = [int(item.split("_")[0]) for item in logits]
-				predictions += list(itertools.compress(sentence,binary_labels)) #;print(sum(binary_labels))
+				embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
+				predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 
-			final_embed = []
-			org_preds = set(row["IS_"].split("<Institutional>"))
+			final_embed = [];print(len(embeddings),len(predictions))
+			assert len(embeddings) == len(predictions)
+			org_preds = row["IS_"].split("<Institutional>")
 
-			for index,pred in predictions:
+			for index,pred in enumerate(predictions):
 				if pred in org_preds: 
 					final_embed.append(embeddings[index])
 					org_preds.remove(pred)
-			assert len(final_embed) == len(org_preds)
+			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			f.at[indx,"embeddings"] = np.array(final_embed)
 			# f.at[indx,"IS_count"] = len(pred_out)
