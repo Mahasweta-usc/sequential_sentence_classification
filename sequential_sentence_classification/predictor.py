@@ -29,6 +29,7 @@ MAX_LEN = 256
 from tqdm import tqdm
 import multiprocessing
 import torch
+from ast import literal_eval
 from multiprocessing import Pool, Manager #, set_start_method
 # try:
 # 	set_start_method('spawn', force=True)
