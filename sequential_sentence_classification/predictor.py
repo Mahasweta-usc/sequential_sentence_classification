@@ -199,7 +199,7 @@ class SeqClassificationPredictor(Predictor):
 			if len(org_preds): print(len(org_preds))
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
-			f.at[indx,"embeddings"] = np.array(final_embed)
+			f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
 			if not indx%100: f.to_csv(outfile,index=False);print(indx,f[f["IS_count"] > 0].shape[0])
 			
