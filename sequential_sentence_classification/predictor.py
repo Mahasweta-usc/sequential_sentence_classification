@@ -186,7 +186,7 @@ class SeqClassificationPredictor(Predictor):
 				embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
 				predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 
-			final_embed = [];print(len(embeddings),len(predictions))
+			final_embed = []
 			assert len(embeddings) == len(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 
