@@ -157,7 +157,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.csv")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[f["folder"].isin(["dev","user","users","announce"])]
+		f = f[f["folder"].isin(["dev","user","users","announce"])][:100]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
 		print("Reading file")
@@ -189,11 +189,13 @@ class SeqClassificationPredictor(Predictor):
 			final_embed = []
 			assert len(embeddings) == len(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
+			pred_out = list(set(predictions))
 
-			for index,pred in enumerate(predictions):
+			for index,pred in enumerate(pred_out):
 				if pred in org_preds: 
 					final_embed.append(embeddings[index])
 					org_preds.remove(pred)
+
 			if len(org_preds): print(len(org_preds))
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
