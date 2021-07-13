@@ -1,0 +1,11 @@
+jsonlines
+-e git://github.com/ibeltagy/allennlp@fp16_and_others#egg=allennlp
+stanza
+transformers
+email_reply_parser
+overrides==4.1.2
+allennlp
+urllib3==1.25.10
+fuzzywuzzy
+imbalanced-learn
+tqdm
