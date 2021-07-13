@@ -193,6 +193,7 @@ class SeqClassificationPredictor(Predictor):
 				if pred in org_preds: 
 					final_embed.append(embeddings[index])
 					org_preds.remove(pred)
+			if len(org_preds): print(len(org_preds))
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			f.at[indx,"embeddings"] = np.array(final_embed)
