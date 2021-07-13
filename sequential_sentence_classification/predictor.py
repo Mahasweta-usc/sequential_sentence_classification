@@ -1,14 +1,13 @@
 from typing import List
 from overrides import overrides
-from ast import literal_eval
 from allennlp.common.util import JsonDict, sanitize
 from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
 import argparse
 import jsonlines
 import os, sys
-os.environ["CUDA_VISIBLE_DEVICES"]="0"
-os.environ["cuda_device"]="0"
+os.environ["CUDA_VISIBLE_DEVICES"]= '0'
+os.environ["cuda_device"]= '0'
 import random
 import json
 import numpy as np
@@ -113,7 +112,7 @@ def segment_text(chunk,url,current):
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win > 0:
+		if win > 0 and len(candidate[url]) < 25:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
@@ -121,28 +120,29 @@ def segment_text(chunk,url,current):
 	prune(url)
 	single_entries(url)
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
-	print(current, len(candidate[url]))
+	# print(len(candidate[url]))
 	json_results = email_to_json(url)
-	# if not current%100: print("{} emails segmented".format(current))
+	if not current%100: print("{} emails segmented".format(current))
 	return json_results
 
 
-def process_text( f):
-	n_cpu = multiprocessing.cpu_count() - 1
+def process_text(f):
+	n_cpu = 2 # multiprocessing.cpu_count() //2 #1 # multiprocessing.cpu_count() //2
 
 	pool = Pool(n_cpu)
 	results = []
 	print("Segmenting emails")
 	for i ,row in f.iterrows():
+		# results.append(segment_text(row, row["message_id"], i))
 		results.append(pool.apply_async(segment_text, args=(row,row["message_id"],i)))
 
 	pool.close()
 	pool.join()
 	out = dict()
-	for r in results: out.update(r.get()) #print(r.get()); 
-	# print(outtable.shape[0],len(list(out.keys())))
-	# outtable["last_reply"] = outtable["last_reply"].apply(tuple)
+	for r in results:
+		out.update(r.get())
 	return out
+ 
  
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
