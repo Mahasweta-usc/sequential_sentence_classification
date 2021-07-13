@@ -1,13 +1,14 @@
 from typing import List
 from overrides import overrides
+from ast import literal_eval
 from allennlp.common.util import JsonDict, sanitize
 from allennlp.data import Instance
 from allennlp.predictors.predictor import Predictor
 import argparse
 import jsonlines
 import os, sys
-os.environ["CUDA_VISIBLE_DEVICES"]= '0'
-os.environ["cuda_device"]= '0'
+os.environ["CUDA_VISIBLE_DEVICES"]="0"
+os.environ["cuda_device"]="0"
 import random
 import json
 import numpy as np
@@ -112,7 +113,7 @@ def segment_text(chunk,url,current):
 	while True:
 		pos = segmenter(url)
 		win = min(len(email_sent[url]),int(len(candidate[url][-1])/2) + 1)
-		if win > 0 and len(candidate[url]) < 25:
+		if win > 0:
 			for _ in range(win): email_sent[url].pop(0)
 		else: break
 
@@ -120,95 +121,86 @@ def segment_text(chunk,url,current):
 	prune(url)
 	single_entries(url)
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
-	# print(len(candidate[url]))
+	print(current, len(candidate[url]))
 	json_results = email_to_json(url)
-	if not current%100: print("{} emails segmented".format(current))
+	# if not current%100: print("{} emails segmented".format(current))
 	return json_results
 
 
-def process_text(f):
-	n_cpu = 2 # multiprocessing.cpu_count() //2 #1 # multiprocessing.cpu_count() //2
+def process_text( f):
+	n_cpu = multiprocessing.cpu_count() - 1
 
 	pool = Pool(n_cpu)
 	results = []
 	print("Segmenting emails")
 	for i ,row in f.iterrows():
-		# results.append(segment_text(row, row["message_id"], i))
 		results.append(pool.apply_async(segment_text, args=(row,row["message_id"],i)))
 
 	pool.close()
 	pool.join()
 	out = dict()
-	for r in results:
-		out.update(r.get())
+	for r in results: out.update(r.get()) #print(r.get()); 
+	# print(outtable.shape[0],len(list(out.keys())))
+	# outtable["last_reply"] = outtable["last_reply"].apply(tuple)
 	return out
  
-
 @Predictor.register('SeqClassificationPredictor')
 class SeqClassificationPredictor(Predictor):
 	"""
 	Predictor for the abstruct model
 	""" 
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
+		print("Enter full file path: ")
+		filename = os.environ["FILE_PREDS"];print(filename)
+		#outfile = filename ##for only segmentation and prediction
+		outfile = filename.replace(".csv","_IS.csv")
 
-		chunk = 4
-		folder_path = '../emails_part{}/'.format(chunk)
-		emails = os.listdir(folder_path)
-		emails.sort()
+		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
+		f = f[f["folder"].isin(["dev","user","users","announce"])]
+		print("No of entires: ",f.shape[0])
+		row_count = 0
+		print("Reading file")
+		f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
+		#comment for only segmentation and prediction
+		# f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		# f["IS_count"] = [0]*f.shape[0]
+		f["embeddings"] = [""]*f.shape[0]
 
-		to_path = '../IS_messages/'
-		if not os.path.exists(to_path):
-			os.mkdir(to_path)
+		json_data = process_text(f)
+		print("Emails processed: ", len(list(json_data.keys())))
+		print("Segmentation done. Starting predictions")
+		for indx, row in tqdm(f.iterrows()):
+			url = row["message_id"]
+			sentences = json_data[url]["sentences"]
+			labels = json_data[url]["labels"]
+			predictions = []#;print(url)
+			embeddings = []
+			for sentence, label in zip(sentences,labels):
+				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
+				output = self._model.cuda().forward_on_instances([instances])
+				# print(sentence)
+				idx = output[0]['action_probs'].argmax(axis=1).tolist()
+				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+				binary_labels = [int(item.split("_")[0]) for item in logits]
+				embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
+				predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 
-		for index, email_csv in enumerate(emails):
+			final_embed = [];print(len(embeddings),len(predictions))
+			assert len(embeddings) == len(predictions)
+			org_preds = row["IS_"].split("<Institutional>")
 
-			print('processing the {}th file.'.format(index+1))
+			for index,pred in enumerate(predictions):
+				if pred in org_preds: 
+					final_embed.append(embeddings[index])
+					org_preds.remove(pred)
+			if len(org_preds): print(len(org_preds))
+			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
+			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
+			f.at[indx,"embeddings"] = np.array(final_embed)
+			# f.at[indx,"IS_count"] = len(pred_out)
+			if not indx%100: f.to_csv(outfile,index=False);print(indx,f[f["IS_count"] > 0].shape[0])
 			
-			#outfile = '../test_IS.csv'
-			# f = pd.read_csv('../test.csv', lineterminator='\n');
-			f = pd.read_csv(folder_path+email_csv, lineterminator='\n');
-			outfile = to_path + email_csv.replace(".csv","_IS.csv")
-			if os.path.exists(outfile):
-				continue
-
-			f.dropna(subset=["content","message_id"],inplace=True)
-			# f = f[f["folder"].isin(["dev","user","users","announce"])]
-			print("No of entires: ",f.shape[0])
-			cols = f.columns.tolist() + ['last_reply','IS_count','IS_']
-			out = pd.DataFrame(columns = cols)
-			row_count = 0
-			print("Reading file")
-			#comment for only segmentation and prediction
-			f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
-			f["IS_count"] = [0]*f.shape[0]
-			f["IS_"] = [""]*f.shape[0]
-
-			json_data = process_text(f)
-			#print("Emails processed: ", len(list(json_data.keys())))
-			#print("Segmentation done. Starting predictions")
-			for indx, row in tqdm(f.iterrows()):
-				url = row["message_id"]
-				sentences = json_data[url]["sentences"]
-				labels = json_data[url]["labels"]
-				predictions = []
-
-				for sentence, label in zip(sentences,labels):
-					instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
-					output = self._model.cuda().forward_on_instances([instances])
-					# print(output)
-					idx = output[0]['action_probs'].argmax(axis=1).tolist()
-					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-					binary_labels = [int(item.split("_")[0]) for item in logits]
-					predictions += list(itertools.compress(sentence,binary_labels))
-
-				pred_out = list(set(predictions))
-				f.at[indx,"IS_"] = "<Institutional>".join(pred_out)
-				f.at[indx,"IS_count"] = len(pred_out)
-
-				if not indx%100: f.to_csv(outfile,index=False);print(f[f["IS_count"] > 0].shape[0])
-			f.to_csv(outfile,index=False)
-
-		print('Chunk {} all done~'.format(chunk))
+		f.to_csv(outfile,index=False)
 		exit()
 
 
@@ -241,7 +233,7 @@ class SeqClassificationPredictor(Predictor):
 #           labels = [["1"]*len(sent) for sent in sentences]
 #         print(sentences,labels)
 #         instance = self._dataset_reader.text_to_instance(sentences=sentences,labels=labels)
-#         output = self._model.forward_on_instances([instance])
+#         output = self._model.cuda().forward_on_instances([instance])
 #         # print(output)
 #         idx = output[0]['action_probs'].argmax(axis=1).tolist()
 #         # print(idx)
@@ -256,5 +248,3 @@ class SeqClassificationPredictor(Predictor):
 #           json_dict["predictions"] = pred_labels
 #           writer.write(json_dict)
 #         return paper_id, preds
-
-

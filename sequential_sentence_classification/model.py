@@ -226,6 +226,7 @@ class SeqClassificationModel(Model):
         if labels is not None:
             output_dict["loss"] = label_loss
         output_dict['action_logits'] = label_logits
+        output_dict['embeddings'] = embedded_sentences
         return output_dict
 
     def get_metrics(self, reset: bool = False):
