@@ -157,7 +157,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.npy")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[f["status"] == 'graduated']
+		f = f[(f["status"] == 'retired') & (f['month'] < 24)]
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
@@ -203,7 +203,7 @@ class SeqClassificationPredictor(Predictor):
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
-			if not indx%100: np.save(outfile,np.array(final_embed));print(indx,len(final_embed))
+			if not indx%100: np.save(outfile,np.array(final_embed,dtype=object));print(indx,len(final_embed))
 			
 		f.to_csv(outfile,index=False)
 		exit()
