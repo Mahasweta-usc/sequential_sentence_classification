@@ -195,7 +195,7 @@ class SeqClassificationPredictor(Predictor):
 
 			for index,pred in enumerate(pred_out):
 				if pred in org_preds: 
-					final_embed.append(embeddings[index])
+					final_embed.append([row['months'],embeddings[index]])
 					org_preds.remove(pred)
 
 			if len(org_preds): print(len(org_preds))
