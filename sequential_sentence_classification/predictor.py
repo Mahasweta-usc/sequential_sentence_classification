@@ -173,13 +173,15 @@ class SeqClassificationPredictor(Predictor):
 		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
-		final_embed = []
+
 		for indx, row in tqdm(f.iterrows()):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
 			predictions = []#;print(url)
 			embeddings = []
+			final_embed = []
+			
 			for sentence, label in zip(sentences,labels):
 				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
 				output = self._model.cuda().forward_on_instances([instances])
@@ -201,7 +203,7 @@ class SeqClassificationPredictor(Predictor):
 					org_preds.remove(pred)
 
 			if len(org_preds): print(len(org_preds))
-			final_res[row['month']].extend(final_embed)
+			final_res[row['month']] += final_embed
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			# f.at[indx,"embeddings"] = final_embed
