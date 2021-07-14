@@ -154,59 +154,64 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
+		outfile = filename.replace(".csv","_IS_graduated.json")
+		final_res = dict()
+		for month in range(24): final_res[month] = [] 
 
-		for batch in range(0,15):
-			outfile = filename.replace(".csv","_retired_{}.npy".format(batch))
-			f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-			f = f[(f["status"] == 'retired') & (f['month'] < 24)][max(0,batch-1)*1000:batch*1000]
-			f = f[f["folder"].isin(["dev","user","users","announce"])]
-			print("No of entires: ",f.shape[0])
-			row_count = 0
-			print("Reading file")
-			f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
-			#comment for only segmentation and prediction
-			# f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
-			# f["IS_count"] = [0]*f.shape[0]
-			f["embeddings"] = [""]*f.shape[0]
+		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
+		f = f[(f["status"] == 'graduated') & (f['month'] < 24)]
+		f = f[f["folder"].isin(["dev","user","users","announce"])]
+		print("No of entires: ",f.shape[0])
+		row_count = 0
+		print("Reading file")
+		f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
+		#comment for only segmentation and prediction
+		# f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		# f["IS_count"] = [0]*f.shape[0]
+		f["embeddings"] = [""]*f.shape[0]
 
-			json_data = process_text(f)
-			print("Emails processed: ", len(list(json_data.keys())))
-			print("Segmentation done. Starting predictions")
-			final_embed = []
-			for indx, row in tqdm(f.iterrows()):
-				url = row["message_id"]
-				sentences = json_data[url]["sentences"]
-				labels = json_data[url]["labels"]
-				predictions = []#;print(url)
-				embeddings = []
-				for sentence, label in zip(sentences,labels):
-					instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
-					output = self._model.cuda().forward_on_instances([instances])
-					# print(sentence)
-					idx = output[0]['action_probs'].argmax(axis=1).tolist()
-					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-					binary_labels = [int(item.split("_")[0]) for item in logits]
-					embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
-					predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
+		json_data = process_text(f)
+		print("Emails processed: ", len(list(json_data.keys())))
+		print("Segmentation done. Starting predictions")
+		final_embed = []
+		for indx, row in tqdm(f.iterrows()):
+			url = row["message_id"]
+			sentences = json_data[url]["sentences"]
+			labels = json_data[url]["labels"]
+			predictions = []#;print(url)
+			embeddings = []
+			for sentence, label in zip(sentences,labels):
+				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
+				output = self._model.cuda().forward_on_instances([instances])
+				# print(sentence)
+				idx = output[0]['action_probs'].argmax(axis=1).tolist()
+				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+				binary_labels = [int(item.split("_")[0]) for item in logits]
+				embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
+				predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 
-				
-				assert len(embeddings) == len(predictions)
-				org_preds = row["IS_"].split("<Institutional>")
-				pred_out = list(set(predictions))
+			
+			assert len(embeddings) == len(predictions)
+			org_preds = row["IS_"].split("<Institutional>")
+			pred_out = list(set(predictions))
 
-				for index,pred in enumerate(pred_out):
-					if pred in org_preds: 
-						final_embed.append([row['month'],embeddings[index]])
-						org_preds.remove(pred)
+			for index,pred in enumerate(pred_out):
+				if pred in org_preds: 
+					final_embed.append(embeddings[index])
+					org_preds.remove(pred)
 
-				if len(org_preds): print(len(org_preds))
-				# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
-				# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
-				f.at[indx,"embeddings"] = final_embed
-				# f.at[indx,"IS_count"] = len(pred_out)
-				if not indx%100: np.save(outfile,np.array(final_embed,dtype=object));print(indx,len(final_embed))
-				
-			f.to_csv(outfile,index=False)
+			if len(org_preds): print(len(org_preds))
+			final_res[row['month']].extend(final_embed)
+			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
+			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
+			f.at[indx,"embeddings"] = final_embed
+			# f.at[indx,"IS_count"] = len(pred_out)
+			if not indx%100: 
+				with open(outfile, 'w') as f:
+			    json.dump(final_res, f)
+				print(indx,len(final_res[row['month']]))
+			
+		f.to_csv(outfile,index=False)
 		exit()
 
 
