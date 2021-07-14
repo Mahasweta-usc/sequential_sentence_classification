@@ -208,7 +208,7 @@ class SeqClassificationPredictor(Predictor):
 			# f.at[indx,"IS_count"] = len(pred_out)
 			if not indx%100: 
 				with open(outfile, 'w') as f:
-			    json.dump(final_res, f)
+			    json.dump(final_res, f, indent=4)
 				print(indx,len(final_res[row['month']]))
 			
 		f.to_csv(outfile,index=False)
