@@ -212,7 +212,7 @@ class SeqClassificationPredictor(Predictor):
 				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 				print(indx,len(final_res[row['month']]))
 			
-		f.to_csv(outfile,index=False)
+		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 		exit()
 
 
