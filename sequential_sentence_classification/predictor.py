@@ -157,7 +157,7 @@ class SeqClassificationPredictor(Predictor):
 		outfile = filename.replace(".csv","_IS.npy")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[f["status"] == 'retired']
+		f = f[f["status"] == 'graduated']
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
