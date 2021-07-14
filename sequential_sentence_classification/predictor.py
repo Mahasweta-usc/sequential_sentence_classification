@@ -154,7 +154,7 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
-		outfile = filename.replace(".csv","_IS.csv")
+		outfile = filename.replace(".csv","_IS.npy")
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
 		f = f[f["folder"].isin(["dev","user","users","announce"])][:100]
@@ -170,6 +170,7 @@ class SeqClassificationPredictor(Predictor):
 		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
+		final_embed = []
 		for indx, row in tqdm(f.iterrows()):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
@@ -186,7 +187,7 @@ class SeqClassificationPredictor(Predictor):
 				embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
 				predictions.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 
-			final_embed = []
+			
 			assert len(embeddings) == len(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 			pred_out = list(set(predictions))
@@ -201,7 +202,7 @@ class SeqClassificationPredictor(Predictor):
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
-			if not indx%100: f.to_csv(outfile,index=False);print(indx,f[f["IS_count"] > 0].shape[0])
+			if not indx%100: np.save(outfile,np.array(final_embed));print(indx,len(final_embed))
 			
 		f.to_csv(outfile,index=False)
 		exit()
