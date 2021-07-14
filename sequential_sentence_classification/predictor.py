@@ -204,10 +204,10 @@ class SeqClassificationPredictor(Predictor):
 			final_res[row['month']].extend(final_embed)
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
-			f.at[indx,"embeddings"] = final_embed
+			# f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
 			if not indx%100: 
-				with open(outfile, 'w') as f: json.dump(final_res, f, indent=4)
+				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 				print(indx,len(final_res[row['month']]))
 			
 		f.to_csv(outfile,index=False)
