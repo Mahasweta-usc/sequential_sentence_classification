@@ -170,7 +170,7 @@ class SeqClassificationPredictor(Predictor):
 		# f["IS_count"] = [0]*f.shape[0]
 		f["embeddings"] = [""]*f.shape[0]
 
-		json_data = process_text(f);miss_count = [0,0]
+		json_data = process_text(f);miss_count = [0,0,0]
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
 		for indx, row in tqdm(f.iterrows()):
@@ -195,22 +195,22 @@ class SeqClassificationPredictor(Predictor):
 			assert len(embeddings) == len(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 			pred_out = list(set(predictions))
-			org_dup = [x for x in org_preds]
+			miss_count[2] += len(org_preds)
 			if len(org_preds) != len(pred_out): miss_count[1] += 1
 
-			for index,pred in enumerate(pred_out):
+			for index,pred in enumerate(predictions):
 				if any(fuzz.ratio(pred,x) >= 90 for x in org_preds): 
 					final_embed.append(embeddings[index])
-					org_dup = [x for x in org_dup if fuzz.ratio(x,pred) < 90]
+					org_preds = [x for x in org_preds if fuzz.ratio(x,pred) < 90]
 
-			if len(org_dup): miss_count[0] += len(org_dup)
+			if len(org_preds): miss_count[0] += len(org_preds)
 			final_res[row['month']] += final_embed
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			# f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
 			if not indx%10000: 
-				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+				# with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 				print(indx,len(final_res[row['month']]))
 			
 		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
