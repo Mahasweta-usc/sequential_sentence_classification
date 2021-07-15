@@ -52,7 +52,7 @@ def process_(text):
 
 def sent_break(text):
 	doc = nlp(text)
-	lines = [line.text for line in doc.sentences if len(line.text) > 1 ]
+	lines = [line.text for line in doc.sentences if len(line.text) > 1]
 	return lines
 
 
@@ -154,12 +154,12 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
-		outfile = filename.replace(".csv","_IS_graduated.json")
+		outfile = filename.replace(".csv","_test_model.json")
 		final_res = dict()
 		for month in range(24): final_res[month] = [] 
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[(f["status"] == 'graduated') & (f['month'] < 24)]
+		f = f[(f["status"] == 'graduated') & (f['month'] < 24)][:1000]
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
@@ -170,10 +170,9 @@ class SeqClassificationPredictor(Predictor):
 		# f["IS_count"] = [0]*f.shape[0]
 		f["embeddings"] = [""]*f.shape[0]
 
-		json_data = process_text(f)
+		json_data = process_text(f);miss_count = [0,0]
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
-
 		for indx, row in tqdm(f.iterrows()):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
@@ -196,13 +195,15 @@ class SeqClassificationPredictor(Predictor):
 			assert len(embeddings) == len(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 			pred_out = list(set(predictions))
+			org_dup = [x for x in org_preds]
+			if len(org_preds) != len(pred_out): miss_count[1] += 1
 
 			for index,pred in enumerate(pred_out):
-				if pred in org_preds: 
+				if any(fuzz.ratio(pred,x) >= 90 for x in org_preds): 
 					final_embed.append(embeddings[index])
-					org_preds.remove(pred)
+					org_dup = [x for x in org_dup if fuzz.ratio(x,pred) < 90]
 
-			if len(org_preds): print(len(org_preds))
+			if len(org_dup): miss_count[0] += len(org_dup)
 			final_res[row['month']] += final_embed
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
@@ -213,6 +214,7 @@ class SeqClassificationPredictor(Predictor):
 				print(indx,len(final_res[row['month']]))
 			
 		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+		print(miss_count)
 		exit()
 
 
