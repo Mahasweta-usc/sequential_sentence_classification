@@ -209,7 +209,7 @@ class SeqClassificationPredictor(Predictor):
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
 			# f.at[indx,"embeddings"] = final_embed
 			# f.at[indx,"IS_count"] = len(pred_out)
-			if not indx%1000: 
+			if not indx%10000: 
 				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 				print(indx,len(final_res[row['month']]))
 			
