@@ -154,7 +154,7 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
-		outfile = filename.replace(".csv","_test_model.json")
+		outfile = filename.replace(".csv","_IS_graduated.json")
 		final_res = dict()
 		for month in range(24): final_res[month] = [] 
 
