@@ -196,14 +196,16 @@ class SeqClassificationPredictor(Predictor):
 			org_preds = row["IS_"].split("<Institutional>")
 			pred_out = list(set(predictions))
 			miss_count[2] += len(org_preds)
-			if len(org_preds) != len(pred_out): miss_count[1] += 1
+			if len(org_preds) != len(pred_out): miss_count[1] += 1;print(org_preds,'\n',pred_out)
 
 			for index,pred in enumerate(predictions):
-				if any(fuzz.ratio(pred,x) >= 90 for x in org_preds): 
-					final_embed.append(embeddings[index])
-					org_preds = [x for x in org_preds if fuzz.ratio(x,pred) < 90]
+				for x in org_preds: 
+					if fuzz.ratio(x,pred) > 90: 
+						final_embed.append(embeddings[index])
+						org_preds.remove(x)
 
-			if len(org_preds): miss_count[0] += len(org_preds)
+			assert len(final_embed) == len(row["IS_"].split("<Institutional>")) - len(org_preds)
+			if len(org_preds): miss_count[0] += 1
 			final_res[row['month']] += final_embed
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
