@@ -25,7 +25,7 @@ nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=True,tokenize_bat
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-MAX_LEN = 256
+MAX_LEN = 100
 from tqdm import tqdm
 import multiprocessing
 import torch
@@ -108,7 +108,7 @@ def segmenter(url):
     for template in templates:
       try:
         indices = np.add(idx,np.array(template))
-        new_ = np.array(email_sent[url])[indices.astype(int)]
+        new_ = [str(x) for x in np.array(email_sent[url])[indices.astype(int)]]
         candidate[url].append(new_)
         break
       except: pass
@@ -126,12 +126,12 @@ def email_to_json(url):
 
 def segment_text(chunk,url,current):
 	global candidate, email_sent
-	email_sent[url] = chunk["last_reply"][:25]
+	email_sent[url] = chunk["last_reply"][:50]
 	candidate[url] = []
 	single_entries(url)
 	segmenter(url)
 
-	candidate[url] = [cand for cand in candidate[url] if cand]
+	# candidate[url] = [cand for cand in candidate[url] if len(cand)]
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
 	# print(len(candidate[url]))
 	json_results = email_to_json(url)
@@ -171,7 +171,7 @@ class SeqClassificationPredictor(Predictor):
 		for month in range(24): final_res[month] = [] 
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[(f["status"] == 'graduated') & (f['month'] < 24)][:1000]
+		f = f[(f["status"] == 'graduated') & (f['month'] < 24)] #[:1000]
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
@@ -194,21 +194,25 @@ class SeqClassificationPredictor(Predictor):
 			final_embed = []
 			
 			for sentence, label in zip(sentences,labels):
-				instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
-				output = self._model.cuda().forward_on_instances([instances])
-				# print(sentence)
-				idx = output[0]['action_probs'].argmax(axis=1).tolist()
-				logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-				binary_labels = [int(item.split("_")[0]) for item in logits]
-				# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
-				ind_interest = np.floor((len(binary_labels)-1)/2).astype(int)
-				if binary_label[ind_interest] : predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
-
+				try:
+					# print(sentence,label)
+					instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
+					output = self._model.cuda().forward_on_instances([instances])
+					# print(sentence)
+					idx = output[0]['action_probs'].argmax(axis=1).tolist()
+					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+					binary_labels = [int(item.split("_")[0]) for item in logits]
+					# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
+					ind_interest = np.floor((len(binary_labels)-1)/2).astype(int)
+					if binary_labels[ind_interest] : predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
+				except: pass
 			
 			# assert len(embeddings) == len(predictions)
+			final_res[row['month']].extend(final_embed)
 			org_preds = row["IS_"].split("<Institutional>")
+			miss_count[0] += len(org_preds)
 			pred_out = list(set(predictions))
-			if len(org_preds) != len(pred_out): miss_count[1] += len(set(predictions).difference(set(org_preds)));print(org_preds,'\n',pred_out)
+			if len(org_preds) != len(pred_out): miss_count[1] += len(set(predictions).difference(set(org_preds)));#print(org_preds,'\n',pred_out)
 
 			for index,pred in enumerate(predictions):
 				for x in org_preds: 
@@ -217,9 +221,11 @@ class SeqClassificationPredictor(Predictor):
 						org_preds.remove(x)
 
 			miss_count[2] += len(org_preds)
+			if not indx%100: 
+				print(miss_count)
+				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 			# assert len(final_embed) == len(row["IS_"].split("<Institutional>")) - len(org_preds)
-			if len(org_preds): miss_count[0] += 1
-			# final_res[row['month']] += final_embed
+			# if len(org_preds): miss_count[0] += 1
 
 			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
 			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
@@ -229,6 +235,5 @@ class SeqClassificationPredictor(Predictor):
 			# 	# with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 			# 	print(indx,len(final_res[row['month']]))
 			
-		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-		print(miss_count)
+		
 		exit()
