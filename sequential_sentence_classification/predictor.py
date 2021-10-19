@@ -67,18 +67,21 @@ def sent_break(text):
 # 				candidate[url][idx] = [elem[0][:str_len]]
 # 				candidate[url][idx].append(elem[0][str_len:])
 
-def single_entries(url):
-  global email_sent
+def single_entries(item):
   lim_ = MAX_LEN;idx = 0
+  email_temp = email_sent[url].copy()
+  org_len = len(email_temp)
 
   while 1:
     try:
-      elem = email_sent[url][idx]
-      if len(elem) > lim_:
-        email_sent[url][idx] = elem[:lim]
-        email_sent[url][idx].insert(idx+1,elem[lim:])
+      if email_temp[idx] != item:
+        elem = email_temp[idx]
+        if len(tokenizer.tokenize(elem)) > lim_:
+          email_temp[idx] = decode(tokenizer.tokenize(elem)[:lim_])
+          email_temp.insert(idx+1,decode(tokenizer.tokenize(elem)[lim_:]))
       idx += 1
     except: break
+  return email_temp 
 
 # def segmenter(url):
 # 	global candidate, email_sent
@@ -100,18 +103,16 @@ def single_entries(url):
 # 		candidate[url][-1].append(elem)
 
 
-def segmenter(url):
+def segmenter():
   global candidate
-  global email_sent
-  templates = [[-2,-1,0,1,2],[-1,0,1,2],[-2,-1,0,1],[0,1,2],[-2,-1,0]]
+	candidate[url].append([])
+  template = [-2,-1,0,1,2]
   for idx, elem in enumerate(email_sent[url]):
-    for template in templates:
-      try:
-        indices = np.add(idx,np.array(template))
-        new_ = [str(x) for x in np.array(email_sent[url])[indices.astype(int)]]
-        candidate[url].append(new_)
-        break
-      except: pass
+    temp = ["[PAD]"]*2 + single_entries(elem) + ["[PAD]"]*2
+    indices = np.add(temp.index(elem),np.array(template))
+    new_ = np.array(temp)[indices.astype(int)]
+    assert len(new_) == 5
+    candidate[url].append(new_)
 
 def email_to_json(url):
 	global candidate
@@ -203,7 +204,7 @@ class SeqClassificationPredictor(Predictor):
 					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
 					binary_labels = [int(item.split("_")[0]) for item in logits]
 					# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
-					ind_interest = np.floor((len(binary_labels)-1)/2).astype(int)
+					ind_interest = 2
 					if binary_labels[ind_interest] : predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 				except: pass
 			
@@ -212,11 +213,11 @@ class SeqClassificationPredictor(Predictor):
 			org_preds = row["IS_"].split("<Institutional>")
 			miss_count[0] += len(org_preds)
 			pred_out = list(set(predictions))
-			if len(org_preds) != len(pred_out): miss_count[1] += len(set(predictions).difference(set(org_preds)));#print(org_preds,'\n',pred_out)
+			if len(org_preds) != len(pred_out): miss_count[1] += len([1 for x in pred_out if not any(fuzz.ratio(x,y) > 50 for y in org_preds)]);#print(org_preds,'\n',pred_out)
 
 			for index,pred in enumerate(predictions):
 				for x in org_preds: 
-					if fuzz.ratio(x,pred) > 90: 
+					if fuzz.ratio(x,pred) > 50: 
 						# final_embed.append(embeddings[index])
 						org_preds.remove(x)
 
@@ -237,3 +238,46 @@ class SeqClassificationPredictor(Predictor):
 			
 		
 		exit()
+
+
+# from typing import List
+# from overrides import overrides
+
+# from allennlp.common.util import JsonDict, sanitize
+# from allennlp.data import Instance
+# from allennlp.predictors.predictor import Predictor
+# import jsonlines
+
+# import os
+# file_path = os.environ["file_path"]
+
+# @Predictor.register('SeqClassificationPredictor')
+# class SeqClassificationPredictor(Predictor):
+#     """
+#     Predictor for the abstruct model
+#     """
+#     def predict_json(self, json_dict: JsonDict) -> JsonDict:
+#         pred_labels = []
+#         sentences = json_dict['sentences']
+#         paper_id = json_dict['abstract_id']
+#         try:
+#           labels = json_dict['labels']
+#         except:
+#           labels = [["1"]*len(sent) for sent in sentences]
+#         print(sentences,labels)
+#         instance = self._dataset_reader.text_to_instance(sentences=sentences,labels=labels)
+#         output = self._model.cuda().forward_on_instances([instance])
+#         # print(output)
+#         idx = output[0]['action_probs'].argmax(axis=1).tolist()
+#         # print(idx)
+#         labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+#         # print(labels)
+#         pred_labels.extend(labels)
+#         assert len(pred_labels) == len(sentences)
+#         preds = list(zip(sentences, pred_labels))
+
+
+#         with jsonlines.open(file_path, mode='a') as writer:
+#           json_dict["predictions"] = pred_labels
+#           writer.write(json_dict)
+#         return paper_id, preds

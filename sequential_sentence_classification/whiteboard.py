@@ -16,7 +16,8 @@ class MaskedMSELoss(torch.nn.Module):
 
     def forward(self, ip, target, mask):
         loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none')
-        return loss_fn(ip[mask],target[mask])
+        print(ip[mask,:],target[mask])
+        return loss_fn(ip[mask,:],target[mask])
 
 
 logger = logging.getLogger(__name__)
@@ -108,7 +109,7 @@ class SeqClassificationModel(Model):
         embedded_sentences = self.text_field_embedder(sentences)
         mask = get_text_field_mask(sentences, num_wrapping_dims=1).float()
         batch_size, num_sentences, _, _ = embedded_sentences.size()
-        loss_mask = torch.tensor([0,0,1,0,0]*batch_size)
+        loss_mask = torch.tensor([False,False,True,False,False]);loss_mask = loss_mask.repeat(batch_size,1)
 
         if self.use_sep:
             # The following code collects vectors of the SEP tokens from all the examples in the batch,
@@ -130,8 +131,10 @@ class SeqClassificationModel(Model):
                     labels_mask = labels != 0.0  # mask for all the labels in the batch (no padding)
                 else:
                     labels_mask = labels != -1 # mask for all the labels in the batch (no padding)
+                
 
                 labels = labels[labels_mask]  # given batch_size x num_sentences_per_example return num_sentences_per_batch
+                loss_mask = loss_mask[labels_mask]
                 # assert labels.dim() == 1
                 if confidences is not None:
                     confidences = confidences[labels_mask]
@@ -228,6 +231,8 @@ class SeqClassificationModel(Model):
                 flattened_probs = crf_label_probs.view((batch_size * num_sentences), self.num_labels)
 
             if not self.labels_are_scores:
+                flattened_gold = flattened_gold[loss_mask]
+                flattened_probs = flattened_probs[loss_mask,:]
                 evaluation_mask = (flattened_gold != -1)
                 self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
 
