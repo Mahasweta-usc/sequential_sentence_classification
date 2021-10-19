@@ -233,9 +233,12 @@ class SeqClassificationModel(Model):
             if not self.labels_are_scores:
                 flattened_gold = flattened_gold[loss_mask]
                 flattened_probs = flattened_probs[loss_mask,:]
+                # print(flattened_probs.float().contiguous().dim(),flattened_gold.squeeze(-1).dim())
                 evaluation_mask = (flattened_gold != -1)
-                self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
-
+                try:
+                  self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
+                except:
+                  self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold, mask=evaluation_mask)
                 # compute F1 per label
                 for label_index in range(self.num_labels):
                     label_name = self.vocab.get_token_from_index(namespace='labels', index=label_index)
