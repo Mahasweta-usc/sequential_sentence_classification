@@ -104,15 +104,15 @@ def single_entries(item):
 
 
 def segmenter():
-  global candidate
+	global candidate
 	candidate[url].append([])
-  template = [-2,-1,0,1,2]
-  for idx, elem in enumerate(email_sent[url]):
-    temp = ["[PAD]"]*2 + single_entries(elem) + ["[PAD]"]*2
-    indices = np.add(temp.index(elem),np.array(template))
-    new_ = np.array(temp)[indices.astype(int)]
-    assert len(new_) == 5
-    candidate[url].append(new_)
+	template = [-2,-1,0,1,2]
+	for idx, elem in enumerate(email_sent[url]):
+		temp = ["[PAD]"]*2 + single_entries(elem) + ["[PAD]"]*2
+		indices = np.add(temp.index(elem),np.array(template))
+		new_ = np.array(temp)[indices.astype(int)]
+		assert len(new_) == 5
+		candidate[url].append(new_)
 
 def email_to_json(url):
 	global candidate

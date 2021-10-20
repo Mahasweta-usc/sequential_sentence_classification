@@ -55,7 +55,7 @@ class SeqClassificationModel(Model):
             self.labels_are_scores = True
             self.num_labels = 1
         else:
-            self.loss = MaskedMSELoss() #torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none')
+            self.loss = MaskedMSELoss() #torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none') #
             self.labels_are_scores = False
             self.num_labels = self.vocab.get_vocab_size(namespace='labels')
             # define accuracy metrics
@@ -213,6 +213,9 @@ class SeqClassificationModel(Model):
             flattened_logits = label_logits.view((batch_size * num_sentences), self.num_labels)
             flattened_gold = labels.contiguous().view(-1)
 
+            # flattened_gold = flattened_gold[loss_mask]
+            # flattened_logits = flattened_logits[loss_mask,:]
+
             if not self.with_crf:
                 label_loss = self.loss(flattened_logits.squeeze(), flattened_gold,loss_mask)
                 if confidences is not None:
@@ -231,19 +234,13 @@ class SeqClassificationModel(Model):
                 flattened_probs = crf_label_probs.view((batch_size * num_sentences), self.num_labels)
 
             if not self.labels_are_scores:
-                flattened_gold = flattened_gold[loss_mask]
-                flattened_probs = flattened_probs[loss_mask,:]
-                # print(flattened_probs.float().contiguous().dim(),flattened_gold.squeeze(-1).dim())
-                evaluation_mask = (flattened_gold != -1)
-                try:
-                  self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
-                except:
-                  self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold, mask=evaluation_mask)
-                # compute F1 per label
+                evaluation_mask = (flattened_gold[loss_mask] != -1)
+                print(flattened_probs.dim(),flattened_gold.dim())
+                self.label_accuracy(flattened_probs[loss_mask,:].float().contiguous(), flattened_gold.squeeze(-1)[loss_mask], mask=evaluation_mask)
                 for label_index in range(self.num_labels):
                     label_name = self.vocab.get_token_from_index(namespace='labels', index=label_index)
                     metric = self.label_f1_metrics[label_name]
-                    metric(flattened_probs, flattened_gold, mask=evaluation_mask)
+                    metric(flattened_probs[loss_mask,:], flattened_gold[loss_mask], mask=evaluation_mask)
         
         if labels is not None:
             output_dict["loss"] = label_loss

@@ -231,9 +231,6 @@ class SeqClassificationModel(Model):
                 flattened_probs = crf_label_probs.view((batch_size * num_sentences), self.num_labels)
 
             if not self.labels_are_scores:
-                flattened_gold = flattened_gold[loss_mask]
-                flattened_probs = flattened_probs[loss_mask,:]
-                assert flattened_gold.dim() = flattened_probs.dim() - 1
                 evaluation_mask = (flattened_gold != -1)
                 self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
 
