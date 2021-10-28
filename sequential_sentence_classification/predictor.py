@@ -196,7 +196,8 @@ class SeqClassificationPredictor(Predictor):
 			for sentence, label in zip(sentences,labels):
 				try:
 					print(type(sentence),type(label))
-					instances = self._dataset_reader.text_to_instance(sentences=sentence,labels=label)
+					self._dataset_reader.predict = True
+					instances = self._dataset_reader.text_to_instance(sentences=sentence)
 					output = self._model.cuda().forward_on_instances([instances])
 					# print(sentence)
 					idx = output[0]['action_probs'].argmax(axis=1).tolist()
