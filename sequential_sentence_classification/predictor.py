@@ -41,9 +41,6 @@ from multiprocessing import Pool, Manager #, set_start_method
 # mn = Manager()
 candidate = dict()
 email_sent = dict()
-	
-
-
 
 def process_(text):
   text = text.replace("\r\n"," ").replace("\n"," ")
@@ -54,18 +51,6 @@ def sent_break(text):
 	doc = nlp(text)
 	lines = [line.text for line in doc.sentences if len(line.text) > 1]
 	return lines
-
-
-# def single_entries(url):
-# 	global candidate
-# 	for idx, elem in enumerate(candidate[url]):
-# 		if len(elem) == 1:
-# 			if MAX_LEN > 2*len(tokenizer.tokenize(elem[0])):
-# 				candidate[url][idx].append(elem[0])
-# 			else:
-# 				str_len = int(len(elem[0])/2)
-# 				candidate[url][idx] = [elem[0][:str_len]]
-# 				candidate[url][idx].append(elem[0][str_len:])
 
 def single_entries(url,item):
   lim_ = MAX_LEN;idx = 0
@@ -82,25 +67,6 @@ def single_entries(url,item):
       idx += 1
     except: break
   return email_temp 
-
-# def segmenter(url):
-# 	global candidate, email_sent
-# 	sum_ = 0;
-# 	lim = int(0.9*MAX_LEN)
-# 	candidate[url].append([])
-# 	for idx, elem in enumerate(email_sent[url]):
-# 		remain = lim - sum_
-# 		sum_ += len(tokenizer.encode(elem))
-# 		if sum_ > lim:
-# 			retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
-# 			carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
-# 			if not idx:
-# 				email_sent[url][idx] = carryover
-# 				email_sent[url].insert(idx,retain)
-# 				candidate[url][-1].append(retain) 
-# 				# return idx + 1
-# 			return idx
-# 		candidate[url][-1].append(elem)
 
 
 def segmenter(url):
@@ -205,7 +171,7 @@ class SeqClassificationPredictor(Predictor):
 					binary_labels = [int(item.split("_")[0]) for item in logits]
 					# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
 					ind_interest = 2;print(binary_labels)
-					if 1 in binary_labels: predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
+					if binary_labels[ind_interest]: predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 				except Exception as e: print(e)
 			
 			# assert len(embeddings) == len(predictions)
@@ -213,30 +179,18 @@ class SeqClassificationPredictor(Predictor):
 			org_preds = row["IS_"].split("<Institutional>")
 			miss_count[0] += len(org_preds)
 			pred_out = list(set(predictions))
-			if len(org_preds) != len(pred_out): miss_count[1] += len([1 for x in pred_out if not any(fuzz.ratio(x,y) > 50 for y in org_preds)]);#print(org_preds,'\n',pred_out)
+			miss_count[1] += len([1 for x in pred_out if not any(y in x for y in org_preds)]);#print(org_preds,'\n',pred_out)
 
 			for index,pred in enumerate(predictions):
 				for x in org_preds: 
-					if fuzz.ratio(x,pred) > 50: 
-						# final_embed.append(embeddings[index])
-						org_preds.remove(x)
+					if x in pred: org_preds.remove(x)
 
 			miss_count[2] += len(org_preds)
 			if not indx%100: 
 				print(miss_count)
 				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-			# assert len(final_embed) == len(row["IS_"].split("<Institutional>")) - len(org_preds)
-			# if len(org_preds): miss_count[0] += 1
-
-			# print(len(row["IS_"].split("<Institutional>")),len(embeddings))
-			# print("Predicted:",len(set(row["IS_"].split("<Institutional>"))))# print("IS count: ",len(pred_out));
-			# f.at[indx,"embeddings"] = final_embed
-			# f.at[indx,"IS_count"] = len(pred_out)
-			# if not indx%10000: 
-			# 	# with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-			# 	print(indx,len(final_res[row['month']]))
 			
-		
+		print(miss_count)
 		exit()
 
 
