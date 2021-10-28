@@ -239,45 +239,45 @@ class SeqClassificationPredictor(Predictor):
 		exit()
 
 
-from typing import List
-from overrides import overrides
+# from typing import List
+# from overrides import overrides
 
-from allennlp.common.util import JsonDict, sanitize
-from allennlp.data import Instance
-from allennlp.predictors.predictor import Predictor
-import jsonlines
+# from allennlp.common.util import JsonDict, sanitize
+# from allennlp.data import Instance
+# from allennlp.predictors.predictor import Predictor
+# import jsonlines
 
-import os
-file_path = os.environ["file_path"]
+# import os
+# file_path = os.environ["file_path"]
 
-@Predictor.register('SeqClassificationPredictor')
-class SeqClassificationPredictor(Predictor):
-  """
-  Predictor for the abstruct model
-  """
-  def predict_json(self, json_dict: JsonDict) -> JsonDict:
-      pred_labels = []
-      sentences = json_dict['sentences']
-      paper_id = json_dict['abstract_id']
-      try:
-        labels = json_dict['labels']
-      except:
-        labels = [["1"]*len(sent) for sent in sentences]
-      print(sentences,labels)
-      self._dataset_reader.predict= True
-      instance = self._dataset_reader.text_to_instance(sentences=sentences)
-      output = self._model.cuda().forward_on_instances([instance])
-      # print(output)
-      idx = output[0]['action_probs'].argmax(axis=1).tolist()
-      # print(idx)
-      labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
-      # print(labels)
-      pred_labels.extend(labels)
-      assert len(pred_labels) == len(sentences)
-      preds = list(zip(sentences, pred_labels))
+# @Predictor.register('SeqClassificationPredictor')
+# class SeqClassificationPredictor(Predictor):
+#   """
+#   Predictor for the abstruct model
+#   """
+#   def predict_json(self, json_dict: JsonDict) -> JsonDict:
+#       pred_labels = []
+#       sentences = json_dict['sentences']
+#       paper_id = json_dict['abstract_id']
+#       try:
+#         labels = json_dict['labels']
+#       except:
+#         labels = [["1"]*len(sent) for sent in sentences]
+#       print(sentences,labels)
+#       self._dataset_reader.predict= True
+#       instance = self._dataset_reader.text_to_instance(sentences=sentences)
+#       output = self._model.cuda().forward_on_instances([instance])
+#       # print(output)
+#       idx = output[0]['action_probs'].argmax(axis=1).tolist()
+#       # print(idx)
+#       labels = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
+#       # print(labels)
+#       pred_labels.extend(labels)
+#       assert len(pred_labels) == len(sentences)
+#       preds = list(zip(sentences, pred_labels))
 
 
-      with jsonlines.open(file_path, mode='a') as writer:
-        json_dict["predictions"] = pred_labels
-        writer.write(json_dict)
-      return paper_id, preds
+#       with jsonlines.open(file_path, mode='a') as writer:
+#         json_dict["predictions"] = pred_labels
+#         writer.write(json_dict)
+#       return paper_id, preds
