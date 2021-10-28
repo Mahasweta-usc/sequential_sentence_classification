@@ -154,6 +154,8 @@ class SeqClassificationModel(Model):
 
                     loss_mask = loss_mask[:num_sentences]
 
+                loss_mask = loss_mask.to('cuda')
+
                 # do the same for `confidences`
                 if confidences is not None:
                     num_confidences = confidences.shape[0]
