@@ -69,7 +69,7 @@ def sent_break(text):
 
 def single_entries(url,item):
   lim_ = MAX_LEN;idx = 0
-  email_temp = email_sent[url].copy()
+  email_temp = email_sent[url].copy()[max(0,email_sent[url].index(item)-2):min(email_sent[url].index(item)+3,len(email_sent[url]))]
   org_len = len(email_temp)
 
   while 1:
