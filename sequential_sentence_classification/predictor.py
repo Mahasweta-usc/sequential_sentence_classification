@@ -137,7 +137,7 @@ class SeqClassificationPredictor(Predictor):
 		for month in range(24): final_res[month] = [] 
 
 		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[(f["status"] == 'graduated') & (f['month'] < 24)][:1000]
+		f = f[(f["status"] == 'graduated') & (f['month'] < 24)]
 		f = f[f["folder"].isin(["dev","user","users","announce"])]
 		print("No of entires: ",f.shape[0])
 		row_count = 0
@@ -160,7 +160,6 @@ class SeqClassificationPredictor(Predictor):
 			
 			for sentence, label in zip(sentences,labels):
 				try:
-					predictions = []#;print(url)
 					self._dataset_reader.predict = True
 					instances = self._dataset_reader.text_to_instance(sentences=sentence)
 					output = self._model.cuda().forward_on_instances([instances])
@@ -169,28 +168,24 @@ class SeqClassificationPredictor(Predictor):
 					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
 					binary_labels = [int(item.split("_")[0]) for item in logits]
 					# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
-					ind_interest = 2;print(binary_labels)
+					ind_interest = 2;#print(binary_labels)
 					if binary_labels[ind_interest]: predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
-				except Exception as e: print(e)
+				except Exception as e: pass
 			
 			# assert len(embeddings) == len(predictions)
 			final_res[row['month']].extend(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 			miss_count[0] += len(org_preds)
 			miss_count[2] += len(predictions)
-			pred_out = list(set(predictions))
-			miss_count[1] += len([1 for x in pred_out if not any(y in x for y in org_preds)]);#print(org_preds,'\n',pred_out)
+			# miss_count[1] += len([1 for x in predictions if any(fuzz.partial_ratio(x,y) > 90 for y in org_preds)]);#print(org_preds,'\n',pred_out)
+			# print(org_preds,predictions)
+			for index,pred in enumerate(org_preds):
+				if not any(pred in x for x in predictions): org_preds.remove(pred)
 
-			# for index,pred in enumerate(predictions):
-			# 	for x in org_preds: 
-			# 		if x in pred_out: org_preds.remove(x)
-
-			miss_count[2] += len(org_preds)
+			miss_count[1] += len(org_preds)
 			if not indx%100: 
 				print(miss_count)
 				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-			
-		print(miss_count)
 		exit()
 
 
