@@ -155,13 +155,12 @@ class SeqClassificationPredictor(Predictor):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
-			predictions = []#;print(url)
 			embeddings = []
-			final_embed = []
+			predictions = []
 			
 			for sentence, label in zip(sentences,labels):
 				try:
-					print(type(sentence),type(label))
+					predictions = []#;print(url)
 					self._dataset_reader.predict = True
 					instances = self._dataset_reader.text_to_instance(sentences=sentence)
 					output = self._model.cuda().forward_on_instances([instances])
@@ -175,15 +174,16 @@ class SeqClassificationPredictor(Predictor):
 				except Exception as e: print(e)
 			
 			# assert len(embeddings) == len(predictions)
-			final_res[row['month']].extend(final_embed)
+			final_res[row['month']].extend(predictions)
 			org_preds = row["IS_"].split("<Institutional>")
 			miss_count[0] += len(org_preds)
+			miss_count[2] += len(predictions)
 			pred_out = list(set(predictions))
 			miss_count[1] += len([1 for x in pred_out if not any(y in x for y in org_preds)]);#print(org_preds,'\n',pred_out)
 
-			for index,pred in enumerate(predictions):
-				for x in org_preds: 
-					if x in pred: org_preds.remove(x)
+			# for index,pred in enumerate(predictions):
+			# 	for x in org_preds: 
+			# 		if x in pred_out: org_preds.remove(x)
 
 			miss_count[2] += len(org_preds)
 			if not indx%100: 
