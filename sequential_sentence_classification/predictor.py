@@ -101,7 +101,6 @@ def segment_text(chunk,url,current):
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
 	# print(len(candidate[url]))
 	json_results = email_to_json(url)
-	if not current%100: print("{} emails segmented".format(current))
 	return json_results
 
 
@@ -132,23 +131,35 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
-		outfile = filename.replace(".csv","_IS_graduated.json")
-		final_res = dict()
-		for month in range(24): final_res[month] = [] 
+		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
+		try:
+			with open(outfile) as fin: 
+				final_res = json.load(fin)
+		except:
+			final_res = dict()
+			for month in list(range(-12,13)): 
+				final_res[month] = dict()
+				final_res[month]['graduated'] = [] 
+				final_res[month]['retired'] = []
 
-		f = pd.read_csv(filename,lineterminator='\n');f.dropna(subset=["content","message_id"],inplace=True)
-		f = f[(f["status"] == 'graduated') & (f['month'] < 24)]
-		f = f[f["folder"].isin(["dev","user","users","announce"])]
+		
+		f = pd.read_csv(filename);print("No of entires: ",f.shape[0])
+		f.dropna(subset=['content','message_id','period'],inplace=True)
+		sample_size = int(0.1*f.shape[0])
+		f['period'] = f['period'].apply(lambda x: int(x))
+		f = f[(f['period'].isin(list(range(-12,13))))] #(f["status"] == 'graduated') & 
+		try: f = f.sample(sample_size)
+		except : pass
 		print("No of entires: ",f.shape[0])
+		# f = f[f["folder"].isin(["dev","user","users","announce"])]
 		row_count = 0
 		print("Reading file")
-		f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
+		# f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
-		# f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
 		# f["IS_count"] = [0]*f.shape[0]
-		f["embeddings"] = [""]*f.shape[0]
 
-		json_data = process_text(f);miss_count = [0,0,0]
+		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
 		print("Segmentation done. Starting predictions")
 		for indx, row in tqdm(f.iterrows()):
@@ -157,7 +168,7 @@ class SeqClassificationPredictor(Predictor):
 			labels = json_data[url]["labels"]
 			embeddings = []
 			predictions = []
-			
+
 			for sentence, label in zip(sentences,labels):
 				try:
 					self._dataset_reader.predict = True
@@ -173,19 +184,8 @@ class SeqClassificationPredictor(Predictor):
 				except Exception as e: pass
 			
 			# assert len(embeddings) == len(predictions)
-			final_res[row['month']].extend(predictions)
-			org_preds = row["IS_"].split("<Institutional>")
-			miss_count[0] += len(org_preds)
-			miss_count[2] += len(predictions)
-			# miss_count[1] += len([1 for x in predictions if any(fuzz.partial_ratio(x,y) > 90 for y in org_preds)]);#print(org_preds,'\n',pred_out)
-			# print(org_preds,predictions)
-			for index,pred in enumerate(org_preds):
-				if not any(pred in x for x in predictions): org_preds.remove(pred)
-
-			miss_count[1] += len(org_preds)
-			if not indx%100: 
-				print(miss_count)
-				with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+			final_res[str(row['period'])][row["status"]].extend(predictions)
+		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 		exit()
 
 
