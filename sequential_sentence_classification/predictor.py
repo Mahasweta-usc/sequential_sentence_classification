@@ -25,7 +25,7 @@ nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=True,tokenize_bat
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-MAX_LEN = 100
+MAX_LEN = 50
 from tqdm import tqdm
 import multiprocessing
 import torch
@@ -132,32 +132,37 @@ class SeqClassificationPredictor(Predictor):
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = filename ##for only segmentation and prediction
 		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
+
+		
+		f = pd.read_csv(filename);print("No of entires: ",f.shape[0])
+		f.dropna(subset=['body','message_id','month'],inplace=True)
+		f['month'] = f['month'].apply(lambda x: int(x))
+		f['is_bot'] = f['is_bot'].apply(lambda x: str(x))
+		f['from_commit'] = f['from_commit'].apply(lambda x: str(x));print(f.columns)
+		f = f[(f['month'].isin(list(range(0,24))))]
+		f = f[(f["is_bot"] == 'False') & (f["from_commit"] == 'False')]
+		sample_size = int(0.01*f.shape[0])
+
+		try: f = f.sample(sample_size)
+		except : pass
+
 		try:
 			with open(outfile) as fin: 
 				final_res = json.load(fin)
 		except:
 			final_res = dict()
-			for month in list(range(-12,13)): 
-				final_res[month] = dict()
-				final_res[month]['graduated'] = [] 
-				final_res[month]['retired'] = []
+			for month in list(range(0,24)): 
+				final_res[str(month)] = dict()
+				for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
-		
-		f = pd.read_csv(filename);print("No of entires: ",f.shape[0])
-		f.dropna(subset=['content','message_id','period'],inplace=True)
-		sample_size = int(0.1*f.shape[0])
-		f['period'] = f['period'].apply(lambda x: int(x))
-		f = f[(f['period'].isin(list(range(-12,13))))] #(f["status"] == 'graduated') & 
-		try: f = f.sample(sample_size)
-		except : pass
+		row_count = 0 #(f["status"] == 'graduated') & 
 		print("No of entires: ",f.shape[0])
-		# f = f[f["folder"].isin(["dev","user","users","announce"])]
-		row_count = 0
 		print("Reading file")
 		# f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
-		f["last_reply"] = f["content"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		f["last_reply"] = f["body"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
 		# f["IS_count"] = [0]*f.shape[0]
+		print("Processing emails")
 
 		json_data = process_text(f)
 		print("Emails processed: ", len(list(json_data.keys())))
@@ -184,7 +189,7 @@ class SeqClassificationPredictor(Predictor):
 				except Exception as e: pass
 			
 			# assert len(embeddings) == len(predictions)
-			final_res[str(row['period'])][row["status"]].extend(predictions)
+			final_res[str(row['month'])][row['project_name']].extend(predictions)
 		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 		exit()
 
