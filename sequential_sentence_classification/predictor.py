@@ -72,7 +72,6 @@ def fit_len(sent):
   order = [4,0,3,1]
   while len(tokenizer.tokenize(" ".join(sent))) > 500:
     try:
-      print(len(sent),order[0])
       sent[order[0]] = '[PAD]'
       order.pop(0)
     except:
