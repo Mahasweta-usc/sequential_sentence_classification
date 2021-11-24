@@ -68,6 +68,11 @@ def single_entries(url,item):
     except: break
   return email_temp 
 
+def decode(seg):
+	# chunk = tokenizer.convert_ids_to_tokens(seg)
+	text = tokenizer.convert_tokens_to_string(seg)
+	return text 
+	
 def fit_len(sent):
   order = [4,0,3,1]
   while len(tokenizer.tokenize(" ".join(sent))) > 500:
