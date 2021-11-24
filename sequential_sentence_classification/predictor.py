@@ -68,6 +68,18 @@ def single_entries(url,item):
     except: break
   return email_temp 
 
+def fit_len(sent):
+  order = [4,0,3,1]
+  while len(tokenizer.tokenize(" ".join(sent))) > 500:
+    try:
+      print(len(sent),order[0])
+      sent[order[0]] = '[PAD]'
+      order.pop(0)
+    except:
+      sent[2] = decode(tokenizer.tokenize(sent[2])[:500])
+      break
+  return sent
+
 
 def segmenter(url):
 	global candidate
@@ -77,6 +89,7 @@ def segmenter(url):
 		temp = ["[PAD]"]*2 + single_entries(url,elem) + ["[PAD]"]*2
 		indices = np.add(temp.index(elem),np.array(template))
 		new_ = np.array(temp)[indices.astype(int)].tolist()
+		new_ = fit_len(new_)
 		assert len(new_) == 5
 		candidate[url].append(new_)
 
