@@ -156,12 +156,16 @@ class SeqClassificationPredictor(Predictor):
 		f['month'] = f['month'].apply(lambda x: int(x))
 		f['is_bot'] = f['is_bot'].apply(lambda x: str(x))
 		f['from_commit'] = f['from_commit'].apply(lambda x: str(x));print(f.columns)
+		
+		#only reads months 0 - 24
 		f = f[(f['month'].isin(list(range(0,24))))]
+		##excludes bot emails and commit emails
 		f = f[(f["is_bot"] == 'False') & (f["from_commit"] == 'False')]
-		sample_size = int(0.01*f.shape[0])
 
-		try: f = f.sample(sample_size)
-		except : pass
+		# sample_size = int(0.01*f.shape[0])
+
+		# try: f = f.sample(sample_size)
+		# except : pass
 
 		try:
 			with open(outfile) as fin: 
@@ -178,7 +182,7 @@ class SeqClassificationPredictor(Predictor):
 		# f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
 		f["last_reply"] = f["body"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
-		# f["IS_count"] = [0]*f.shape[0]
+		f["IS"] = [""]*f.shape[0]
 		print("Processing emails")
 
 		json_data = process_text(f)
@@ -205,10 +209,14 @@ class SeqClassificationPredictor(Predictor):
 					if binary_labels[ind_interest]: predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
 				except Exception as e: pass
 			
-			# assert len(embeddings) == len(predictions)
+			##store IS to csv
+			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
 			final_res[str(row['month'])][row['project_name']].extend(predictions)
-		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-		exit()
+			##save results by project and month in json
+			with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+			##save csv with IS to external csv
+			f.to_csv(filename.replace(".csv","_IS.csv"))
+			exit()
 
 
 # from typing import List
