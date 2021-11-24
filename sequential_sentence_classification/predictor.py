@@ -112,7 +112,7 @@ def segment_text(chunk,url,current):
 	global candidate, email_sent
 	email_sent[url] = chunk["last_reply"][:50]
 	candidate[url] = []
-	segmenter(url)
+	segmenter(url) #;print(len(email_sent[url]),len(candidate[url]))
 
 	# candidate[url] = [cand for cand in candidate[url] if len(cand)]
 	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
@@ -147,7 +147,7 @@ class SeqClassificationPredictor(Predictor):
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
-		#outfile = filename ##for only segmentation and prediction
+		#outfile = json to store IS month and project wise 
 		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
 
 		
@@ -162,10 +162,10 @@ class SeqClassificationPredictor(Predictor):
 		##excludes bot emails and commit emails
 		f = f[(f["is_bot"] == 'False') & (f["from_commit"] == 'False')]
 
-		# sample_size = int(0.01*f.shape[0])
+		sample_size = int(0.01*f.shape[0])
 
-		# try: f = f.sample(sample_size)
-		# except : pass
+		try: f = f.sample(sample_size)
+		except : pass
 
 		try:
 			with open(outfile) as fin: 
@@ -213,10 +213,10 @@ class SeqClassificationPredictor(Predictor):
 			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
 			final_res[str(row['month'])][row['project_name']].extend(predictions)
 			##save results by project and month in json
-			with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-			##save csv with IS to external csv
-			f.to_csv(filename.replace(".csv","_IS.csv"))
-			exit()
+		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+		##save csv with IS to external csv
+		f.to_csv(filename.replace(".csv","_IS.csv"))
+		exit()
 
 
 # from typing import List
