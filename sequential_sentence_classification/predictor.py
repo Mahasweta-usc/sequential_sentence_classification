@@ -162,10 +162,12 @@ class SeqClassificationPredictor(Predictor):
 		##excludes bot emails and commit emails
 		f = f[(f["is_bot"] == 'False') & (f["from_commit"] == 'False')]
 
-		sample_size = int(0.01*f.shape[0])
+		##sample fraction of data to extract IS
 
-		try: f = f.sample(sample_size)
-		except : pass
+		# sample_size = int(0.01*f.shape[0])
+
+		# try: f = f.sample(sample_size)
+		# except : pass
 
 		try:
 			with open(outfile) as fin: 
