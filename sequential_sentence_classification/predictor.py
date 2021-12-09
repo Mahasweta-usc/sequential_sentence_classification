@@ -160,23 +160,20 @@ class SeqClassificationPredictor(Predictor):
 		# try: f = f.sample(sample_size)
 		# except : pass
 
-		try:
-			with open(outfile) as fin: 
-				final_res = json.load(fin)
-		except:
-			final_res = dict()
-			for month in list(range(0,24)): 
-				final_res[str(month)] = dict()
-				for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
-		# f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
 		try: 
 			_ = f['last_reply']
+			f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		except:
 			f["last_reply"] = f["body"].apply(lambda x: segment_email(x))
+
+    final_res = dict()
+    for month in list(range(0,24)): 
+      final_res[str(month)] = dict()
+      for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
 		f["IS"] = [""]*f.shape[0]
 		print("Processing emails")
