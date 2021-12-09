@@ -149,14 +149,17 @@ class SeqClassificationPredictor(Predictor):
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = json to store IS month and project wise 
-		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
-		f = pd.read_csv(filename)
-		final_res = dict()
-		for month in list(range(0,24)): 
-			final_res[str(month)] = dict()
-			for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
+		# outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
 		
+		f = pd.read_csv(filename)
+
+		# final_res = dict()
+		# for month in list(range(0,24)): 
+		# 	final_res[str(month)] = dict()
+		# 	for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
+
+
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		#comment for only segmentation and prediction
@@ -195,10 +198,13 @@ class SeqClassificationPredictor(Predictor):
 			
 			##store IS to csv
 			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
-			final_res[str(row['month'])][row['project_name']] += predictions
+
+			# final_res[str(row['month'])][row['project_name']] += predictions
+
 			if len(predictions) != len(set(predictions)): print(len(set(predictions)),len(predictions))
 			##save results by project and month in json
-		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
+
+		# with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 		##save csv with IS to external csv
 		f.to_csv(filename.replace(".csv","_IS.csv"))
 		exit()
