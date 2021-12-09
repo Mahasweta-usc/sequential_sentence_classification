@@ -156,9 +156,9 @@ class SeqClassificationPredictor(Predictor):
 
 		##sample fraction of data to extract IS
 
-		sample_size = int(0.1*f.shape[0])
-		try: f = f.sample(sample_size)
-		except : pass
+		# sample_size = int(0.1*f.shape[0])
+		# try: f = f.sample(sample_size)
+		# except : pass
 
 		try:
 			with open(outfile) as fin: 
