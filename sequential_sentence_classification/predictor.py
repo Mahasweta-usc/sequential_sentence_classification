@@ -11,6 +11,7 @@ os.environ["cuda_device"]= '0'
 import random
 import json
 import numpy as np
+np.random.seed(0) 
 import regex as re
 from fuzzywuzzy import fuzz, process
 import itertools
@@ -38,9 +39,9 @@ from multiprocessing import Pool, Manager #, set_start_method
     
 
 
-# mn = Manager()
-candidate = dict()
-email_sent = dict()
+mn = Manager()
+candidate = mn.dict()
+email_sent = mn.dict()
 
 def process_(text):
   text = text.replace("\r\n"," ").replace("\n"," ")
@@ -87,7 +88,8 @@ def fit_len(sent):
 
 def segmenter(url):
 	global candidate
-	candidate[url].append([])
+	# candidate[url].append([])
+	candidate[url] = []
 	template = [-2,-1,0,1,2]
 	for idx, elem in enumerate(email_sent[url]):
 		temp = ["[PAD]"]*2 + single_entries(url,elem) + ["[PAD]"]*2
@@ -95,7 +97,7 @@ def segmenter(url):
 		new_ = np.array(temp)[indices.astype(int)].tolist()
 		new_ = fit_len(new_)
 		assert len(new_) == 5
-		candidate[url].append(new_)
+		candidate[url] += [new_]
 
 def email_to_json(url):
 	global candidate
@@ -109,21 +111,20 @@ def email_to_json(url):
 
 
 def segment_text(chunk,url,current):
-	global candidate, email_sent
+	global email_sent
 	email_sent[url] = chunk["last_reply"][:50]
-	candidate[url] = []
-	segmenter(url) #;print(len(email_sent[url]),len(candidate[url]))
-
-	# candidate[url] = [cand for cand in candidate[url] if len(cand)]
-	# if len(candidate[url]) > 20 or not len(candidate[url]): candidate[url] = candidate[url][:20]
-	# print(len(candidate[url]))
+	segmenter(url)
 	json_results = email_to_json(url)
 	return json_results
 
+def segment_email(x):
+	try:
+		return sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>'))))
+	except:
+		return sent_break(process_(x.replace('.>','\n>')))
 
 def process_text(f):
-	n_cpu = 2 # multiprocessing.cpu_count() //2 #1 # multiprocessing.cpu_count() //2
-
+	n_cpu = multiprocessing.cpu_count() - 1 # //2 #1 # multiprocessing.cpu_count() //2
 	pool = Pool(n_cpu)
 	results = []
 	print("Segmenting emails")
@@ -151,23 +152,13 @@ class SeqClassificationPredictor(Predictor):
 		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
 
 		
-		f = pd.read_csv(filename);print("No of entires: ",f.shape[0])
-		f.dropna(subset=['body','message_id','month'],inplace=True)
-		f['month'] = f['month'].apply(lambda x: int(x))
-		f['is_bot'] = f['is_bot'].apply(lambda x: str(x))
-		f['from_commit'] = f['from_commit'].apply(lambda x: str(x));print(f.columns)
-		
-		#only reads months 0 - 24
-		f = f[(f['month'].isin(list(range(0,24))))]
-		##excludes bot emails and commit emails
-		f = f[(f["is_bot"] == 'False') & (f["from_commit"] == 'False')]
+		f = pd.read_csv(filename)
 
 		##sample fraction of data to extract IS
 
-		# sample_size = int(0.01*f.shape[0])
-
-		# try: f = f.sample(sample_size)
-		# except : pass
+		sample_size = int(0.1*f.shape[0])
+		try: f = f.sample(sample_size)
+		except : pass
 
 		try:
 			with open(outfile) as fin: 
@@ -178,17 +169,20 @@ class SeqClassificationPredictor(Predictor):
 				final_res[str(month)] = dict()
 				for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
-		row_count = 0 #(f["status"] == 'graduated') & 
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		# f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		#comment for only segmentation and prediction
-		f["last_reply"] = f["body"].apply(lambda x: sent_break(process_(EmailReplyParser.parse_reply(x.replace('.>','\n>')))))
+		try: 
+			_ = f['last_reply']
+		except:
+			f["last_reply"] = f["body"].apply(lambda x: segment_email(x))
+
 		f["IS"] = [""]*f.shape[0]
 		print("Processing emails")
 
 		json_data = process_text(f)
-		print("Emails processed: ", len(list(json_data.keys())))
+		print("Emails processed: ", len(list(json_data.keys())),len(list(candidate.keys())),len(list(email_sent.keys())))
 		print("Segmentation done. Starting predictions")
 		for indx, row in tqdm(f.iterrows()):
 			url = row["message_id"]
@@ -214,6 +208,7 @@ class SeqClassificationPredictor(Predictor):
 			##store IS to csv
 			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
 			final_res[str(row['month'])][row['project_name']].extend(predictions)
+			if len(predictions) != len(set(predictions)): print(len(set(predictions)),len(predictions))
 			##save results by project and month in json
 		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
 		##save csv with IS to external csv
