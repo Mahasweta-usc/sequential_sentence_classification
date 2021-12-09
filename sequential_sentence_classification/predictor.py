@@ -150,17 +150,13 @@ class SeqClassificationPredictor(Predictor):
 		filename = os.environ["FILE_PREDS"];print(filename)
 		#outfile = json to store IS month and project wise 
 		outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
+		f = pd.read_csv(filename)
+		final_res = dict()
+		for month in list(range(0,24)): 
+			final_res[str(month)] = dict()
+			for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
 		
-		f = pd.read_csv(filename)
-
-		##sample fraction of data to extract IS
-
-		# sample_size = int(0.1*f.shape[0])
-		# try: f = f.sample(sample_size)
-		# except : pass
-
-
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		#comment for only segmentation and prediction
@@ -169,11 +165,6 @@ class SeqClassificationPredictor(Predictor):
 			f['last_reply'] = f.last_reply.apply(lambda x: literal_eval(str(x)))
 		except:
 			f["last_reply"] = f["body"].apply(lambda x: segment_email(x))
-
-    final_res = dict()
-    for month in list(range(0,24)): 
-      final_res[str(month)] = dict()
-      for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
 
 		f["IS"] = [""]*f.shape[0]
 		print("Processing emails")
