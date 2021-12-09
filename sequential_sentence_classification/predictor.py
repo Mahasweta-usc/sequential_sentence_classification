@@ -207,7 +207,7 @@ class SeqClassificationPredictor(Predictor):
 			
 			##store IS to csv
 			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
-			final_res[str(row['month'])][row['project_name']].extend(predictions)
+			final_res[str(row['month'])][row['project_name']] += predictions
 			if len(predictions) != len(set(predictions)): print(len(set(predictions)),len(predictions))
 			##save results by project and month in json
 		with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
