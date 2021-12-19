@@ -1,0 +1,544 @@
+,prof,url
+0,"CC'ing olio-user as that is the right forum for these questions.<EOL>
+",http://mail-archives.apache.org/mod_mbox/incubator-olio-user/201006.mbox/%3cAANLkTinbezcfVAxmmg4ilXjcJJ7Z0YWry2jImXuv7-xY@mail.gmail.com%3e
+1,there is some *temporary* documentation available<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/200606.mbox/%3c467251f60606130330u6b226dc2k80945ceaf647f75@mail.gmail.com%3e
+2,There is also a compiled api-jar and a compiled impl-jar online ([4])<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/200606.mbox/%3c467251f60606130330u6b226dc2k80945ceaf647f75@mail.gmail.com%3e
+3,"Please note; that the name ""ADF Faces"" will be removed asap<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/200606.mbox/%3c467251f60606130330u6b226dc2k80945ceaf647f75@mail.gmail.com%3e
+4,"This includes JavaDoc ([2])
+> and describtion of taglib ([3]).<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/200606.mbox/%3c467251f60606130330u6b226dc2k80945ceaf647f75@mail.gmail.com%3e
+5,My DFDL tutorial shows how to use DFDL to process text files and binary files<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-daffodil-users/202006.mbox/%3cDM6PR09MB3337D8EE12EB72F5CAB14932C8920@DM6PR09MB3337.namprd09.prod.outlook.com%3e
+6,"My tutorial
+on processing binary files shows how to use DFDL schema to process Windows EXE files, byte
+by byte, bit by bit.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-daffodil-users/202006.mbox/%3cDM6PR09MB3337D8EE12EB72F5CAB14932C8920@DM6PR09MB3337.namprd09.prod.outlook.com%3e
+7,"After two RC version, a new candidate for the ODF Toolkit 0.5-incubating
+release is available  at:
+http://people.apache.org/~devinhan/odftoolkit-release/odftoolkit-0.5-incubating-rc3/<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-odf-users/201112.mbox/%3cCAFJd6yRXT-Ty=MX1MjA2B0d=ZRUwOg1xtoY-7k1=Ep2LUhexOw@mail.gmail.com%3e
+8,"The vote is open for the next 72 hours and passes if a majority of at least
+three +1 ODF Toolkit PMC votes are cast.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-odf-users/201112.mbox/%3cCAFJd6yRXT-Ty=MX1MjA2B0d=ZRUwOg1xtoY-7k1=Ep2LUhexOw@mail.gmail.com%3e
+9,"The release candidate is a zip archive of the sources in:
+https://svn.apache.org/repos/asf/incubator/odf/tags/0.5-incubating-rc3/<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-odf-users/201112.mbox/%3cCAFJd6yRXT-Ty=MX1MjA2B0d=ZRUwOg1xtoY-7k1=Ep2LUhexOw@mail.gmail.com%3e
+10,"Please vote on releasing this package as Apache ODF Toolkit
+0.5-incubating-rc3.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-odf-users/201112.mbox/%3cCAFJd6yRXT-Ty=MX1MjA2B0d=ZRUwOg1xtoY-7k1=Ep2LUhexOw@mail.gmail.com%3e
+11,"Aaron or
+> > > > someone
+> > > > > > > else can correct me if I am wrong<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-blur-user/201309.mbox/%3cCAGW2whT2c_kyU=FAtLZ-yEO7i6vRR9xWmcSvcf6iJZBqPKDVEw@mail.gmail.com%3e
+12,"Of the two Consistency is favored over
+Availability,
+> > > however
+> > > > we
+> > > > > > are
+> > > > > > > > > > > starting development (in 0.3.0) to
+increase
+> availability
+> > > > during
+> > > > > > > > > failures.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-blur-user/201309.mbox/%3cCAGW2whT2c_kyU=FAtLZ-yEO7i6vRR9xWmcSvcf6iJZBqPKDVEw@mail.gmail.com%3e
+13,"SVN is retired (rw to the incubator pmc, should still be anonymous r)<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+14,"The rest of the RetiringPodlings page has been done, so now I've
+> requested that these mailing lists be shutdown:
+> 
+> https://issues.apache.org/jira/browse/INFRA-1056<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+15,"As far as I can tell everyone is
+>> agreed on doing it, so I'm planning to do the items listed on
+>> http://wiki.apache.org/incubator/RetiringPodlings next weekend<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+16,"Retiring podlings is pretty novel, so please point out if anything is
+>> missing or if anything there is a bad idea<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+17,Wiki is read-only.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+18,"This is to let people know that the mailing lists will be shut down
+>> (archives don't go away) as a part of that and the various resources
+>> (jira/code etc) will be read-only.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-agila-user/200701.mbox/%3c459FCBDF.9070607@mvdb.net%3e
+19," Friendly reminder: Our fifth edition of monthly Apache Gobblin video
+> conference is tomorrow - 8/16 Wednesday (9:00 - 10:00am PT)<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-gobblin-user/201708.mbox/%3cCAFjTMnwU73g-biVEfanLwgXSbSE8TX+K1g9jTZ5WTyFidfihiQ@mail.gmail.com%3e
+20,Please join us at: https://bluejeans.com/741314307/<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-gobblin-user/201708.mbox/%3cCAFjTMnwU73g-biVEfanLwgXSbSE8TX+K1g9jTZ5WTyFidfihiQ@mail.gmail.com%3e
+21,"Meeting minutes:
+https://cwiki.apache.org/confluence/display/GOBBLIN/5th+Apache+Gobblin+Community+Monthly+Meetup<EOL>
+",http://mail-archives.apache.org/mod_mbox/incubator-gobblin-user/201708.mbox/%3cCAFjTMnwU73g-biVEfanLwgXSbSE8TX+K1g9jTZ5WTyFidfihiQ@mail.gmail.com%3e
+22,"You could also grab the latest build binaries from Jenkins Apache CI server:
+https://builds.apache.org/job/Blur-master-jdk6/<EOL>
+Download links:
+https://builds.apache.org/job/Blur-master-jdk6/212/org.apache.blur$apache-blur/<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-blur-user/201404.mbox/%3cCAB6tTr3MaMKgYfn792bqAYk7MOwES08HKBpWSwTqFu0sVBAYzw@mail.gmail.com%3e
+23,This email was sent by an automated system on behalf of the Apache<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+24,"The report for your podling will form a part of the Incubator PMC
+report.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+25,"Please submit your report with sufficient time to allow the Incubator
+PMC, and subsequently board members to review and digest.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+26,"Your report should contain the following:
+*   Your project name
+*   A brief description of your project, which assumes no knowledge of
+    the project or necessarily of its field
+*   A list of the three most important issues to address in the move
+    towards graduation.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+27,"This should be appended to the Incubator Wiki page at:
+https://wiki.apache.org/incubator/January2017<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+28,"You may need to wait a little before
+this page is created from a template.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+29,"Signing off reports shows that you are
+following the project - projects that are not signed may raise alarms
+for the Incubator PMC.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+30," I have made the THIRD beta of Airflow 1.8.0 available at:
+> >>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/ <
+> >>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/> , public
+> >> keys
+> >>>> are available at
+> >>>> https://dist.apache.org/repos/dist/release/incubator/airflow/ <
+> >>>> https://dist.apache.org/repos/dist/release/incubator/airflow/><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+31,"When reporting
+> >> issues a
+> >>>> test case or even a fix is highly appreciated<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+32,> >>>> the procedure becomes even more strict<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+33,"I have made the THIRD beta of Airflow 1.8.0 available at:
+> >>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/ <
+> >>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/> , public
+> >> keys
+> >>>> are available at
+> >>>> https://dist.apache.org/repos/dist/release/incubator/airflow/ <
+> >>>> https://dist.apache.org/repos/dist/release/incubator/airflow/> .<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+34,"Moving towards RC I
+> >> tend to
+> >>>> like small bug fixes only.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+35,"Please remember that the FINAL
+> >>>> release is dependent on a vote on the IPMC mailinglist.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+36,Please subscribe to the dev@ mailing list<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<CADrzvViM37CPyU+nc4=UkY4hXU3MF=N-V31ZDEJrpHQcQWRREA@mail.gmail.com>
+37,"Stripe is hosting the next Airflow Meetup on Wednesday, September 21st
+in San Francisco<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201608.mbox/<70EBD4C69287065F.D74AEE77-2187-4E71-8B43-98A327073693@mail.outlook.com>
+38,"Let
+me know if you''d like to volunteer.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201608.mbox/<70EBD4C69287065F.D74AEE77-2187-4E71-8B43-98A327073693@mail.outlook.com>
+39,"I have made the THIRD beta of Airflow 1.8.0 available at:
+>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/ <
+>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/> , public keys
+>>> are available at
+>>> https://dist.apache.org/repos/dist/release/incubator/airflow/ <
+>>> https://dist.apache.org/repos/dist/release/incubator/airflow/> <EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+40,"When reporting issues
+ a
+>>> test case or even a fix is highly appreciated<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+41,>>> the procedure becomes even more strict<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+42,"This beta is available for testing in a more production
+>>> like setting (acceptance environment?<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+43,"I would like to encourage everyone  to try it out, to report back any
+>>> issues so we get to a rock solid release of 1.8.0.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+44,"Moving towards RC I tend
+ to
+>>> like small bug fixes only.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+45,"Please remember that the FINAL
+>>> release is dependent on a vote on the IPMC mailinglist.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<BA5E77FF-5232-4058-9208-4269121435B3@gmail.com>
+46,Here''s the quarterly Podling Report for Apache Airflow<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CANLtMifAUohgQKrRqbb4gckOi3y-WedMnWt2wiC9Zc0dDUA7vQ@mail.gmail.com>
+47,"If you are a committer/maintainer, you can directly edit it.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CANLtMifAUohgQKrRqbb4gckOi3y-WedMnWt2wiC9Zc0dDUA7vQ@mail.gmail.com>
+48,"Feel free to
+suggest edits<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CANLtMifAUohgQKrRqbb4gckOi3y-WedMnWt2wiC9Zc0dDUA7vQ@mail.gmail.com>
+49," If you want to contribute it back to the project, send a PR that add it to
+> the `contrib/hooks` folder<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201609.mbox/<CABNWVv-YdgJ_ygTDKL8X86Gdv=A-fTLdpfYYc44Ve4iBFpHEHA@mail.gmail.com>
+50,Just a reminder that the second Podling report is imminent<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201605.mbox/<CADiKvVvXTdgzwKaCE_oijH7cE-pUNBFFdriCC58_5PBYnduS-g@mail.gmail.com>
+51,"After
+three monthly reports (this is our second), we move to quarterly
+reporting.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201605.mbox/<CADiKvVvXTdgzwKaCE_oijH7cE-pUNBFFdriCC58_5PBYnduS-g@mail.gmail.com>
+52,"I''ve created a first version of the iota Contributor Guide:
+> https://cwiki.apache.org/confluence/display/IOTA/iota+Contributor+Guide
+>
+> For release 0.1, I suggest that we focus on the build chapters since being
+> able to build the source is typically a requirement to make a release
+> public<EOL>",http://mail-archives.apache.org/mod_mbox/iota-dev/201702.mbox/<CANMFQO5ypPc0Dt9a58XGXsAQZtYUb1_hHQd7d+fYu=covp+D3A@mail.gmail.com>
+53,"I
+>> > think
+>> > >>> now 1.7.1.3 is out we should be focused on getting one out as we are
+>> > kind
+>> > >>> of half way the incubation process<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201606.mbox/<CADiKvVv0OS8fVEoKTdD2k60s-7=UKUnnhDVbHE9g8GF6P2ZeyA@mail.gmail.com>
+54,"Replace highcharts by D3 (WIP:
+>> > >>> https://github.com/apache/incubator-airflow/pull/1469)
+>> > >>> 2.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201606.mbox/<CADiKvVv0OS8fVEoKTdD2k60s-7=UKUnnhDVbHE9g8GF6P2ZeyA@mail.gmail.com>
+55,Have a review by Apache<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201606.mbox/<CADiKvVv0OS8fVEoKTdD2k60s-7=UKUnnhDVbHE9g8GF6P2ZeyA@mail.gmail.com>
+56,"Technically headers have to be added to anything where
+human creativity was involved (ie, not in generated source code), so
+one could argue they''re not necessary in __init__.pys.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201606.mbox/<CADiKvVv0OS8fVEoKTdD2k60s-7=UKUnnhDVbHE9g8GF6P2ZeyA@mail.gmail.com>
+57,We''ve deployed the RC and will report if there are any issues<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+58," This should be
+> considered
+> > of
+> > > > >>>> release quality, but not yet officially vetted as a release yet<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+59,"Furthermore, we now have a “v1-8-stable” branch<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+60,"The
+> > > > >> test
+> > > > >>>> branch now has version 1.8.1alpha as version and master has
+> > > > >> version
+> > > > >>>> 1.9.0dev<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+61,"This means
+> > that,
+> > > > >> per
+> > > > >>>> release guidelines, patches accompanied with an ASSIGNED Jira
+> and
+> > a
+> > > > >>>> sign-off from a committer<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+62," For
+> > > > >>> more
+> > > > >>>> information please see: https://cwiki.apache.org/
+> > > > >>>> confluence/display/AIRFLOW/Airflow+Release+Planning+and+
+> > > > >>>> Supported+Release+Lifetime <https://cwiki.apache.org/
+> > > > >>>> confluence/display/AIRFLOW/Airflow+Release+Planning+and+
+> > > > >>>> Supported+Release+Lifetime><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+63,"I have made the (first) RELEASE CANDIDATE of Airflow 1.8.0
+> > available
+> > > > >> at:
+> > > > >>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/ ,
+> > public
+> > > > >> keys
+> > > > >>>> are available at
+> > > > https://dist.apache.org/repos/dist/release/incubator/
+> > > > >>>> airflow/ .<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+64,"As the difference between beta 5 and the release candidate is
+> > > > >> relatively
+> > > > >>>> small I hope to start the VOTE for releasing 1.8.0 quite soon
+(2
+> > > > >> days?<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+65," Only then the release manager applies
+> > the
+> > > > >>> patch
+> > > > >>>> to stable (In this case that would be me).<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+66,Any questions or suggestions dont hesitate to ask!<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABYbY7fMpHZqoesPR7wAH0w9viU9jbfkt1BrMWeeE07yZe7kuQ@mail.gmail.com>
+67,"The whole 1.8.X release will be bug fix focused (per release management)
+>>> and minor feature updates<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+68,"Chris has been preparing the 1.8.1 release and the vote is running
+>>>>>> for it<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+69,"I would like to raise a VOTE for releasing 1.8.1 based on release
+>>>>>> candidate
+>>>>>> 2<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+70,"Writing regression tests is good but we
+>>> shouldn''t have so many new blocker issues in our releases.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+71,"It would be nice if you can share where your areas of concern are so we can
+>>>> address those and a suggestion on how to proceed with integration tests is
+>>>> also welcome.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+72,"I do agree with the approach of
+> trying
+> >> to get funding from Apache and having shared resources (e.g.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+73,"I am willing to offer
+> a
+> >>> place in Lab env I am running or to fund an environment in AWS/GCloud
+> if
+> >>> Apache cannot make these kind of resources available<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+74," I
+> >>> will also hold ultimate power to remove access from anyone<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+75,"Downside 1) it might not be entirely Apache
+> like.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+76,"2) there is no guaranteed up time 3) I might need
+> >> to
+> >>> remove it in the future e.g.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+77,"4) No
+> >>> public cloud integration, its a private stack after all <EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+78,"Again, I probably want to have ultimate
+> >>> power on access to this environment - its my companys money on the
+> line
+> >>> after all <EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+79,"Upside is that it is not company
+> >> property<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+80,"To my knowledge what
+> Apache offers is more suited for unit tests (ie.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+81,"The ""traditional"" Apache infra is Jenkins with a
+> > pool of machines that they provide.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+82,"If we decide we don''t like
+> > it, I think that''s OK, as long as we move forward knowing that any other
+> > testing solution can disappear at any time.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+83,"If running in our Lab there is virtually no restriction what we could
+> do,
+> >>> however I will hand select people who have access to this environment.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+84," I even
+> might
+> >>> ask for a confirmation that you will behave when using our property
+> >> (dont
+> >>> worry wont cover it with legal wording).<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+85,"We could setup a Gitlab instance that mirrors from Apache a kicks
+> >> off
+> >>> runners to do testing.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+86,when I change jobs for example :).<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAK5UC3BWHsj8m_nAC9ToB7CWxqZxRinZBZAWAH7wGNzo96EeGg@mail.gmail.com>
+87,"We would love anyone who uses
+>> > > > Airflow
+>> > > > > >> >> heavily
+>> > > > > >> >> > in
+>> > > > > >> >> > > > > > production to be involved<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CAHogpC4W_VMEUO875bMkJeuAeAMu_ZyQda_pPeVk9Dt-79Sjrw@mail.gmail.com>
+88,"Try going here to create the JIRA:
+https://issues.apache.org/jira/secure/CreateIssue!default.jspa<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201605.mbox/<CABYbY7cnPPeFOgLrD1JigFWb6_6+n_+2O+BhuwYeH98aKkR02w@mail.gmail.com>
+89,If anyone else is interested in helping us build this library please do get in touch!,http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CAM5819Snsuu=3mWYycVC_iy89STJLpqHHDp-xCCX3Zd2yksCNw@mail.gmail.com>
+90,"My suggestion, as we are using semantic versioning is:
+> > > > > >
+> > > > > > 1) no new features in the 1.8 branch
+> > > > > > 2) only bug fixes in the 1.8 branch
+> > > > > > 3) new features to land in 1.9<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CACdThQ2UcAXmyiGr=dd8=LDB+XubwRFdkzvataC2WNVq=yNGig@mail.gmail.com>
+91,"Obviously we only support N-1, so when 1.10 comes
+> > out
+> > > > we
+> > > > > stop supporting 1.8.X<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CACdThQ2UcAXmyiGr=dd8=LDB+XubwRFdkzvataC2WNVq=yNGig@mail.gmail.com>
+92,"IPMC Voting can be found here:
+>> >
+>> > http://mail-archives.apache.org/mod_mbox/incubator-general/
+>> 201702.mbox/%%%%
+>> > 3c676BDC9F-1B55-4469-92A7-9FF309AD0EC8@gmail.com%%%%3e <
+>> > http://mail-archives.apache.org/mod_mbox/incubator-general/
+>> 201702.mbox/%%%%
+>> > 3C676BDC9F-1B55-4469-92A7-9FF309AD0EC8@gmail.com%%%%3E><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+93,"Next steps:
+>> > > 1) will start the voting process at the IPMC mailinglist.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+94,"So, we might end up with changes to stable.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+95,">> > > 2) Only after the positive voting on the IPMC and finalisation I will
+>> > rebrand the RC to Release.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+96,>> > > 4) Update the website (can someone volunteer please?)<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+97,"It seems we can
+>> keep
+>> > the apache branding as lib cloud is doing this as well (
+>> > https://libcloud.apache.org/downloads.html#pypi-package <
+>> > https://libcloud.apache.org/downloads.html#pypi-package>)<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CABekQG4OMFKgXzaKnON+zYJAZGYNiM=pvTJf8k-DFmmuAH6L+A@mail.gmail.com>
+98,"The answer of Bolke de Bruin was: ""making it more generic would be
+> > > > appreciated""<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CADsgxrG28Qaf6G=Rn71p5WgSu+N7QVYMcN6oK0OfG6HVosMpUg@mail.gmail.com>
+99,"I have made the THIRD RELEASE CANDIDATE of Airflow 1.8.0
+> >>>>>> available
+> >>>>>>>> at:
+> >>>>>>>>>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/
+> >>> <
+> >>>>>>>>>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/>
+> >>> ,
+> >>>>>>> public
+> >>>>>>>>> keys
+> >>>>>>>>>>> are available at https://dist.apache.org/repos/
+> >>>>>>>> dist/release/incubator/
+> >>>>>>>>>>> airflow/ <
+> >>>>> https://dist.apache.org/repos/dist/release/incubator/
+> >>>>>>>>> airflow/><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CADsgxrG5vNcxde5muT9+itw9V_iVaanirpaEyCZ8D0g+YLhQ6w@mail.gmail.com>
+100,"just renaming release candidate 3
+> >>>> to
+> >>>>>>> 1.8.0
+> >>>>>>>>>>> release<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CADsgxrG5vNcxde5muT9+itw9V_iVaanirpaEyCZ8D0g+YLhQ6w@mail.gmail.com>
+101,"UPDATING.md has
+> >>>> been
+> >>>>>>>> updated
+> >>>>>>>>>>> with the work around.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CADsgxrG5vNcxde5muT9+itw9V_iVaanirpaEyCZ8D0g+YLhQ6w@mail.gmail.com>
+102,I want to officially announce a Meetup for Airflow in NYC<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAEOTQt8T8Z0x49RP91jV8tLW_7S=NWXHEEsX8=iY_Y3WgacOiA@mail.gmail.com>
+103," I have a confirmed date of February 1st @ 6:30 at Blue Apron''s
+> headquarters<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAEOTQt8T8Z0x49RP91jV8tLW_7S=NWXHEEsX8=iY_Y3WgacOiA@mail.gmail.com>
+104," If we can''t generate enough interest we can
+> certainly push it back a month<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAEOTQt8T8Z0x49RP91jV8tLW_7S=NWXHEEsX8=iY_Y3WgacOiA@mail.gmail.com>
+105," I have been able to make the Airflow 1.8.1 RC0 available at:
+> https://dist.apache.org/repos/dist/dev/incubator/airflow, public keys are
+> available at https://dist.apache.org/repos/dist/release/incubator/airflow<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+106,just renaming release candidate 0 to 1.8.1 release<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+107,"For all the bundled files with different licenses (MIT, BSD, etc), the full
+texts of these licenses should be in the source tarball preferably at the
+end of the LICENSE file.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+108,"A bunch of files under apache_airflow.egg-info/ and scripts/systemd/ need a
+license header<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+109,"Any additions to the NOTICE have
+downstream repercussions as they need to be propagated down by any other
+project using airflow.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+110,"Please respond to this email by:
+>
+> +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are
+> not.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+111,"Why is that we needed to move to JIRA, yet INFRA has allowed for
+the creation (but not closing) of Github issues in Github?<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201605.mbox/<CANLtMidEdKKwMHO3NTgNTko21RcgwM2BkeCHF36hd+qJq_spWA@mail.gmail.com>
+112,"Please do share and feel free to get involved as the more feedback we get
+the better the library we create is :)<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CAHogpC4W_VMEUO875bMkJeuAeAMu_ZyQda_pPeVk9Dt-79Sjrw@mail.gmail.com>
+113,"Hi All,
+>>>>>>>> I have made the FIFTH beta of Airflow 1.8.0 available at:
+>>>>>>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/ <
+>>>>>>>> https://dist.apache.org/repos/dist/dev/incubator/airflow/> ,
+>>> public
+>>>>>> keys
+>>>>>>>> are available at https://dist.apache.org/repos/
+>>>>> dist/release/incubator/
+>>>>>>>> airflow/ <https://dist.apache.org/repos/dist/release/incubator/
+>>>>> airflow/
+>>>>>>><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<41EAC266-BC94-407B-A97D-9062B8832230@gmail.com>
+114,"It''s true that there are some other tools we need to provide to make
+> OW@Edge a feasible option for developers, but they are outside of the
+> core and this specific proposal and merit a separate discussion.<EOL>",http://mail-archives.apache.org/mod_mbox/openwhisk-dev/201808.mbox/<CAFEpjOqa5tpMf5xsZSPfqrAP1TFCrMzRaOMm8+YAHmEryVLOow@mail.gmail.com>
+115,"This email was sent by an automated system on behalf of the Apache
+> > Incubator PMC<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+116," The board meeting is scheduled for Wed, 19 April 2017, 10:30 am PDT<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+117,"The Incubator PMC requires your report to be submitted 2 weeks
+> > before the board meeting, to allow sufficient time for review and
+> > submission (Wed, April 05)<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+118,"Again, the
+> > very latest you should submit your report is 2 weeks prior to the board
+> > meeting<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+119,"> > *   Any issues that the Incubator PMC or ASF Board might wish/need to be
+> >     aware of
+> > *   How has the community developed since the last report
+> > *   How has the project developed since the last report.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+120,"This should be appended to the Incubator Wiki page at:
+> >
+> > https://wiki.apache.org/incubator/April2017<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+121,"Signing off reports shows that you are
+> > following the project - projects that are not signed may raise alarms
+> > for the Incubator PMC<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+122,"It is an initial reminder to give you plenty of time to
+> > prepare your quarterly board report.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+123,"Please submit your report with sufficient time to allow the Incubator
+> > PMC, and subsequently board members to review and digest.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+124,> > *   How does the podling rate their own maturity.<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+125,"You may need to wait a little before
+> > this page is created from a template.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+126,Here''s the quarterly Podling Report for Apache Airflow.<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAKL5WoEtxtGTyyEVt8JXmDBmxjExyAQh58zvdnhR2c1BUL7+Eg@mail.gmail.com>
+127,"If you are a committer/maintainer, you can directly edit
+> it<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAKL5WoEtxtGTyyEVt8JXmDBmxjExyAQh58zvdnhR2c1BUL7+Eg@mail.gmail.com>
+128,"Feel free to
+> > suggest edits.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CAKL5WoEtxtGTyyEVt8JXmDBmxjExyAQh58zvdnhR2c1BUL7+Eg@mail.gmail.com>
+129,I just wanted to check in on the 1.7.1 release status<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<CABYbY7cx2+NM7DUUOxfiZ2JvABPRcQ3_B8qK4TV5BMCzyZj0AA@mail.gmail.com>
+130,"If there aren''t any issues we can push the 1.7.1
+> tag on Monday/Tuesday.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<CABYbY7cx2+NM7DUUOxfiZ2JvABPRcQ3_B8qK4TV5BMCzyZj0AA@mail.gmail.com>
+131,"We can potentially try reverting these commits next time while the
+> fixes are applied for the next version, although this is not always trivial
+> to do.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<CABYbY7cx2+NM7DUUOxfiZ2JvABPRcQ3_B8qK4TV5BMCzyZj0AA@mail.gmail.com>
+132,"Finally, I have been able to make the FIFTH RELEASE CANDIDATE
+> > of
+> > > > > > Airflow
+> > > > > > > > 1.8.0 available at: https://dist.apache.org/repos/
+> > > > > > > > dist/dev/incubator/airflow/ <https://dist.apache.org/
+> > > > > > > > repos/dist/dev/incubator/airflow/> , public keys are
+> available
+> > > at
+> > > > > > > > https://dist.apache.org/repos/dist/release/incubator/
+> airflow/
+> > <
+> > > > > > > > https://dist.apache.org/repos/dist/release/incubator/
+> airflow/<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CANLtMifC-AH63z=iD3=O-UxFM6vQ_uG=4B7jED_CyUqFNkFGFg@mail.gmail.com>
+133,"just renaming release candidate 5 to 1.8.0
+> > > > release<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CANLtMifC-AH63z=iD3=O-UxFM6vQ_uG=4B7jED_CyUqFNkFGFg@mail.gmail.com>
+134,"Please respond to this email by:
+> > > > > > > >
+> > > > > > > > +1,0,-1 with *binding* if you are a PMC member or
+> *non-binding*
+> > > if
+> > > > > you
+> > > > > > > are
+> > > > > > > > not.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CANLtMifC-AH63z=iD3=O-UxFM6vQ_uG=4B7jED_CyUqFNkFGFg@mail.gmail.com>
+135,"I have made Airflow 1.8.0 alpha 4 available at
+> > https://people.apache.org/~bolke/ <https://people.apache.org/~bolke/><EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CABYbY7e+Tf0n6uNpBOZ=EkeE9+Gh6-8JSJH8tYp0qY2oqrPFPw@mail.gmail.com>
+136,"I consider
+> this
+> > Alpha to be a Beta if not for the pending features<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CABYbY7e+Tf0n6uNpBOZ=EkeE9+Gh6-8JSJH8tYp0qY2oqrPFPw@mail.gmail.com>
+137,> > Again no Apache release yet - this is for testing purposes.<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CABYbY7e+Tf0n6uNpBOZ=EkeE9+Gh6-8JSJH8tYp0qY2oqrPFPw@mail.gmail.com>
+138,"https://cwiki.apache.org/confluence/display/AIRFLOW/Contributor+Guide
+Please add to it.. also share thoughts on what is unclear or missing<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201605.mbox/<CANLtMicCv6GQkNiHqQeJyz4ys4NUoYrEyV-NFBUt40O9V0ouOA@mail.gmail.com>
+139,just renaming release candidate 3 to 1.8.0  release<EOL>,http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CADsgxrG5vNcxde5muT9+itw9V_iVaanirpaEyCZ8D0g+YLhQ6w@mail.gmail.com>
+0,I would really suggest that you follow the manual.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-s4-user/201112.mbox/%3c4EE9C9F0.8010100@apache.org%3e
+1,"Even if I'm still thinking that Kalumet has lot of values, I propose to retire Kalumet from the incubator:
+[ ] +1 to retire Kalumet from the incubator
+[ ] -1 to keep Kalumet in the incubator
+The vote is open for 48 hours.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-kalumet-user/201509.mbox/%3cBN1PR12MB0002FAA38A7CE190513A343FA2690@BN1PR12MB0002.namprd12.prod.outlook.com%3e
+2,"This is the initial release of HCatalog.<EOL>
+Should we release this?<EOL>
+Vote closes on Thursday, July 15th.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-hcatalog-user/201107.mbox/%3cCF6818F4-4825-4CB2-9E3B-E9AA0791FEBF@hortonworks.com%3e
+3,"deft-dev@incubator.apache.org --> awf-dev@incubator.apache.org.<EOL>
+deft-users@incubator.apache.org --> awf-users@incubator.apache.org.<EOL>
+deft-commits@incubator.apache.org --> awf-commits@incubator.apache.org.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-awf-users/201202.mbox/%3cCAE9L6G30jx=PhXWEt4hTgTm83qTCF42vNGM=KD2qhBKd4Rugvg@mail.gmail.com%3e
+4,"Please VOTE on the Apache Flagon 2.1.0 Release Candidate 01.<EOL>
+Vote will be open for 72 hours.<EOL>
+Please VOTE as follows:
+ [ ] +1, let's get it released!!
+!
+[ ] +/-0, fine, but consider to fix few issues before...
+[ ] -1, nope, because... (and please explain why).<EOL>
+Along with your VOTE, please indicate testing and checks you've made against build artifacts,src, and documentation:<EOL>
+ [ ] Build and Unit Tests Pass [ ] Integration Tests Pass [ ] ""Incubating"" in References to Project and Distribution File Names [ ] Signatures and Hashes Match Keys [ ] DISCLAIMER, LICENSE, and NOTICE Files in Source and Binary Release Packages [ ] DISCLAIMER, LICENSE, and NOTICE are consistent with ASF and Incubator Policy [ ] CHANGELOG included with release distribution [ ] All Source Files Have Correct ASF Headers [ ] No Binary Files in Source Release Packages.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-flagon-user/202002.mbox/%3c43A6EE27-A7E3-4603-8406-4BF0DD2ED96D@apache.org%3e
+5,"Responsesback to ooo-dev@incubator.apache.org, please.<EOL>
+I was selected as a gsoc2012 participant by the Apache SoftwareFoundation (ASF) for the ODF Command Line Tools (OCLT) project.<EOL>
+AtRob Weir's suggestion, I have proposed an initial feedback period(during Community Bonding) to gauge the interest and leanings of thecommunity regarding the OCLT tools.<EOL>
+My proposal document is less aroadmap and more a hodgepodge of different ideas to solving theproblem of the OCLS:https://docs.google.com/open?id=0B8g_FgudO4EdbWk0T01Zbmo4RFU.<EOL>
+Please feel free to discuss pros/cons of the different approaches Ihave proposed, or to propose new ideas.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-odf-users/201205.mbox/%3cCAP-ksoi58P1wN3TQYxVEgm4hf_mTMqHg703TfBc6ihkjVFfLJg@mail.gmail.com%3e
+6,"I wrote a document called 'Using XAP TreeView"" describing the TreeViewcomponent, how to use it and a bit about XAP functionaility in general.<EOL>
+If there is interest I can post it as word or pdf.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-xap-user/200706.mbox/%3cDC7475DE75130445B186DBCB617B4A7B0172C576@dhost002-43.dex002.intermedia.net%3e
+7,"We should handle this better, so feel free to file a bug.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-npanday-users/201103.mbox/%3c8A081154-D0BD-42B7-8963-4D1064273F2A@apache.org%3e
+8,"The Apache Taverna team are happy to announce the release of TavernaParent 1 incubating and Taverna Language 0.15.0 incubating.<EOL>
+The release artifacts are downloadable from:https://www.apache.org/dyn/closer.cgi/incubator/taverna/.<EOL>
+Maven JAR artifacts are available from:https://repository.apache.org/content/repositories/releases/org/apache/taverna/.<EOL>
+Release notes are available from:https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12318322&version=12332247https://issues.apache.org/jira/secure/ReleaseNote.jspa?projectId=12318322&version=12332246.<EOL>
+More details on Apache Taverna can be found at:http://taverna.incubator.apache.org/.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-taverna-users/201508.mbox/%3c55CB6A97.2080204@manchester.ac.uk%3e
+9,"I am soon going to put the documentation about the same, please note that it is just a quick hack to demonstrate the pattern as explained in the email chain.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-gobblin-user/201709.mbox/%3cCAPaCpY9enNtiG5T8bnBv_5rmZ+HP4gnyGkWWYaa6Ct_gJm-h1g@mail.gmail.com%3e
+10,following the instructions athttps://gobblin.readthedocs.io/en/latest/user-guide/Gobblin-Schedulers/.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-gobblin-user/201907.mbox/%3cCAA+GDLooPwFcDvTf_RGiFDLSs_Z4m7c1dE4sFDvEfcrcW_d-Vw@mail.gmail.com%3e
+11,read the trinidad wiki on seam.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-adffaces-user/200703.mbox/%3c71235db40703071348u35b8b8e0k299b027cdb844b6a@mail.gmail.com%3e
+12,You can check out the docs here http://incubator.apache.org/npanday/docs/1.3-incubating/index.html<EOL>.,http://mail-archives.apache.org/mod_mbox/incubator-npanday-users/201102.mbox/%3c648435296.12288.1296689669367.JavaMail.root@cell.g2ix.net%3e
+13,if not we have release with a repository packaged you can use that.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-npanday-users/201108.mbox/%3c1992149918.5662.1312531459480.JavaMail.root@cell.g2ix.net%3e
+14,"We're still building up our documentation on the wiki, as well as our listof examples.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-ariatosca-user/201708.mbox/%3cCAMeryBfX_u8SgxAXgi9cGPiJZJ6pyPqOkp=HZVnhYyTj7zGe9A@mail.gmail.com%3e
+15,"Otherwise we may be able to open a JIRA and change this, but I am unsure of any potential consequences.<EOL>",http://mail-archives.apache.org/mod_mbox/incubator-livy-user/201801.mbox/%3cCAAOnQ7sDxAw+M5tyQgQ1hKQdy=Coc_S_231oMvK_fPHoPPb4wA@mail.gmail.com%3e
+16,Follow this >> > guide and let me know what issues you find.<EOL>,http://mail-archives.apache.org/mod_mbox/incubator-blur-user/201302.mbox/%3cCAFAd71VCaOefPufEvEAwd=47w9DGZ7rRd4jTuMRzt0VeeLRgQg@mail.gmail.com%3e
+17,"If not could always be informal/meet in a public setting<EOL>  I will bring it up to ouradministrative team and give an update.<EOL>
+We at Blue Apron would be very interested.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAPp6otLDvGifZtaTo6DHRNajKOWXTd89f0BZZhDoq=vcuZu9YQ@mail.gmail.com>
+18,"Anyways, see also the release management thing on the wiki.<EOL>
+Feel free to downgrade to critical if you like :).<EOL>
+Let me know if there''s anything else I''m missing that I should consider.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201706.mbox/<05DAC1DE-5622-4AE1-85B1-F1C8C561E0D5@gmail.com>
+19,"Send it to jena-dev@groups.yahoo.com and see what the reaction is.<EOL>
+For adding something like this, there is a lighter weight way.<EOL>
+Only committers need to sign an ICLA, and software grants are only needed separately for large blobs of pre-existing code.<EOL>
+When we''re in Apache, you can contribute by putting it on the Jena JIRA as a patch file.<EOL>
+This implies the necessary legal permission for ASF to use the patch just by the act of doing it (the Jira installation has a note about this when you create the entry, I think - we''re all a bit new to Apache processes).<EOL>
+Some committer then handles it - I think (we new to this ...) by making sure the project group is OK with it and then applying the patch.<EOL>
+Or the other way round.<EOL>
+The point is an email goes to the public development mailing list for everyone, inc committers, to see. <EOL>
+For added examples, it''s a bit of a no-op, but it means it''s ""the project"" dciding, not one person in isolation.<EOL>
+It''s no work for the contributor - they just upload patch to JIRA.<EOL>
+We''d be swamped by (electronic) paperwork otherwise.<EOL>
+The full details are:http://www.apache.org/foundation/getinvolved.html.<EOL>
+Thins may be a bit slow as we get sorted out but JIRA never forgets.<EOL>
+ If you could send it for now to jena-dev@groups.yahoo.com then submit it when we are up and running properly at Apache.<EOL>",http://mail-archives.apache.org/mod_mbox/jena-dev/201012.mbox/<4CFD6D1B.4010701@epimorphics.com>
+20,"Thanks to Daniel and Arthur, we now have a few versions of the docs up onReadTheDocs.
+https://readthedocs.org/projects/airflow/.<EOL>
+From my understanding the mocking of libs > > would have to be done here in this file: > > https://github.com/airbnb/superset/blob/master/docs/conf.py.<EOL>
+replacing the > documentation for the latest stable release with the documentation for a > future release candidate can lead to experiences that are ... frustrating.<EOL>
+We may want to set up a service like https://readthedocs.org/ to offer > > versioned docs.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201703.mbox/<CAHEEp7VghYVNauaB0eEkJLKoiP6izVM2kCH97g3TqqzLFKv6zg@mail.gmail.com>
+21,"What comes to my mind is:20 1.
+Replace highcharts by D3 (WIP: https://github.com/apache/incubator-airflow/pull/1469) 2.
+Add license headers everywhere (TM) (Sucks, as it will break many PRs - but lets do it quickly) 3.
+Have a review by Apache.<EOL>
+I think now 1.7.1.3 is out we should be focused on getting one out as we are kind of half way the incubation process.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201606.mbox/<C3BB5984-32BA-409D-A065-20209CE98714@gmail.com>
+22," You are also welcome to tweet your slidesout as well (and mention @ApacheAirflow) so we can retweet via the ApacheAirflow twitter account.<EOL>
+Will post link on the meetup and mailing list.<EOL>
+Can all of the speakers post their slides online and add links to > those > > > > talks in response to this email (and also on our Wiki)?<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201611.mbox/<CANLtMicW=8=8Kr3b6Vd0g+ae+uQH7LDz4BPXmjErxAJjyusy2g@mail.gmail.com>
+23,"Interested in the latest news about the Apache Airflow (Incubating) project, follow our newly-minted twitter account!<EOL>
+ApacheAirflow (@ApacheAirflow) | Twitter<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<1972961185.3971411.1461973969867.JavaMail.yahoo@mail.yahoo.com>
+24,"I think you just need to fill in the report like one of the examples, andpost it to that wiki.<EOL>
+Here are the examples from last month: https://wiki.apache.org/incubator/April2016<EOL>
+Here''s where to edit it for May: https://wiki.apache.org/incubator/May2016<EOL>
+Don''t feel pressure to fill in a lot; the project is just starting, which is a fine response.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201604.mbox/<CABYbY7cw6ROF5nUS5NgA-b8C7aNGKDTPx68bnsBNk5ONviS5JQ@mail.gmail.com>
+25," If you guys think it would be helpful/interesting to the meetup audience, my colleague Tim and I would be interested in talking about how we use Airflow to coordinate our Spark jobs on EMR.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201610.mbox/<CABYbY7dZ32_yYabs0i7MrdBzNkfNoePce4k7TtAUZ64saZX8Zg@mail.gmail.com>
+26,"Before the migration to Apache Incubator, we used a google group which wasgreat for discussions spanning a long time, and for archiving knowledge.<EOL>
+Gitter is really not good at this.<EOL>
+And the dev mailing list is fine butit''s not a great UI, there''s no search, etc.<EOL>
+1.
+Read the documentation and/or source code.
+2.
+Search gitter, possibly ask a question there.
+3.
+Search the dev mailing list, possibly ask a question there.
+4.
+File a Jira ticket.<EOL>
+I think we need something between steps 2 and 3 that''s focused on users.<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CAPUwX3Ox44QeAj+QPUjWmEMwdm2m4XoQZT3X0TrwDPX==4XzoA@mail.gmail.com>
+27,"Please make sure to address some of the outstanding Apache issues (see also quote below): > > 1.
+Your name is still mentioned somewhere as author.
+A patch wasn't cherry picked earlier for this > 2.
+Copyrights 2016-2017 Apache, before Airbnb / you > 3.
+License file formatting > > Otherwise it wonit pass the IPMC.<EOL>
+Would be good to list out the locations of each file (or path to a group > of files).<EOL>
+Missing license bodies for FooTable v2, jQuery Clock Plugin,<EOL>
+Likewise, your NOTICE has copyright 2011-2017, however Airflow hasn''t been > incubating that long.<EOL>
+ If you like, you can give origination notices to the > original creators here to specify the original copyright dates.<EOL>
+I would challenge the podling to see if there''s a way to simplify their > LICENSE by instead using npm or some other javascript packaging tool to > build a distribution, rather than shipping the dependencies in the source > release, makes it much easier to use.<EOL>
+As the podling matures, would be good to see information about the author > switch from an individual to a community (in setup.cfg, its already in > setup.py so may have been a miss).<EOL>
+It would be great to see a binary distribution in the next vote to see how > that may work, its not clear how to build it from this.<EOL>
+ Likewise, don''t > hesitate to clean up your old release artifacts, I downloaded the wrong > artifact at first.<EOL>
+For the Release Manager it is really mostly a >>>> management job.<EOL>
+Chasing, prioritising etc.<EOL>
+While it is nice to have a rm >>>> also being able to run the RCs themselves I don't think it is an absolute >>>> requirement.<EOL>
+ Especially, as I think we should trust the community to test >>>> and then vote.<EOL>
+Fully understand that business priorities can take precedence.<EOL>
+The end goal is clearly to have steady, high-confidence, >>>> mostly >>>>> automated, regular releases and it feels like time is best spent >>>> working in >>>>> that direction.<EOL>
+I expect 1.8.2 not to have too many PRs, so it will be a relatively >>>> simple >>>>>> release process: >>>>>> >>>>>> 1.
+Apply bug fixes >>>>>> 2.
+Add performance fixes >>>>>> 3.<EOL>
+Fix some outstanding Apache requirements (Author, Licensing etc).<EOL>
+The process of creating a distribution has been detailed by Chris here: >>>>>> https://cwiki.apache.org/confluence/display/AIRFLOW/ Releasing+Airflow <https://cwiki.apache.org/confluence/display/AIRFLOW/ Releasing+Airflow>.<EOL>
+Now we just need a volunteer (preferably from the committers) to be the >>>>>> Release Manager for 1.8.2 :-).<EOL>",http://mail-archives.apache.org/mod_mbox/airflow-dev/201706.mbox/<CABYbY7cTJRACLG61Ex8uvmkruT8bxUzzK9WfVGA0ks7UJbVi2w@mail.gmail.com>
+168,"This beta is available for testing in a more production like setting (acceptance environment?<EOL>I would like to encourage everyone to try it out, to report back any issues so we get to a rock solid release of 1.8.0.",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<CALCMntvu56Ly+yVxkE27EjLJ1bT=_wHUq0Hx_34XK_CAd8YG_w@mail.gmail.com>
+169,We would love anyone who uses Airflow heavily in production to be involved<EOL>Please do share and feel free to get involved as the more feedback we get the better the library we create is :),http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CAM5819Snsuu=3mWYycVC_iy89STJLpqHHDp-xCCX3Zd2yksCNw@mail.gmail.com>
+170,"Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.<EOL>Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.",http://mail-archives.apache.org/mod_mbox/airflow-dev/201705.mbox/<CABekQG7LYELk3UwweCqrdO=x49k_DvY444v5socDH6x+4dfnqw@mail.gmail.com>
+171,"IPMC Voting can be found here: http://mail-archives.apache.org/mod_mbox/incubator-general/ 201702.mbox/%%%% 3c676BDC9F-1B55-4469-92A7-9FF309AD0EC8@gmail.com%%%%3e < http://mail-archives.apache.org/mod_mbox/incubator-general/ 201702.mbox/%%%% 3C676BDC9F-1B55-4469-92A7-9FF309AD0EC8@gmail.com%%%%3E<EOL>Next steps: 1) will start the voting process at the IPMC mailinglist.<EOL>So, we might end up with changes to stable.<EOL>2) Only after the positive voting on the IPMC and finalisation I will rebrand the RC to Release.<EOL>4) Update the website (can someone volunteer please?)<EOL>It seems we can keep the apache branding as lib cloud is doing this as well ( https://libcloud.apache.org/downloads.html#pypi-package < https://libcloud.apache.org/downloads.html#pypi-package)",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CANLtMicNtNTysxT+xRmdW2Jry2VMJXuMmwx146PkPDu356utOg@mail.gmail.com>
+172,I would like to raise a VOTE for releasing 1.8.1 based on release candidate 2,http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CAOgkC2MxwNBk0DCA1qxGbW0ZMfp6k5ojV6OusFeZ53xV6yM68A@mail.gmail.com>
+173,"The report for your podling will form a part of the Incubator PMC report.<EOL>Your report should contain the following: * Your project name * A brief description of your project, which assumes no knowledge of the project or necessarily of its field * A list of the three most important issues to address in the move towards graduation.",http://mail-archives.apache.org/mod_mbox/airflow-dev/201704.mbox/<CABYbY7cvNtFWrjoJbu+_opuuh61oK_iYhJQHWBsS9V0dRPdQHA@mail.gmail.com>
+174,We at Blue Apron would be very interested.,http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<c4e3a1e072ce4f3c9965c722f8571640@qrmedia.com>
+175,"Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.<EOL>Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.<EOL>Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.<EOL>Please respond to this email by: +1,0,-1 with *binding* if you are a PMC member or *non-binding* if you are not.",http://mail-archives.apache.org/mod_mbox/airflow-dev/201702.mbox/<CADsgxrG5vNcxde5muT9+itw9V_iVaanirpaEyCZ8D0g+YLhQ6w@mail.gmail.com>
+176,"The Incubator PMC requires your report to be submitted 2 weeks before the board meeting, to allow sufficient time for review and submission (Wed, April 05)<EOL>Again, the very latest you should submit your report is 2 weeks prior to the board meeting<EOL>* Any issues that the Incubator PMC or ASF Board might wish/need to be aware of * How has the community developed since the last report * How has the project developed since the last report.<EOL>It is an initial reminder to give you plenty of time to prepare your quarterly board report.",http://mail-archives.apache.org/mod_mbox/airflow-dev/201701.mbox/<20170101160835.73540.79148@johns-mbp-2.home>
+177,"I do agree with the approach of trying to get funding from Apache and having shared resources (e.g.<EOL>I am willing to offer a place in Lab env I am running or to fund an environment in AWS/GCloud if Apache cannot make these kind of resources available<EOL>I will also hold ultimate power to remove access from anyone<EOL>Downside 1) it might not be entirely Apache like.<EOL>2) there is no guaranteed up time 3) I might need to remove it in the future e.g.<EOL>4) No public cloud integration, its a private stack after all<EOL>Upside is that it is not company property<EOL>To my knowledge what Apache offers is more suited for unit tests (ie.<EOL>The ""traditional"" Apache infra is Jenkins with a pool of machines that they provide.<EOL>If we decide we don''t like it, I think that''s OK, as long as we move forward knowing that any other testing solution can disappear at any time.<EOL>If running in our Lab there is virtually no restriction what we could do, however I will hand select people who have access to this environment.<EOL>I even might ask for a confirmation that you will behave when using our property (dont worry wont cover it with legal wording).<EOL>We could setup a Gitlab instance that mirrors from Apache a kicks off runners to do testing.<EOL>when I change jobs for example :).",http://mail-archives.apache.org/mod_mbox/airflow-dev/201612.mbox/<CABYbY7e0TFhTMXDJxMhoaRieohfuSBmVHG5PgFgS_PzQppjhaw@mail.gmail.com>
