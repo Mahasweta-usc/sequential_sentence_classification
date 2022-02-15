@@ -344,7 +344,6 @@ smart-open==5.2.1
 snowballstemmer==2.2.0
 sortedcontainers==2.4.0
 SoundFile==0.10.3.post1
-spacy==2.1.9
 Sphinx==1.8.6
 sphinxcontrib-serializinghtml==1.1.5
 sphinxcontrib-websupport==1.2.4
