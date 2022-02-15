@@ -120,7 +120,7 @@ google-cloud-firestore==1.7.0
 google-cloud-language==1.2.0
 google-cloud-storage==1.18.1
 google-cloud-translate==1.5.0
-google-colab==1.0.0.tar.gz
+google-colab==1.0.0
 google-pasta==0.2.0
 google-resumable-media==0.4.1
 googleapis-common-protos==1.54.0
