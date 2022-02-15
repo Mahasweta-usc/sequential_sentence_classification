@@ -1,6 +1,5 @@
 absl-py==1.0.0
 alabaster==0.7.12
-albumentations==0.1.12
 -e git://github.com/ibeltagy/allennlp@ac2b21da6008d0e41d31192ea596153988c000a4#egg=allennlp
 altair==4.2.0
 appdirs==1.4.4
