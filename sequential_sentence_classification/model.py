@@ -10,16 +10,6 @@ from allennlp.nn.util import get_text_field_mask
 from allennlp.training.metrics import F1Measure, CategoricalAccuracy
 from allennlp.modules.conditional_random_field import ConditionalRandomField
 
-class MaskedMSELoss(torch.nn.Module):
-    def __init__(self):
-        super(MaskedMSELoss, self).__init__()
-
-    def forward(self, ip, target, mask):
-        loss_fn = torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none')
-        print(ip[mask,:],target[mask])
-        return loss_fn(ip[mask,:],target[mask])
-
-
 logger = logging.getLogger(__name__)
 
 @Model.register("SeqClassificationModel")
@@ -55,7 +45,7 @@ class SeqClassificationModel(Model):
             self.labels_are_scores = True
             self.num_labels = 1
         else:
-            self.loss = torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none') #MaskedMSELoss() #
+            self.loss = torch.nn.CrossEntropyLoss(ignore_index=-1, reduction='none')
             self.labels_are_scores = False
             self.num_labels = self.vocab.get_vocab_size(namespace='labels')
             # define accuracy metrics
@@ -91,7 +81,6 @@ class SeqClassificationModel(Model):
         Parameters
         ----------
         TODO: add description
-
         Returns
         -------
         An output dictionary consisting of:
@@ -104,12 +93,9 @@ class SeqClassificationModel(Model):
         # Output: embedded_sentences
 
         # embedded_sentences: batch_size, num_sentences, sentence_length, embedding_size
-
-
         embedded_sentences = self.text_field_embedder(sentences)
         mask = get_text_field_mask(sentences, num_wrapping_dims=1).float()
         batch_size, num_sentences, _, _ = embedded_sentences.size()
-        loss_mask = torch.tensor([False,False,True,False,False]);loss_mask = loss_mask.repeat(batch_size,1)
 
         if self.use_sep:
             # The following code collects vectors of the SEP tokens from all the examples in the batch,
@@ -130,13 +116,10 @@ class SeqClassificationModel(Model):
                 if self.labels_are_scores:
                     labels_mask = labels != 0.0  # mask for all the labels in the batch (no padding)
                 else:
-                    labels_mask = labels != -1 # mask for all the labels in the batch (no padding)
-                
+                    labels_mask = labels != -1  # mask for all the labels in the batch (no padding)
 
                 labels = labels[labels_mask]  # given batch_size x num_sentences_per_example return num_sentences_per_batch
-                loss_mask = loss_mask[labels_mask]
-                print(labels.shape,loss_mask.shape)
-                # assert labels.dim() == 1
+                assert labels.dim() == 1
                 if confidences is not None:
                     confidences = confidences[labels_mask]
                     assert confidences.dim() == 1
@@ -151,10 +134,6 @@ class SeqClassificationModel(Model):
                     labels = labels[:num_sentences]  # Ignore some labels. This is ok for training but bad for testing.
                                                         # We are ignoring this problem for now.
                                                         # TODO: fix, at least for testing
-
-                    loss_mask = loss_mask[:num_sentences]
-
-                loss_mask = loss_mask.to('cuda')
 
                 # do the same for `confidences`
                 if confidences is not None:
@@ -216,9 +195,6 @@ class SeqClassificationModel(Model):
             flattened_logits = label_logits.view((batch_size * num_sentences), self.num_labels)
             flattened_gold = labels.contiguous().view(-1)
 
-            flattened_gold = flattened_gold[loss_mask]
-            flattened_logits = flattened_logits[loss_mask,:]
-
             if not self.with_crf:
                 label_loss = self.loss(flattened_logits.squeeze(), flattened_gold)
                 if confidences is not None:
@@ -238,8 +214,9 @@ class SeqClassificationModel(Model):
 
             if not self.labels_are_scores:
                 evaluation_mask = (flattened_gold != -1)
-                print(flattened_probs.dim(),flattened_gold.dim())
                 self.label_accuracy(flattened_probs.float().contiguous(), flattened_gold.squeeze(-1), mask=evaluation_mask)
+
+                # compute F1 per label
                 for label_index in range(self.num_labels):
                     label_name = self.vocab.get_token_from_index(namespace='labels', index=label_index)
                     metric = self.label_f1_metrics[label_name]
@@ -248,6 +225,7 @@ class SeqClassificationModel(Model):
         if labels is not None:
             output_dict["loss"] = label_loss
         output_dict['action_logits'] = label_logits
+        output_dict['embeddings'] = embedded_sentences
         return output_dict
 
     def get_metrics(self, reset: bool = False):
