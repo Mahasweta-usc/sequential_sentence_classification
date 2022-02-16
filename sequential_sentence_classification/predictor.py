@@ -1,3 +1,5 @@
+#For full email prediction
+
 from typing import List
 from overrides import overrides
 from allennlp.common.util import JsonDict, sanitize
@@ -53,51 +55,87 @@ def sent_break(text):
 	lines = [line.text for line in doc.sentences if len(line.text) > 1]
 	return lines
 
-def single_entries(url,item):
-  lim_ = MAX_LEN;idx = 0
-  email_temp = email_sent[url].copy()[max(0,email_sent[url].index(item)-2):min(email_sent[url].index(item)+3,len(email_sent[url]))]
-  org_len = len(email_temp)
+# def single_entries(url,item):
+#   lim_ = MAX_LEN;idx = 0
+#   email_temp = email_sent[url].copy()[max(0,email_sent[url].index(item)-2):min(email_sent[url].index(item)+3,len(email_sent[url]))]
+#   org_len = len(email_temp)
 
-  while 1:
-    try:
-      if email_temp[idx] != item:
-        elem = email_temp[idx]
-        if len(tokenizer.tokenize(elem)) > lim_:
-          email_temp[idx] = decode(tokenizer.tokenize(elem)[:lim_])
-          email_temp.insert(idx+1,decode(tokenizer.tokenize(elem)[lim_:]))
-      idx += 1
-    except: break
-  return email_temp 
+#   while 1:
+#     try:
+#       if email_temp[idx] != item:
+#         elem = email_temp[idx]
+#         if len(tokenizer.tokenize(elem)) > lim_:
+#           email_temp[idx] = decode(tokenizer.tokenize(elem)[:lim_])
+#           email_temp.insert(idx+1,decode(tokenizer.tokenize(elem)[lim_:]))
+#       idx += 1
+#     except: break
+#   return email_temp 
+
+def single_entries(url):
+  global candidate
+  for idx, elem in enumerate(candidate[url]):
+    if len(elem) < 2:
+      elem = tokenizer.tokenize(elem[0])
+      length = MAX_LEN - len(elem) - 1
+      if MAX_LEN > 2*len(elem):
+        addage = tokenizer.convert_tokens_to_string(elem)
+        candidate[url][idx].append(addage)
+      else:
+        candidate[url][idx] = []
+        for subsent in chunks(elem,int(len(elem)/2) + 1):
+          addage = tokenizer.convert_tokens_to_string(subsent)
+          candidate[url][idx].append(addage)
 
 def decode(seg):
 	# chunk = tokenizer.convert_ids_to_tokens(seg)
 	text = tokenizer.convert_tokens_to_string(seg)
 	return text 
 	
-def fit_len(sent):
-  order = [4,0,3,1]
-  while len(tokenizer.tokenize(" ".join(sent))) > 500:
-    try:
-      sent[order[0]] = '[PAD]'
-      order.pop(0)
-    except:
-      sent[2] = decode(tokenizer.tokenize(sent[2])[:500])
-      break
-  return sent
+# def fit_len(sent):
+#   order = [4,0,3,1]
+#   while len(tokenizer.tokenize(" ".join(sent))) > 500:
+#     try:
+#       sent[order[0]] = '[PAD]'
+#       order.pop(0)
+#     except:
+#       sent[2] = decode(tokenizer.tokenize(sent[2])[:500])
+#       break
+#   return sent
 
+
+# def segmenter(url):
+# 	global candidate
+# 	# candidate[url].append([])
+# 	candidate[url] = []
+# 	template = [-2,-1,0,1,2]
+# 	for idx, elem in enumerate(email_sent[url]):
+# 		temp = ["[PAD]"]*2 + single_entries(url,elem) + ["[PAD]"]*2
+# 		indices = np.add(temp.index(elem),np.array(template))
+# 		new_ = np.array(temp)[indices.astype(int)].tolist()
+# 		new_ = fit_len(new_)
+# 		assert len(new_) == 5
+# 		candidate[url] += [new_]
 
 def segmenter(url):
-	global candidate
-	# candidate[url].append([])
-	candidate[url] = []
-	template = [-2,-1,0,1,2]
-	for idx, elem in enumerate(email_sent[url]):
-		temp = ["[PAD]"]*2 + single_entries(url,elem) + ["[PAD]"]*2
-		indices = np.add(temp.index(elem),np.array(template))
-		new_ = np.array(temp)[indices.astype(int)].tolist()
-		new_ = fit_len(new_)
-		assert len(new_) == 5
-		candidate[url] += [new_]
+  global candidate
+  global email_sent
+  sum_ = 0;
+  lim = int(0.9*MAX_LEN)
+  candidate[url].append([])
+  for idx, elem in enumerate(email_sent[url]):
+    remain = lim - sum_
+    sum_ += len(tokenizer.encode(" ".join(candidate[url][-1])))
+    if sum_ > lim:
+      retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
+      carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
+      if not idx:
+        email_sent[url][idx] = carryover
+        email_sent[url].insert(idx,retain)
+        candidate[url][-1].append(retain) 
+        # return idx + 1
+      return idx
+    
+    candidate[url][-1].append(elem)
 
 def email_to_json(url):
 	global candidate
@@ -124,7 +162,7 @@ def segment_email(x):
 		return sent_break(process_(x.replace('.>','\n>')))
 
 def process_text(f):
-	n_cpu = multiprocessing.cpu_count() - 1 # //2 #1 # multiprocessing.cpu_count() //2
+	n_cpu = int(multiprocessing.cpu_count()/3) # //2 #1 # multiprocessing.cpu_count() //2
 	pool = Pool(n_cpu)
 	results = []
 	print("Segmenting emails")
@@ -148,18 +186,7 @@ class SeqClassificationPredictor(Predictor):
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
-		#outfile = json to store IS month and project wise 
-
-		# outfile = "/content/gdrive/MyDrive/full_messages/sample_10_IS.json"
-		
 		f = pd.read_csv(filename)
-
-		# final_res = dict()
-		# for month in list(range(0,24)): 
-		# 	final_res[str(month)] = dict()
-		# 	for proj in f['project_name'].unique(): final_res[str(month)][proj] = []
-
-
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		#comment for only segmentation and prediction
@@ -179,7 +206,6 @@ class SeqClassificationPredictor(Predictor):
 			url = row["message_id"]
 			sentences = json_data[url]["sentences"]
 			labels = json_data[url]["labels"]
-			embeddings = []
 			predictions = []
 
 			for sentence, label in zip(sentences,labels):
@@ -191,25 +217,16 @@ class SeqClassificationPredictor(Predictor):
 					idx = output[0]['action_probs'].argmax(axis=1).tolist()
 					logits = [self._model.vocab.get_token_from_index(i, namespace='labels') for i in idx]
 					binary_labels = [int(item.split("_")[0]) for item in logits]
-					# embeddings.extend(list(itertools.compress(output[0]['embeddings'].tolist(),binary_labels))); #print(np.shape(embeddings))
-					ind_interest = 2;#print(binary_labels)
-					if binary_labels[ind_interest]: predictions.append(sentence[ind_interest]) #.extend(list(itertools.compress(sentence,binary_labels))) #;print(sum(binary_labels))
+					predictions.extend(list(itertools.compress(sentence,binary_labels))); #print(np.shape(embeddings))
 				except Exception as e: pass
 			
 			##store IS to csv
-			if predictions: f.at[indx,'IS'] = "<IS>".join(predictions)
-
-			# final_res[str(row['month'])][row['project_name']] += predictions
-
-			if len(predictions) != len(set(predictions)): print(len(set(predictions)),len(predictions))
-			##save results by project and month in json
-
-		# with open(outfile, 'w') as fout: json.dump(final_res, fout, indent=4)
-		##save csv with IS to external csv
+			if predictions: f.at[indx,'IS'] = "<IS>".join(set(predictions))
 		f.to_csv(filename.replace(".csv","_IS.csv"))
 		exit()
 
 
+# #For test/validation
 # from typing import List
 # from overrides import overrides
 
