@@ -28,7 +28,7 @@ nlp = stanza.Pipeline(lang='en', processors='tokenize',use_gpu=True,tokenize_bat
 from email_reply_parser import EmailReplyParser
 from transformers import BertTokenizer
 tokenizer = BertTokenizer.from_pretrained('bert-base-uncased', do_lower_case=True)
-MAX_LEN = 50
+MAX_LEN = 256
 from tqdm import tqdm
 import multiprocessing
 import torch
@@ -55,22 +55,6 @@ def sent_break(text):
 	lines = [line.text for line in doc.sentences if len(line.text) > 1]
 	return lines
 
-# def single_entries(url,item):
-#   lim_ = MAX_LEN;idx = 0
-#   email_temp = email_sent[url].copy()[max(0,email_sent[url].index(item)-2):min(email_sent[url].index(item)+3,len(email_sent[url]))]
-#   org_len = len(email_temp)
-
-#   while 1:
-#     try:
-#       if email_temp[idx] != item:
-#         elem = email_temp[idx]
-#         if len(tokenizer.tokenize(elem)) > lim_:
-#           email_temp[idx] = decode(tokenizer.tokenize(elem)[:lim_])
-#           email_temp.insert(idx+1,decode(tokenizer.tokenize(elem)[lim_:]))
-#       idx += 1
-#     except: break
-#   return email_temp 
-
 def single_entries(url):
   global candidate
   for idx, elem in enumerate(candidate[url]):
@@ -90,47 +74,23 @@ def decode(seg):
 	# chunk = tokenizer.convert_ids_to_tokens(seg)
 	text = tokenizer.convert_tokens_to_string(seg)
 	return text 
-	
-# def fit_len(sent):
-#   order = [4,0,3,1]
-#   while len(tokenizer.tokenize(" ".join(sent))) > 500:
-#     try:
-#       sent[order[0]] = '[PAD]'
-#       order.pop(0)
-#     except:
-#       sent[2] = decode(tokenizer.tokenize(sent[2])[:500])
-#       break
-#   return sent
-
-
-# def segmenter(url):
-# 	global candidate
-# 	# candidate[url].append([])
-# 	candidate[url] = []
-# 	template = [-2,-1,0,1,2]
-# 	for idx, elem in enumerate(email_sent[url]):
-# 		temp = ["[PAD]"]*2 + single_entries(url,elem) + ["[PAD]"]*2
-# 		indices = np.add(temp.index(elem),np.array(template))
-# 		new_ = np.array(temp)[indices.astype(int)].tolist()
-# 		new_ = fit_len(new_)
-# 		assert len(new_) == 5
-# 		candidate[url] += [new_]
 
 def segmenter(url):
-  global candidate
-  global email_sent
+  global candidate;email_sent
   sum_ = 0;
   lim = int(0.9*MAX_LEN)
+  print("before",candidate[url])
   candidate[url].append([])
   for idx, elem in enumerate(email_sent[url]):
     remain = lim - sum_
-    sum_ += len(tokenizer.encode(" ".join(candidate[url][-1])))
+    print("after",candidate[url])
+    sum_ += len(tokenizer.encode(elem))
     if sum_ > lim:
       retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
       carryover = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[remain:]))
       if not idx:
-        email_sent[url][idx] = carryover
-        email_sent[url].insert(idx,retain)
+        # email_sent[url][idx] = carryover
+        # email_sent[url].insert(idx,retain)
         candidate[url][-1].append(retain) 
         # return idx + 1
       return idx
@@ -140,7 +100,7 @@ def segmenter(url):
 def email_to_json(url):
 	global candidate
 	json_data = []
-	entry = {url:dict()}
+	entry = {url:{}}
 	entry[url]["sentences"] = candidate[url]
 	entry[url]["labels"] = [["0"]*len(row) for row in candidate[url]]
 	entry[url]["abstract_id"] = 0
@@ -149,9 +109,13 @@ def email_to_json(url):
 
 
 def segment_text(chunk,url,current):
-	global email_sent
+	global email_sent, candidate
 	email_sent[url] = chunk["last_reply"][:50]
-	segmenter(url)
+	candidate[url] = []
+	while True:
+		pos = segmenter(url)
+		if len(email_sent) > 1: email_sent.pop(0)
+		else: break
 	json_results = email_to_json(url)
 	return json_results
 
@@ -186,7 +150,7 @@ class SeqClassificationPredictor(Predictor):
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
-		f = pd.read_csv(filename)
+		f = pd.read_csv(filename)[:100]
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		#comment for only segmentation and prediction
