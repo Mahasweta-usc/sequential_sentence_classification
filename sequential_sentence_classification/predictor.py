@@ -55,6 +55,10 @@ def sent_break(text):
 	lines = [line.text for line in doc.sentences if len(line.text) > 1]
 	return lines
 
+def chunks(lst, n):
+	for i in range(0, len(lst), n):
+		yield lst[i:i + n]
+
 def single_entries(url):
   global candidate
   for idx, elem in enumerate(candidate[url]):
@@ -79,11 +83,11 @@ def segmenter(url):
   global candidate;email_sent
   sum_ = 0;
   lim = int(0.9*MAX_LEN)
-  print("before",candidate[url])
-  candidate[url].append([])
+  # print("before",candidate[url])
+  seg = []
   for idx, elem in enumerate(email_sent[url]):
     remain = lim - sum_
-    print("after",candidate[url])
+    # print("after",candidate[url])
     sum_ += len(tokenizer.encode(elem))
     if sum_ > lim:
       retain = tokenizer.convert_tokens_to_string(tokenizer.tokenize(elem[:remain]))
@@ -91,11 +95,12 @@ def segmenter(url):
       if not idx:
         # email_sent[url][idx] = carryover
         # email_sent[url].insert(idx,retain)
-        candidate[url][-1].append(retain) 
+        seg.append(retain)
         # return idx + 1
-      return idx
+      return seg
     
-    candidate[url][-1].append(elem)
+    seg.append(elem)
+  return seg
 
 def email_to_json(url):
 	global candidate
@@ -107,15 +112,28 @@ def email_to_json(url):
 	assert len(entry[url]["labels"]) == len(entry[url]["sentences"])
 	return entry
 
+def prune(url):
+	global candidate
+	temp = []
+	for elem in candidate[url]:
+		if any(len(elem) < len(cand) and set(elem).issubset(set(cand)) for cand in candidate[url]):
+			temp.append(elem)
+	for elem in temp: candidate[url].remove(elem)
 
 def segment_text(chunk,url,current):
 	global email_sent, candidate
 	email_sent[url] = chunk["last_reply"][:50]
 	candidate[url] = []
 	while True:
-		pos = segmenter(url)
-		if len(email_sent) > 1: email_sent.pop(0)
-		else: break
+		last_seg = segmenter(url)
+		if last_seg: candidate[url] += [last_seg];print(len(candidate[url][-1]),len(email_sent[url]))
+		win_ = int(0.5*len(last_seg))
+		# if len(email_sent[url]) > 1: email_sent[url].pop(0)
+		# else: break
+		if win_ < len(email_sent[url]) :email_sent[url]=email_sent[url][win_+1:]
+		else:break
+	prune(url)
+	single_entries(url)
 	json_results = email_to_json(url)
 	return json_results
 
@@ -150,7 +168,7 @@ class SeqClassificationPredictor(Predictor):
 	def predict_json(self, json_dict: JsonDict) -> JsonDict:
 		print("Enter full file path: ")
 		filename = os.environ["FILE_PREDS"];print(filename)
-		f = pd.read_csv(filename)[:100]
+		f = pd.read_csv(filename)
 		print("No of entires: ",f.shape[0])
 		print("Reading file")
 		#comment for only segmentation and prediction
