@@ -38,7 +38,7 @@ scikit_learn==1.0.2
 scipy==1.4.1
 setuptools==57.4.0
 six==1.15.0
-spacy>=2.2.2
+spacy
 Sphinx==1.8.6
 sphinx_rtd_theme==1.0.0
 sqlparse==0.4.2
